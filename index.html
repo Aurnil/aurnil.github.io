@@ -1,68 +1,152 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Ahnaf Hassan Aurnil - Freelance Writer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahnaf Hassan Aurnil</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fa; }
-    header { background: #2c3e50; color: white; padding: 20px; text-align: center; }
-    nav a { margin: 0 15px; color: white; text-decoration: none; font-weight: bold; }
-    section { padding: 40px; max-width: 800px; margin: auto; }
-    h1, h2 { color: #2c3e50; }
-    .card { background: white; padding: 20px; margin: 20px 0; border-radius: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.1); }
-    footer { background: #2c3e50; color: white; text-align: center; padding: 10px; margin-top: 30px; }
+    /* Basic Reset */
+    * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat', sans-serif; }
+    body { background: linear-gradient(to bottom, #121212, #2c2c2c); color:#fff; scroll-behavior:smooth; }
+
+    /* Navigation */
+    nav { position: sticky; top:0; background: rgba(0,0,0,0.85); padding: 10px 20px; z-index:100; }
+    nav ul { list-style:none; display:flex; justify-content:center; gap:20px; flex-wrap: wrap; }
+    nav ul li a { color:#fff; text-decoration:none; font-weight:600; transition:0.3s; }
+    nav ul li a:hover { color:#9b59b6; }
+
+    /* Hero Section */
+    header { position: relative; height: 80vh; display:flex; justify-content:center; align-items:center; text-align:center; overflow:hidden; }
+    .hero-content h1 { font-size:3rem; margin-bottom:10px; }
+    .hero-content p { font-size:1.2rem; color:#ccc; }
+
+    /* Abstract Objects */
+    .hero-objects .circle, .triangle, .square {
+      position: absolute; opacity:0.25; animation: float 6s ease-in-out infinite;
+    }
+    .circle { width:120px; height:120px; background:#9b59b6; border-radius:50%; top:20%; left:15%; animation-delay:0s; }
+    .triangle { width:0; height:0; border-left:60px solid transparent; border-right:60px solid transparent; border-bottom:100px solid #3498db; top:50%; right:10%; animation-delay:2s; }
+    .square { width:100px; height:100px; background:#e67e22; bottom:10%; left:50%; animation-delay:4s; }
+
+    @keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
+
+    /* Sections */
+    section { padding:60px 20px; max-width:900px; margin:auto; opacity:0; transform: translateY(30px); transition: all 0.8s ease-in-out; }
+    section.visible { opacity:1; transform: translateY(0); }
+
+    section h2 { font-size:2rem; margin-bottom:20px; border-bottom:2px solid #9b59b6; display:inline-block; }
+    .work-item { background: rgba(255,255,255,0.05); padding:15px; margin-bottom:15px; border-left:4px solid #9b59b6; border-radius:5px; transition:0.3s; }
+    .work-item:hover { background: rgba(255,255,255,0.1); }
+    .work-item h3 { font-size:1.3rem; margin-bottom:5px; }
+    .work-item p { font-size:1rem; color:#ccc; }
+
+    /* Footer / Contact */
+    #contact p { margin-bottom:10px; }
+
+    /* Responsive */
+    @media(max-width:768px){
+      .hero-content h1 { font-size:2.2rem; }
+      .hero-content p { font-size:1rem; }
+      nav ul { flex-direction: column; gap:10px; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#article">Article</a></li>
+      <li><a href="#creative">Creative Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
   <header>
-    <h1>✍️ Aurnil - Freelance Writer</h1>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-    </nav>
+    <div class="hero-content">
+      <h1>Ahnaf Hassan Aurnil</h1>
+      <p>Write a short tagline or introduction here...</p>
+    </div>
+    <div class="hero-objects">
+      <div class="circle"></div>
+      <div class="triangle"></div>
+      <div class="square"></div>
+    </div>
   </header>
 
+  <!-- About Me Section -->
   <section id="about">
     <h2>About Me</h2>
-    <p>Hi, I’m Aurnil. I’m a freelance writer who specializes in articles, essays, SEO and creative content. 
-    I help clients bring their ideas to life through words.</p>
+    <p>Write your description here...</p>
   </section>
 
-  <section id="portfolio">
-    <h2>My Works</h2>
-    <div class="card">
-      <h3>🌍 Travel Blog Sample</h3>
-      <p>A short piece about exploring nature and culture. <a href="#">Read more</a></p>
+  <!-- Blog Section -->
+  <section id="blog">
+    <h2>Blog</h2>
+    <div class="work-item">
+      <h3>Blog Title 1</h3>
+      <p>Short description here...</p>
     </div>
-    <div class="card">
-      <h3>📖 Storytelling Sample</h3>
-      <p>A creative story to showcase narrative writing style. <a href="#">Read more</a></p>
+    <div class="work-item">
+      <h3>Blog Title 2</h3>
+      <p>Short description here...</p>
     </div>
-    <div class="card">
-      <h3>💼 Business Article</h3>
-      <p>An informative article written for a client in the finance sector. <a href="#">Read more</a></p>
-    </div>
+    <!-- Add more blog items here -->
   </section>
 
-  <section id="services">
-    <h2>Services</h2>
-    <ul>
-      <li>✔️ Article & Blog Writing</li>
-      <li>✔️ Essays & Academic Support</li>
-      <li>✔️ Creative Storytelling</li>
-      <li>✔️ Website & Copywriting</li>
-    </ul>
+  <!-- Article Section -->
+  <section id="article">
+    <h2>Article</h2>
+    <div class="work-item">
+      <h3>Article Title 1</h3>
+      <p>Short description here...</p>
+    </div>
+    <div class="work-item">
+      <h3>Article Title 2</h3>
+      <p>Short description here...</p>
+    </div>
+    <!-- Add more article items here -->
   </section>
 
+  <!-- Creative Writing Section -->
+  <section id="creative">
+    <h2>Creative Writing</h2>
+    <div class="work-item">
+      <h3>Creative Title 1</h3>
+      <p>Short description here...</p>
+    </div>
+    <div class="work-item">
+      <h3>Creative Title 2</h3>
+      <p>Short description here...</p>
+    </div>
+    <!-- Add more creative works here -->
+  </section>
+
+  <!-- Contact Section -->
   <section id="contact">
-    <h2>Contact Me</h2>
-    <p>Email: <a href="mailto:aurnil@example.com">aurnil@example.com</a></p>
-    <p>WhatsApp/Telegram: +8801XXXXXXX</p>
+    <h2>Contact</h2>
+    <p>Put your phone number here</p>
+    <p>Put your email here</p>
+    <p>Put your social media links here (optional)</p>
   </section>
 
-  <footer>
-    <p>© 2025 Aurnil | Freelance Writing Portfolio</p>
-  </footer>
+  <script>
+    // Fade-in sections on scroll
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    sections.forEach(section => { observer.observe(section); });
+  </script>
+
 </body>
 </html>
