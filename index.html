@@ -8,13 +8,23 @@
   <style>
     /* Basic Reset */
     * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat', sans-serif; }
-    body { background: linear-gradient(to bottom, #121212, #2c2c2c); color:#fff; scroll-behavior:smooth; }
+    body { background: linear-gradient(to bottom, #121212, #2c2c2c); color:#fff; scroll-behavior:smooth; transition:0.5s; }
+
+    /* Light mode */
+    body.light-mode { background:#fff; color:#121212; }
+    body.light-mode nav { background: rgba(255,255,255,0.85); }
+    body.light-mode .work-item { background: rgba(0,0,0,0.05); border-left:4px solid #9b59b6; }
+    body.light-mode a { color:#9b59b6; }
 
     /* Navigation */
-    nav { position: sticky; top:0; background: rgba(0,0,0,0.85); padding: 10px 20px; z-index:100; }
+    nav { position: sticky; top:0; background: rgba(0,0,0,0.85); padding: 10px 20px; z-index:100; display:flex; justify-content:space-between; align-items:center; }
     nav ul { list-style:none; display:flex; justify-content:center; gap:20px; flex-wrap: wrap; }
     nav ul li a { color:#fff; text-decoration:none; font-weight:600; transition:0.3s; }
     nav ul li a:hover { color:#9b59b6; }
+
+    /* Mode Toggle Button */
+    #mode-toggle { background:#9b59b6; border:none; padding:5px 10px; color:#fff; cursor:pointer; border-radius:5px; transition:0.3s; }
+    #mode-toggle:hover { background:#8e44ad; }
 
     /* Hero Section */
     header { position: relative; height: 80vh; display:flex; justify-content:center; align-items:center; text-align:center; overflow:hidden; }
@@ -38,8 +48,8 @@
     section h2 { font-size:2rem; margin-bottom:20px; border-bottom:2px solid #9b59b6; display:inline-block; }
     .work-item { background: rgba(255,255,255,0.05); padding:15px; margin-bottom:15px; border-left:4px solid #9b59b6; border-radius:5px; transition:0.3s; }
     .work-item:hover { background: rgba(255,255,255,0.1); }
-    .work-item h3 { font-size:1.3rem; margin-bottom:5px; }
-    .work-item p { font-size:1rem; color:#ccc; }
+    .work-item a { color:#fff; text-decoration:none; font-weight:600; }
+    body.light-mode .work-item a { color:#9b59b6; }
 
     /* Footer / Contact */
     #contact p { margin-bottom:10px; }
@@ -63,6 +73,7 @@
       <li><a href="#creative">Creative Writing</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button id="mode-toggle">Light/Dark</button>
   </nav>
 
   <!-- Hero Section -->
@@ -88,42 +99,32 @@
   <section id="blog">
     <h2>Blog</h2>
     <div class="work-item">
-      <h3>Blog Title 1</h3>
+      <a href="blog1.html">How I Started My Journey</a>
       <p>Short description here...</p>
     </div>
     <div class="work-item">
-      <h3>Blog Title 2</h3>
+      <a href="blog2.html">Learning Web Development</a>
       <p>Short description here...</p>
     </div>
-    <!-- Add more blog items here -->
+    <!-- Add more blog items -->
   </section>
 
   <!-- Article Section -->
   <section id="article">
     <h2>Article</h2>
     <div class="work-item">
-      <h3>Article Title 1</h3>
+      <a href="article1.html">The Importance of Learning</a>
       <p>Short description here...</p>
     </div>
-    <div class="work-item">
-      <h3>Article Title 2</h3>
-      <p>Short description here...</p>
-    </div>
-    <!-- Add more article items here -->
   </section>
 
   <!-- Creative Writing Section -->
   <section id="creative">
     <h2>Creative Writing</h2>
     <div class="work-item">
-      <h3>Creative Title 1</h3>
+      <a href="creative1.html">A Poem About Dreams</a>
       <p>Short description here...</p>
     </div>
-    <div class="work-item">
-      <h3>Creative Title 2</h3>
-      <p>Short description here...</p>
-    </div>
-    <!-- Add more creative works here -->
   </section>
 
   <!-- Contact Section -->
@@ -146,6 +147,12 @@
     }, { threshold: 0.2 });
 
     sections.forEach(section => { observer.observe(section); });
+
+    // Light/Dark Mode Toggle
+    const toggle = document.getElementById('mode-toggle');
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+    });
   </script>
 
 </body>
