@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ahnaf Hassan Aurnil — Writer & Freelance Content</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#F7F3EF;         /* soft beige background */
+      --card:#FFFFFF;       /* white cards */
+      --muted:#6b6b6b;      /* muted text */
+      --text:#222;          /* main text */
+      --accent:#8A5BFF;     /* purple accent */
+      --accent-2:#E07A5F;   /* coral secondary accent */
+      --glass: rgba(255,255,255,0.7);
+      --shadow: 0 8px 20px rgba(30,30,30,0.06);
+      --radius:14px;
+    }
+    /* dark mode variables */
+    body.dark {
+      --bg: #0f1114;
+      --card: #0f1316;
+      --muted: #9aa0a6;
+      --text: #e6e7e9;
+      --glass: rgba(255,255,255,0.02);
+      --shadow: 0 12px 30px rgba(0,0,0,0.6);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.6;
+      transition: background-color 0.35s, color 0.35s;
+    }
+
+    /* top nav */
+    header.topbar{
+      position:sticky;
+      top:0;
+      z-index:40;
+      backdrop-filter: blur(6px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+      padding:12px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    body.dark header.topbar{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo{
+      width:48px; height:48px;
+      border-radius:10px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      font-weight:700;
+      font-family: "Playfair Display", serif;
+      box-shadow: var(--shadow);
+    }
+    .brand h1{font-size:1.0rem;margin:0;font-family:"Playfair Display",serif}
+    .brand p{margin:0;font-size:0.85rem;color:var(--muted)}
+
+    nav.topnav{display:flex; gap:18px; align-items:center}
+    nav.topnav a{color:var(--muted); text-decoration:none; font-weight:600; font-size:0.95rem; padding:6px 10px; border-radius:8px}
+    nav.topnav a:hover{color:var(--text); background: var(--glass)}
+
+    .controls{display:flex; gap:8px; align-items:center}
+    .btn{
+      border:0; padding:8px 12px; border-radius:10px; cursor:pointer; font-weight:600;
+      background:transparent; color:var(--muted); transition: all .2s ease;
+    }
+    .btn.primary{
+      background: linear-gradient(90deg,var(--accent), var(--accent-2)); color:#fff; box-shadow: var(--shadow);
+    }
+    .btn:hover{transform:translateY(-2px)}
+
+    /* hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:40px;
+      align-items:center;
+      max-width:1200px;
+      margin:48px auto;
+      padding:0 28px;
+    }
+    .hero-left{
+      padding:24px;
+      border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.35));
+      box-shadow: var(--shadow);
+    }
+    body.dark .hero-left{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01))}
+
+    .hero h2{
+      font-family:"Playfair Display", serif;
+      font-size:2.1rem;
+      margin:0 0 12px 0;
+      color:var(--text);
+    }
+    .hero p.lead{color:var(--muted); margin:0 0 18px 0; font-size:1.05rem}
+    .hero .meta{display:flex; gap:12px; align-items:center; flex-wrap:wrap}
+    .pill{background:transparent;padding:8px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.04);color:var(--muted); font-weight:600}
+
+    /* hero-right - creative shapes */
+    .hero-right{
+      display:grid;
+      place-items:center;
+      width:100%;
+    }
+    .shapes{
+      width:360px; height:320px; border-radius:20px;
+      display:grid; place-items:center;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.3));
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:visible;
+    }
+    body.dark .shapes{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) }
+
+    /* creative SVG shapes stacked */
+    .shape { position:absolute; transform-origin:center; transition: transform .6s ease; opacity:0.95 }
+    .shape.s1{ left:18%; top:10%; transform: rotate(-6deg) translateY(0); }
+    .shape.s2{ right:6%; top:8%; transform: rotate(12deg) translateY(0); }
+    .shape.s3{ left:30%; bottom:6%; transform: rotate(-8deg) translateY(0); }
+    .shape.s4{ right:22%; bottom:18%; transform: rotate(4deg) translateY(0); }
+
+    .shapes:hover .shape{ transform: scale(1.04) rotate(2deg) }
+
+    /* cards grid for segments */
+    .grid{
+      max-width:1200px;
+      margin:32px auto;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:22px;
+      padding:0 28px 48px 28px;
+    }
+    @media (max-width:980px){ .hero{ grid-template-columns: 1fr; } .grid{ grid-template-columns: repeat(2,1fr) } }
+    @media (max-width:640px){ .grid{ grid-template-columns: 1fr } }
+
+    .card{
+      background:var(--card);
+      border-radius: var(--radius);
+      padding:18px;
+      box-shadow: var(--shadow);
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      transition: transform .28s ease, box-shadow .28s ease;
+      border: 1px solid rgba(0,0,0,0.03);
+    }
+    body.dark .card{ border: 1px solid rgba(255,255,255,0.03) }
+
+    .thumb{
+      width:84px; height:84px; flex:0 0 84px; border-radius:12px; display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(138,91,255,0.12), rgba(224,122,95,0.08));
+      position:relative; overflow:visible;
+    }
+    .card:hover{ transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08) }
+
+    .card h3{margin:0; font-size:1.05rem; font-family:"Playfair Display", serif}
+    .card p{margin:6px 0 0 0; color:var(--muted); font-size:0.95rem}
+
+    /* small footer contact */
+    footer{ max-width:1200px; margin:40px auto 80px; padding:0 28px; color:var(--muted); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap }
+    footer .left{font-size:0.95rem}
+    footer .right{display:flex; gap:12px; align-items:center}
+
+    /* utilities */
+    .muted{ color:var(--muted) }
+    a.link{ color:var(--accent); text-decoration:none; font-weight:700 }
+    .small{ font-size:0.88rem }
+
+    /* reveal animation on load */
+    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.visible{ opacity:1; transform: translateY(0) }
+  </style>
+</head>
+<body>
+
+  <!-- top bar -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div>
+        <h1>Ahnaf Hassan Aurnil</h1>
+        <p class="small muted">Freelance writer — SEO · Articles · Blogs · Creative</p>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="#about">About</a>
+      <a href="#segments">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="controls">
+      <button id="toggle-theme" class="btn" title="Toggle light/dark">Toggle</button>
+      <a class="btn primary" href="#contact">Hire Me</a>
+    </div>
+  </header>
+
+  <!-- hero -->
+  <main>
+    <section class="hero">
+      <div class="hero-left reveal" id="hero-left">
+        <h2>Words that move attention — copy that converts.</h2>
+        <p class="lead">I’m <strong>Ahnaf Hassan Aurnil</strong>, a freelance writer specializing in SEO-friendly articles, engaging blog posts, and creative writing. Fluent in English and focused on clarity, research and voice.</p>
+
+        <div class="meta">
+          <div class="pill">SEO Articles</div>
+          <div class="pill">Blog Posts</div>
+          <div class="pill">Creative Writing</div>
+          <div class="pill small muted">New to the field — hungry to grow</div>
+        </div>
+      </div>
+
+      <div class="hero-right reveal" id="hero-right">
+        <div class="shapes" aria-hidden="true">
+          <!-- creative vector shapes (no photos needed) -->
+          <svg class="shape s1" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="12" width="96" height="96" rx="20" fill="#8A5BFF88"/>
+            <path d="M10 20c20-14 60-12 70 6" stroke="#E07A5F" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>
+          </svg>
+
+          <svg class="shape s2" width="110" height="110" viewBox="0 0 110 110" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="44" fill="#E07A5F33"/>
+            <g opacity="0.95"><path d="M20 60c14-22 60-24 70-6" stroke="#8A5BFF" stroke-width="4" stroke-linecap="round"/></g>
+          </svg>
+
+          <svg class="shape s3" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 80 C 20 20, 80 10, 94 46 C 80 84, 24 92, 6 80 Z" fill="#8A5BFF22" stroke="#8A5BFF" stroke-width="2" />
+            <text x="12" y="60" font-family="Montserrat" font-weight="600" font-size="12" fill="#8A5BFF">write</text>
+          </svg>
+
+          <svg class="shape s4" width="70" height="70" viewBox="0 0 70 70" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="6" width="56" height="56" rx="10" fill="#E07A5F22" stroke="#E07A5F" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- segment cards -->
+    <section id="segments" class="grid reveal">
+      <!-- Card: Articles -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <!-- geometric composition as thumbnail -->
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="8" width="40" height="48" rx="8" fill="#fff"/>
+            <path d="M12 16h28M12 24h22M12 32h28" stroke="#8A5BFF" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="articles.html">Articles</a></h3>
+          <p class="small muted">Well-researched long-form pieces optimized for clarity and SEO. <strong>Example:</strong> The Importance of SEO in Modern Blogging.</p>
+        </div>
+      </article>
+
+      <!-- Card: Blogs -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="24" r="12" fill="#8A5BFF22" stroke="#8A5BFF" stroke-width="2"/>
+            <rect x="8" y="36" width="48" height="16" rx="6" fill="#E07A5F22" stroke="#E07A5F" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="blogs.html">Blogs</a></h3>
+          <p class="small muted">Shorter, engaging posts to build voice and audience—great for regular publishing and ideas.</p>
+        </div>
+      </article>
+
+      <!-- Card: SEO -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="8" width="52" height="48" rx="10" fill="#fff"/>
+            <path d="M12 24h28M12 34h22" stroke="#E07A5F" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="48" cy="42" r="6" fill="#8A5BFF"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="seo.html">SEO Services</a></h3>
+          <p class="small muted">Content that ranks — keyword research, meta optimization, and readable structure for humans & engines.</p>
+        </div>
+      </article>
+
+      <!-- Card: Creative Writing -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 48c18-20 36-38 48-20" stroke="#8A5BFF" stroke-width="3" fill="none"/>
+            <rect x="4" y="6" width="56" height="52" rx="10" fill="#fff"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="creative.html">Creative Writing</a></h3>
+          <p class="small muted">Short stories, micro-fiction and experimental pieces that highlight voice and imagination.</p>
+        </div>
+      </article>
+
+      <!-- Card: About / Bio -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="32" cy="22" r="12" fill="#8A5BFF22" stroke="#8A5BFF" stroke-width="2"/>
+            <rect x="12" y="36" width="40" height="12" rx="6" fill="#E07A5F22" stroke="#E07A5F" stroke-width="2"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="about.html">About / Bio</a></h3>
+          <p class="small muted">Full bio, skills, and an extended introduction for potential clients and collaborators.</p>
+        </div>
+      </article>
+
+      <!-- Card: Contact -->
+      <article class="card">
+        <div class="thumb" aria-hidden="true">
+          <svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="8" width="52" height="40" rx="8" fill="#fff"/>
+            <path d="M10 18l22 14 20-14" stroke="#8A5BFF" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+        <div>
+          <h3><a class="link" href="#contact">Contact</a></h3>
+          <p class="small muted">Quick contact details on this page — email, phone placeholder and social links.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- short about -->
+    <section id="about" style="max-width:900px;margin:0 auto 18px;padding:0 28px" class="reveal">
+      <div style="background:var(--card);border-radius:12px;padding:18px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.03)">
+        <h3 style="margin:0 0 8px 0;font-family:'Playfair Display',serif">About — short</h3>
+        <p class="muted small">I’m a freelance writer focused on SEO articles, engaging blog posts and creative pieces. Fluent in English and eager to help clients connect with readers.</p>
+      </div>
+    </section>
+
+    <!-- contact -->
+    <section id="contact" style="max-width:900px;margin:26px auto 18px;padding:0 28px" class="reveal">
+      <div style="display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+        <div style="min-width:220px">
+          <h4 style="margin:0 0 6px 0;font-family:'Playfair Display',serif">Contact</h4>
+          <p class="small muted" style="margin:0">Put your phone number and email here. Example: <strong>+880 1XXXXXXXXX</strong> · <a class="link" href="mailto:your@email.com">your@email.com</a></p>
+        </div>
+
+        <div style="display:flex;gap:10px">
+          <a class="btn" href="#">LinkedIn</a>
+          <a class="btn" href="#">Twitter</a>
+          <a class="btn" href="#">Portfolio</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer>
+      <div class="left muted small">© <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer</div>
+      <div class="right muted small">Built with care • GitHub Pages ready</div>
+    </footer>
+  </main>
+
+  <script>
+    // small reveal on load
+    document.addEventListener('DOMContentLoaded', () => {
+      // reveal hero-left and hero-right
+      setTimeout(()=> document.getElementById('hero-left').classList.add('visible'), 120);
+      setTimeout(()=> document.getElementById('hero-right').classList.add('visible'), 260);
+
+      // reveal grid & other elements
+      document.querySelectorAll('.reveal').forEach((el, i) => {
+        setTimeout(()=> el.classList.add('visible'), 360 + (i*120));
+      });
+
+      // theme toggle
+      const btn = document.getElementById('toggle-theme');
+      btn.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        // persist preference
+        const isDark = document.body.classList.contains('dark');
+        try { localStorage.setItem('aurnil_theme_dark', isDark ? '1' : '0'); } catch(e){}
+      });
+      // restore
+      try {
+        if(localStorage.getItem('aurnil_theme_dark') === '1') document.body.classList.add('dark');
+      }catch(e){}
+    });
+  </script>
+</body>
+</html>
