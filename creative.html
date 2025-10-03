@@ -1,51 +1,67 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Articles — Aurnil</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Creative Writing — Aurnil</title>
+  <meta name="description" content="Creative writing: short stories, micro-fiction and poems">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Aurnil</h1>
-    <nav>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div><h1>Creative Writing</h1><p class="small muted">Short fiction & experiments</p></div>
+    </div>
+
+    <nav class="nav">
       <a href="index.html">Home</a>
       <a href="articles.html">Articles</a>
       <a href="blogs.html">Blogs</a>
       <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative Writing</a>
+      <a href="creative.html" class="active">Creative</a>
       <a href="about.html">About</a>
-      <button id="theme-toggle" class="toggle-btn">🌙</button>
     </nav>
+
+    <div class="controls">
+      <button class="btn" data-theme-toggle>🌞</button>
+      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h2>Articles</h2>
-      <p>Professional articles on various topics — SEO, business, lifestyle, and more.</p>
+  <main class="container">
+    <section class="hero-card reveal">
+      <h2>Creative Writing</h2>
+      <p class="lead muted">Poems, micro-fiction, and experimental pieces that explore voice and tone.</p>
     </section>
 
-    <section class="cards">
-      <div class="card">
-        <img src="images/sample1.jpg" alt="Article 1">
-        <h3>How SEO Shapes the Future of Writing</h3>
-        <p>A short description about SEO-driven writing strategies.</p>
-        <a href="#">Read More →</a>
+    <section class="grid" style="margin-top:18px">
+      <div class="card reveal">
+        <div class="svg-thumb" aria-hidden="true">
+          <svg viewBox="0 0 100 80" width="100%" height="100%"><path d="M10 70c18-32 54-44 78-26" stroke="#4DB6AC" stroke-width="3" fill="none"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="samples/creative1.html">A Poem About Dreams</a></h3>
+          <p class="muted small">A short reflective piece on small ambitions.</p>
+        </div>
       </div>
 
-      <div class="card">
-        <img src="images/sample2.jpg" alt="Article 2">
-        <h3>The Art of Blogging Consistently</h3>
-        <p>Why consistency matters in blogging and how to maintain it.</p>
-        <a href="#">Read More →</a>
+      <div class="card reveal">
+        <div class="svg-thumb" aria-hidden="true">
+          <svg viewBox="0 0 100 80" width="100%" height="100%"><rect width="100%" height="100%" rx="8" fill="#FFD54F11"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="samples/creative2.html">Micro-Fiction: Night Train</a></h3>
+          <p class="muted small">A micro-fiction exploring movement and memory.</p>
+        </div>
       </div>
     </section>
+
+    <footer style="margin-top:28px" class="reveal">
+      <div class="small muted">© 2025 Ahnaf Hassan Aurnil</div>
+    </footer>
   </main>
-
-  <footer>
-    © 2025 Ahnaf Hassan Aurnil — All rights reserved
-  </footer>
 
   <script src="script.js"></script>
 </body>
