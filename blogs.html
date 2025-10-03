@@ -1,51 +1,67 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Articles — Aurnil</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Blogs — Aurnil</title>
+  <meta name="description" content="Shorter blog posts by Ahnaf Hassan Aurnil">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Aurnil</h1>
-    <nav>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div><h1>Blogs</h1><p class="small muted">Shorter, regular posts</p></div>
+    </div>
+
+    <nav class="nav">
       <a href="index.html">Home</a>
       <a href="articles.html">Articles</a>
-      <a href="blogs.html">Blogs</a>
+      <a href="blogs.html" class="active">Blogs</a>
       <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative Writing</a>
+      <a href="creative.html">Creative</a>
       <a href="about.html">About</a>
-      <button id="theme-toggle" class="toggle-btn">🌙</button>
     </nav>
+
+    <div class="controls">
+      <button class="btn" data-theme-toggle>🌞</button>
+      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h2>Articles</h2>
-      <p>Professional articles on various topics — SEO, business, lifestyle, and more.</p>
+  <main class="container">
+    <section class="hero-card reveal">
+      <h2>Blogs</h2>
+      <p class="lead muted">Shorter posts, reflections, and quick guides.</p>
     </section>
 
-    <section class="cards">
-      <div class="card">
-        <img src="images/sample1.jpg" alt="Article 1">
-        <h3>How SEO Shapes the Future of Writing</h3>
-        <p>A short description about SEO-driven writing strategies.</p>
-        <a href="#">Read More →</a>
+    <section class="grid" style="margin-top:18px">
+      <div class="card reveal">
+        <div class="svg-thumb" aria-hidden="true">
+          <svg viewBox="0 0 100 80" width="100%" height="100%"><rect width="100%" height="100%" rx="8" fill="#4DB6AC11"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="samples/blog1.html">Getting Started as a Freelance Writer</a></h3>
+          <p class="muted small">Tips and insights from early freelancing days.</p>
+        </div>
       </div>
 
-      <div class="card">
-        <img src="images/sample2.jpg" alt="Article 2">
-        <h3>The Art of Blogging Consistently</h3>
-        <p>Why consistency matters in blogging and how to maintain it.</p>
-        <a href="#">Read More →</a>
+      <div class="card reveal">
+        <div class="svg-thumb" aria-hidden="true">
+          <svg viewBox="0 0 100 80" width="100%" height="100%"><rect width="100%" height="100%" rx="8" fill="#FFD54F11"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="samples/blog2.html">How to Structure a Blog Post</a></h3>
+          <p class="muted small">A simple template to keep posts readable and scannable.</p>
+        </div>
       </div>
     </section>
+
+    <footer style="margin-top:28px" class="reveal">
+      <div class="small muted">© 2025 Ahnaf Hassan Aurnil</div>
+    </footer>
   </main>
-
-  <footer>
-    © 2025 Ahnaf Hassan Aurnil — All rights reserved
-  </footer>
 
   <script src="script.js"></script>
 </body>
