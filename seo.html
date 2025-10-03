@@ -1,51 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Articles — Aurnil</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SEO Writing — Aurnil</title>
+  <meta name="description" content="SEO-focused content and guides">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Aurnil</h1>
-    <nav>
+  <header class="header">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div><h1>SEO</h1><p class="small muted">Content optimized for search</p></div>
+    </div>
+
+    <nav class="nav">
       <a href="index.html">Home</a>
       <a href="articles.html">Articles</a>
       <a href="blogs.html">Blogs</a>
-      <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative Writing</a>
+      <a href="seo.html" class="active">SEO</a>
+      <a href="creative.html">Creative</a>
       <a href="about.html">About</a>
-      <button id="theme-toggle" class="toggle-btn">🌙</button>
     </nav>
+
+    <div class="controls">
+      <button class="btn" data-theme-toggle>🌞</button>
+      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h2>Articles</h2>
-      <p>Professional articles on various topics — SEO, business, lifestyle, and more.</p>
+  <main class="container">
+    <section class="hero-card reveal">
+      <h2>SEO Writing</h2>
+      <p class="lead muted">Guides and examples focused on on-page SEO, keywords, and structure.</p>
     </section>
 
-    <section class="cards">
-      <div class="card">
-        <img src="images/sample1.jpg" alt="Article 1">
-        <h3>How SEO Shapes the Future of Writing</h3>
-        <p>A short description about SEO-driven writing strategies.</p>
-        <a href="#">Read More →</a>
-      </div>
+    <section style="margin-top:18px">
+      <article class="post reveal">
+        <div style="margin-bottom:12px; border-radius:12px; overflow:hidden;">
+          <svg viewBox="0 0 600 200" width="100%" height="160"><rect width="100%" height="100%" fill="#4DB6AC11"/></svg>
+        </div>
 
-      <div class="card">
-        <img src="images/sample2.jpg" alt="Article 2">
-        <h3>The Art of Blogging Consistently</h3>
-        <p>Why consistency matters in blogging and how to maintain it.</p>
-        <a href="#">Read More →</a>
-      </div>
+        <h2>Keyword Research Guide</h2>
+        <div class="meta">Published: 2025-09-15</div>
+        <p>How to find relevant keywords and naturally fit them into articles without keyword stuffing.</p>
+        <p><a class="link" href="samples/seo1.html">Read full →</a></p>
+      </article>
     </section>
+
+    <footer style="margin-top:28px" class="reveal">
+      <div class="small muted">© 2025 Ahnaf Hassan Aurnil</div>
+    </footer>
   </main>
-
-  <footer>
-    © 2025 Ahnaf Hassan Aurnil — All rights reserved
-  </footer>
 
   <script src="script.js"></script>
 </body>
