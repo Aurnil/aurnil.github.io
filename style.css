@@ -158,3 +158,33 @@ body.dark [data-theme-toggle]:hover {
   50% { opacity: 1; }
   100% { transform: translateY(-1200px) rotate(720deg); opacity: 0; }
       }
+.shape {
+  opacity: 0.9;
+  filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.15));
+  transition: transform 3s ease-in-out, opacity 1s;
+}
+
+.shape:hover {
+  transform: scale(1.05) rotate(5deg);
+  opacity: 1;
+}
+
+.light .shape {
+  background: #f0f0f0; /* softer gray for light mode */
+}
+
+.dark .shape {
+  background: #2a2a2a; /* softer dark for dark mode */
+}
+/* Universal link style override */
+a {
+  color: #555;           /* medium gray */
+  text-decoration: none; /* no underline */
+  transition: color 0.3s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #000;           /* darker gray on hover */
+  text-decoration: underline; /* underline only when hovered */
+}
