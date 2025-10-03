@@ -1,36 +1,165 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Aurnil — Freelance Writer</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Aurnil — Writer & Freelance Content</title>
+  <meta name="description" content="Ahnaf Hassan Aurnil — freelance writer for SEO, articles, blogs and creative writing.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Aurnil</h1>
-    <nav>
-      <a href="index.html">Home</a>
+
+  <header class="header">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div>
+        <h1>Ahnaf Hassan Aurnil</h1>
+        <p class="small muted">Freelance writer — SEO · Articles · Blogs · Creative</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="Main">
+      <a href="index.html" class="active">Home</a>
       <a href="articles.html">Articles</a>
       <a href="blogs.html">Blogs</a>
       <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative Writing</a>
+      <a href="creative.html">Creative</a>
       <a href="about.html">About</a>
-      <button id="theme-toggle" class="toggle-btn">🌙</button>
     </nav>
+
+    <div class="controls">
+      <button class="btn" data-theme-toggle title="Toggle theme">🌞</button>
+      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
+    </div>
   </header>
 
-  <main>
+  <main class="container">
     <section class="hero">
-      <h2>Freelance Writer & Content Creator</h2>
-      <p>Specializing in SEO, blogs, articles, and creative writing.</p>
-    </section>
-  </main>
+      <div class="hero-card reveal">
+        <h2>Words that move attention — copy that converts.</h2>
+        <p class="lead">I’m <strong>Ahnaf Hassan Aurnil</strong>, a freelance writer specializing in SEO-friendly articles, engaging blog posts, and creative writing. Fluent in English and focused on clarity, research and voice.</p>
 
-  <footer>
-    © 2025 Ahnaf Hassan Aurnil — All rights reserved
-  </footer>
+        <div class="pills">
+          <div class="pill">SEO Articles</div>
+          <div class="pill">Blog Posts</div>
+          <div class="pill">Creative Writing</div>
+          <div class="pill small muted">New to the field — hungry to grow</div>
+        </div>
+      </div>
+
+      <div class="shapes reveal" aria-hidden="true">
+        <!-- stacked SVG shapes as visual placeholders -->
+        <svg class="shape" width="180" height="180" viewBox="0 0 120 120" style="position:absolute; left:12%; top:8%;">
+          <rect x="4" y="10" width="96" height="96" rx="18" fill="#4DB6AC22"/>
+          <path d="M10 22c18-12 50-10 58 5" stroke="#FFD54F" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+
+        <svg class="shape" width="140" height="140" viewBox="0 0 110 110" style="position:absolute; right:8%; top:6%;">
+          <circle cx="55" cy="55" r="44" fill="#FFD54F22"/>
+          <path d="M22 64c12-18 48-20 60-10" stroke="#4DB6AC" stroke-width="3"/>
+        </svg>
+
+        <svg class="shape" width="110" height="110" viewBox="0 0 100 100" style="position:absolute; left:28%; bottom:8%;">
+          <path d="M6 80 C 20 20, 80 10, 94 46 C 80 84, 24 92, 6 80 Z" fill="#4DB6AC11" stroke="#4DB6AC" stroke-width="2" />
+          <text x="14" y="60" font-family="Montserrat" font-weight="600" font-size="12" fill="#4DB6AC">write</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="grid reveal" id="segments">
+      <!-- Articles -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="40" height="48" rx="6" fill="#fff"/><path d="M12 16h28M12 26h22M12 36h28" stroke="#4DB6AC" stroke-width="2"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="articles.html">Articles</a></h3>
+          <p class="small muted">Well-researched long-form pieces optimized for clarity and SEO.</p>
+        </div>
+      </article>
+
+      <!-- Blogs -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><circle cx="32" cy="22" r="12" fill="#4DB6AC22" stroke="#4DB6AC"/><rect x="8" y="34" width="48" height="16" rx="6" fill="#FFD54F22" stroke="#FFD54F"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="blogs.html">Blogs</a></h3>
+          <p class="small muted">Shorter, engaging posts to build voice and attract readers.</p>
+        </div>
+      </article>
+
+      <!-- SEO -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="52" height="40" rx="8" fill="#fff"/><circle cx="46" cy="40" r="6" fill="#4DB6AC"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="seo.html">SEO Services</a></h3>
+          <p class="small muted">Keyword research, structure, and optimization that helps content rank.</p>
+        </div>
+      </article>
+
+      <!-- Creative -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><path d="M8 48c18-20 36-38 48-20" stroke="#4DB6AC" stroke-width="3" fill="none"/><rect x="4" y="6" width="56" height="52" rx="6" fill="#fff"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="creative.html">Creative Writing</a></h3>
+          <p class="small muted">Short stories and creative pieces showcasing voice and imagination.</p>
+        </div>
+      </article>
+
+      <!-- About -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><circle cx="32" cy="20" r="12" fill="#4DB6AC22" stroke="#4DB6AC"/><rect x="12" y="34" width="40" height="10" rx="4" fill="#FFD54F22" stroke="#FFD54F"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="about.html">About / Bio</a></h3>
+          <p class="small muted">Full bio, skills, and an extended introduction for clients.</p>
+        </div>
+      </article>
+
+      <!-- Contact -->
+      <article class="card">
+        <div class="thumb svg-thumb" aria-hidden="true">
+          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="52" height="40" rx="8" fill="#fff"/><path d="M10 18l22 14 20-14" stroke="#4DB6AC" stroke-width="2" fill="none"/></svg>
+        </div>
+        <div>
+          <h3><a class="link" href="about.html#contact">Contact</a></h3>
+          <p class="small muted">Quick contact details — replace with your email and socials.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="about-card reveal" id="about-small" style="max-width:900px;margin:18px auto;">
+      <h3 style="margin:0 0 8px 0; font-family:'Playfair Display', serif">About — short</h3>
+      <p class="muted small">I’m a freelance writer focused on SEO articles, engaging blog posts and creative pieces. Fluent in English and eager to help clients connect with readers.</p>
+    </section>
+
+    <section class="contact reveal" id="contact" style="max-width:900px;margin:26px auto;">
+      <div class="card">
+        <h4 style="margin:0 0 8px 0; font-family:'Playfair Display', serif">Contact</h4>
+        <p class="small muted" style="margin:0">Put your phone number and email here. Example: <strong>+880 1XXXXXXXXX</strong> · <a class="link" href="mailto:your@email.com">your@email.com</a></p>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn" href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a class="btn" href="#" aria-label="Twitter">Twitter</a>
+        <a class="btn" href="#" aria-label="Portfolio">Portfolio</a>
+      </div>
+    </section>
+
+    <footer class="reveal">
+      <div class="small muted">© <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer</div>
+      <div class="small muted">Built with care • GitHub Pages ready</div>
+    </footer>
+  </main>
 
   <script src="script.js"></script>
 </body>
-</html>
+          </html>
