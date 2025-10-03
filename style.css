@@ -117,3 +117,44 @@ body.dark [data-theme-toggle]:hover {
     padding: 15px;
   }
     }
+/* Floating shapes background */
+.floating-shapes {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: -1; /* keeps behind content */
+}
+
+.floating-shapes span {
+  position: absolute;
+  display: block;
+  width: 40px; height: 40px;
+  background: rgba(138, 91, 255, 0.15); /* light purple tint */
+  border-radius: 50%;
+  animation: float 20s linear infinite;
+  bottom: -150px;
+}
+
+/* Different sizes + delays */
+.floating-shapes span:nth-child(1) {
+  left: 25%; width: 60px; height: 60px; animation-delay: 0s; animation-duration: 25s;
+}
+.floating-shapes span:nth-child(2) {
+  left: 10%; width: 100px; height: 100px; animation-delay: 5s; animation-duration: 35s;
+}
+.floating-shapes span:nth-child(3) {
+  left: 70%; width: 80px; height: 80px; animation-delay: 3s; animation-duration: 20s;
+}
+.floating-shapes span:nth-child(4) {
+  left: 40%; width: 120px; height: 120px; animation-delay: 8s; animation-duration: 30s;
+}
+.floating-shapes span:nth-child(5) {
+  left: 85%; width: 50px; height: 50px; animation-delay: 2s; animation-duration: 40s;
+}
+
+@keyframes float {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-1200px) rotate(720deg); opacity: 0; }
+      }
