@@ -1,16 +1,36 @@
-// Check system preference
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+// script.js - detect prefers-color-scheme and handle toggle + persist
+(function(){
+  const stored = (() => {
+    try { return localStorage.getItem('aurnil_theme'); } catch(e){ return null; }
+  })();
 
-// Load saved preference if exists
-let theme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
-document.body.classList.toggle('dark', theme === 'dark');
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const root = document.body;
 
-// Toggle button
-const toggleBtn = document.getElementById('theme-toggle');
-if (toggleBtn) {
-  toggleBtn.addEventListener('click', () => {
-    document.body.classList.toggle('dark');
-    const newTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
-    localStorage.setItem('theme', newTheme);
+  if(stored === 'dark') root.classList.add('dark');
+  else if(stored === 'light') root.classList.remove('dark');
+  else if(prefersDark) root.classList.add('dark');
+
+  // Toggle buttons may appear multiple places; attach to all
+  function setToggleIcons() {
+    document.querySelectorAll('[data-theme-toggle]').forEach(btn=>{
+      btn.textContent = root.classList.contains('dark') ? '🌙' : '🌞';
+    });
+  }
+  setToggleIcons();
+
+  document.addEventListener('click', (e)=>{
+    const t = e.target.closest('[data-theme-toggle]');
+    if(!t) return;
+    root.classList.toggle('dark');
+    setToggleIcons();
+    try { localStorage.setItem('aurnil_theme', root.classList.contains('dark') ? 'dark' : 'light'); } catch(e){}
   });
-}
+
+  // small reveal on load
+  document.addEventListener('DOMContentLoaded', ()=>{
+    setTimeout(()=>{
+      document.querySelectorAll('.reveal').forEach((el,i)=> setTimeout(()=> el.classList.add('visible'), 180 + i*100));
+    },120);
+  });
+})();
