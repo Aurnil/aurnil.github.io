@@ -188,3 +188,18 @@ a:hover {
   color: #000;           /* darker gray on hover */
   text-decoration: underline; /* underline only when hovered */
 }
+/* Home page section background */
+.home-section {
+  background: rgba(240, 240, 240, 0.85); /* light gray see-through */
+  border-radius: 12px;
+  padding: 40px;
+  margin: 40px auto;
+  max-width: 1000px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Dark mode version */
+body.dark .home-section {
+  background: rgba(30, 30, 30, 0.85); /* dark see-through */
+  color: #f2f2f2;
+  }
