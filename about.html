@@ -3,63 +3,43 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>About — Aurnil</title>
-  <meta name="description" content="About Ahnaf Hassan Aurnil - freelance writer">
+  <title>Contact — Ahnaf Hassan Aurnil</title>
+  <script>(function(){try{var s=localStorage.getItem('aurnil_theme'); if(s==='dark') document.documentElement.classList.add('dark'); else if(!s && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');}catch(e){} })();</script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="header">
-    <div class="brand">
-      <div class="logo">AH</div>
-      <div><h1>About</h1><p class="small muted">Who I am & how I work</p></div>
-    </div>
-
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="articles.html">Articles</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative</a>
-      <a href="about.html" class="active">About</a>
-    </nav>
-
-    <div class="controls">
-      <button class="btn" data-theme-toggle>🌞</button>
-      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
-    </div>
+  <header class="topbar">
+    <div class="brand"><div class="logo">AH</div><div><h1>Contact</h1><p class="small muted">Get in touch</p></div></div>
+    <nav class="topnav"><a href="index.html">Home</a><a href="articles.html">Articles</a><a href="blogs.html">Blogs</a><a href="seo.html">SEO</a><a href="creative.html">Creative</a><a href="about.html">About</a></nav>
+    <div style="display:flex;gap:8px"><button data-theme-toggle class="btn" aria-pressed="false">🌞</button><a class="btn primary" href="mailto:your@email.com">Hire Me</a></div>
   </header>
 
   <main class="container">
-    <section class="hero-card reveal">
-      <h2>About — Ahnaf Hassan Aurnil</h2>
-      <p class="lead muted">Freelance writer focusing on SEO articles, blogs, and creative pieces. Fluent in English and dedicated to producing clear, researched, and engaging content.</p>
+    <section class="reveal" style="margin-top:20px">
+      <h2>Contact</h2>
+      <p class="muted small">Use the form to send a message — fields are placeholders (this is static sample HTML).</p>
     </section>
 
     <section style="margin-top:18px">
       <div class="about-card reveal">
-        <h3>Background</h3>
-        <p class="muted">I am new to the writing profession but committed to learning and producing high-quality content. My strengths include clear writing, research, and an interest in SEO best practices.</p>
+        <form action="#" method="post" style="display:flex;flex-direction:column;gap:12px">
+          <input type="text" name="name" placeholder="Your name" style="padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)">
+          <input type="email" name="email" placeholder="Your email" style="padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)">
+          <textarea name="message" rows="6" placeholder="Your message" style="padding:12px;border-radius:8px;border:1px solid rgba(0,0,0,0.08);background:transparent;color:var(--text)"></textarea>
+          <button class="btn primary" type="submit">Send Message</button>
+        </form>
 
-        <h3>Services</h3>
-        <ul class="muted">
-          <li>SEO Articles</li>
-          <li>Blog Posts</li>
-          <li>Creative Writing</li>
-        </ul>
-
-        <h3 id="contact">Contact</h3>
-        <p class="muted">Email: <a class="link" href="mailto:aurnill21@email.com">aurnill21@gmail.com</a>
-        
+        <div style="margin-top:16px" class="muted small">
+          Email: <a href="mailto:your@email.com">your@email.com</a>
+          <br>Phone: <strong>+880 1XXXXXXXXX</strong>
+        </div>
       </div>
     </section>
 
-    <footer style="margin-top:28px" class="reveal">
-      <div class="small muted">© 2025 Ahnaf Hassan Aurnil</div>
-    </footer>
+    <footer style="margin-top:28px" class="reveal"><div class="small muted">© 2025 Ahnaf Hassan Aurnil</div></footer>
   </main>
 
-<link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
