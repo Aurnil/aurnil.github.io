@@ -3,16 +3,32 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Aurnil — Writer & Freelance Content</title>
-  <meta name="description" content="Ahnaf Hassan Aurnil — freelance writer for SEO, articles, blogs and creative writing.">
+  <title>Ahnaf Hassan Aurnil — Freelance Writer</title>
 
-  <!-- Fonts -->
+  <!-- early theme set to avoid flash -->
+  <script>
+    (function(){
+      try {
+        const s = localStorage.getItem('aurnil_theme');
+        if(s === 'dark') document.documentElement.classList.add('dark');
+        else if(!s && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
+      } catch(e){}
+    })();
+  </script>
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- floating shapes behind everything -->
+  <div class="floating-shapes" aria-hidden="true">
+    <span class="s1"></span>
+    <span class="s2"></span>
+    <span class="s3"></span>
+    <span class="s4"></span>
+  </div>
 
-  <header class="header">
+  <header class="topbar">
     <div class="brand">
       <div class="logo">AH</div>
       <div>
@@ -21,7 +37,7 @@
       </div>
     </div>
 
-    <nav class="nav" aria-label="Main">
+    <nav class="topnav" aria-label="Main navigation">
       <a href="index.html" class="active">Home</a>
       <a href="articles.html">Articles</a>
       <a href="blogs.html">Blogs</a>
@@ -30,146 +46,88 @@
       <a href="about.html">About</a>
     </nav>
 
-    <div class="controls">
-      <button class="btn" data-theme-toggle title="Toggle theme">🌞</button>
-      <a class="btn primary" href="mailto:aurnill21@email.com">Hire Me</a>
+    <div style="display:flex;align-items:center;gap:10px">
+      <button data-theme-toggle class="btn" aria-pressed="false" title="Toggle theme">🌞</button>
+      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
     </div>
   </header>
 
-  <main class="container">
-    <section class="home-section">
-    <section class="hero">
-      <div class="hero-card reveal">
-        <h2>Words that move attention — copy that converts.</h2>
-        <p class="lead">I’m <strong>Ahnaf Hassan Aurnil</strong>, a freelance writer specializing in SEO-friendly articles, engaging blog posts, and creative writing. Fluent in English and focused on clarity, research and voice.</p>
+  <main>
+    <section class="home-section container reveal">
+      <div class="hero-wrap">
+        <div class="hero-left">
+          <h1>Words that rank, stories that connect.</h1>
+          <p class="lead">I’m <strong>Ahnaf Hassan Aurnil</strong>, a freelance writer specializing in SEO-friendly articles, engaging blogs and creative pieces that resonate with readers.</p>
 
-        <div class="pills">
-          <div class="pill">SEO Articles</div>
-          <div class="pill">Blog Posts</div>
-          <div class="pill">Creative Writing</div>
-          <div class="pill small muted">New to the field — hungry to grow</div>
+          <div class="cta-row">
+            <a class="btn primary" href="articles.html">Explore Articles</a>
+            <a class="btn" href="creative.html">View Creative</a>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+            <div class="pill">SEO Articles</div>
+            <div class="pill">Blog Posts</div>
+            <div class="pill">Creative Writing</div>
+            <div class="pill small muted">New to the field — hungry to grow</div>
+          </div>
         </div>
-      </div>
 
-      <div class="shapes reveal" aria-hidden="true">
-        <!-- stacked SVG shapes as visual placeholders -->
-        <svg class="shape" width="180" height="180" viewBox="0 0 120 120" style="position:absolute; left:12%; top:8%;">
-          <rect x="4" y="10" width="96" height="96" rx="18" fill="#4DB6AC22"/>
-          <path d="M10 22c18-12 50-10 58 5" stroke="#FFD54F" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-
-        <svg class="shape" width="140" height="140" viewBox="0 0 110 110" style="position:absolute; right:8%; top:6%;">
-          <circle cx="55" cy="55" r="44" fill="#FFD54F22"/>
-          <path d="M22 64c12-18 48-20 60-10" stroke="#4DB6AC" stroke-width="3"/>
-        </svg>
-
-        <svg class="shape" width="110" height="110" viewBox="0 0 100 100" style="position:absolute; left:28%; bottom:8%;">
-          <path d="M6 80 C 20 20, 80 10, 94 46 C 80 84, 24 92, 6 80 Z" fill="#4DB6AC11" stroke="#4DB6AC" stroke-width="2" />
-          <text x="14" y="60" font-family="Montserrat" font-weight="600" font-size="12" fill="#4DB6AC">write</text>
-        </svg>
+        <div class="shapes" aria-hidden="true">
+          <!-- decorative stacked SVG — replace with hero image later -->
+          <svg width="220" height="180" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="8" width="96" height="86" rx="18" fill="#16697A22"/>
+            <path d="M10 20c18-12 50-10 58 5" stroke="#FFB400" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
     </section>
 
-    <section class="grid reveal" id="segments">
-      <!-- Articles -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="40" height="48" rx="6" fill="#fff"/><path d="M12 16h28M12 26h22M12 36h28" stroke="#4DB6AC" stroke-width="2"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="articles.html">Articles</a></h3>
-          <p class="small muted">Well-researched long-form pieces optimized for clarity and SEO.</p>
-        </div>
-      </article>
+    <!-- services grid -->
+    <section class="grid reveal" aria-label="Services">
+      <a class="card" href="articles.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
+        <div><h3>Articles</h3><p class="muted small">Long-form, researched pieces optimized for clarity & SEO.</p></div>
+      </a>
 
-      <!-- Blogs -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><circle cx="32" cy="22" r="12" fill="#4DB6AC22" stroke="#4DB6AC"/><rect x="8" y="34" width="48" height="16" rx="6" fill="#FFD54F22" stroke="#FFD54F"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="blogs.html">Blogs</a></h3>
-          <p class="small muted">Shorter, engaging posts to build voice and attract readers.</p>
-        </div>
-      </article>
+      <a class="card" href="blogs.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
+        <div><h3>Blogs</h3><p class="muted small">Shorter posts for audience growth & voice building.</p></div>
+      </a>
 
-      <!-- SEO -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="52" height="40" rx="8" fill="#fff"/><circle cx="46" cy="40" r="6" fill="#4DB6AC"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="seo.html">SEO Services</a></h3>
-          <p class="small muted">Keyword research, structure, and optimization that helps content rank.</p>
-        </div>
-      </article>
+      <a class="card" href="seo.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
+        <div><h3>SEO</h3><p class="muted small">Keyword research, structure & on-page optimization.</p></div>
+      </a>
 
-      <!-- Creative -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><path d="M8 48c18-20 36-38 48-20" stroke="#4DB6AC" stroke-width="3" fill="none"/><rect x="4" y="6" width="56" height="52" rx="6" fill="#fff"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="creative.html">Creative Writing</a></h3>
-          <p class="small muted">Short stories and creative pieces showcasing voice and imagination.</p>
-        </div>
-      </article>
+      <a class="card" href="creative.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
+        <div><h3>Creative Writing</h3><p class="muted small">Short stories & experiments that highlight voice.</p></div>
+      </a>
 
-      <!-- About -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><circle cx="32" cy="20" r="12" fill="#4DB6AC22" stroke="#4DB6AC"/><rect x="12" y="34" width="40" height="10" rx="4" fill="#FFD54F22" stroke="#FFD54F"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="about.html">About / Bio</a></h3>
-          <p class="small muted">Full bio, skills, and an extended introduction for clients.</p>
-        </div>
-      </article>
+      <a class="card" href="about.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">Info</div></div>
+        <div><h3>About</h3><p class="muted small">Read more about my background and services.</p></div>
+      </a>
 
-      <!-- Contact -->
-      <article class="card">
-        <div class="thumb svg-thumb" aria-hidden="true">
-          <svg width="48" height="48" viewBox="0 0 64 64"><rect x="6" y="8" width="52" height="40" rx="8" fill="#fff"/><path d="M10 18l22 14 20-14" stroke="#4DB6AC" stroke-width="2" fill="none"/></svg>
-        </div>
-        <div>
-          <h3><a class="link" href="about.html#contact">Contact</a></h3>
-          <p class="small muted">Quick contact details </p>
-        </div>
-      </article>
+      <a class="card" href="contact.html">
+        <div style="flex:0 0 84px"><div class="img-placeholder">✉️</div></div>
+        <div><h3>Contact</h3><p class="muted small">Email & phone placeholders ready — add details later.</p></div>
+      </a>
     </section>
 
-    <section class="about-card reveal" id="about-small" style="max-width:900px;margin:18px auto;">
-      <h3 style="margin:0 0 8px 0; font-family:'Playfair Display', serif">About — short</h3>
-      <p class="muted small">I’m a freelance writer focused on SEO articles, engaging blog posts and creative pieces. Fluent in English and eager to help clients connect with readers.</p>
-    </section>
-
-    <section class="contact reveal" id="contact" style="max-width:900px;margin:26px auto;">
-      <div class="card">
-        <h4 style="margin:0 0 8px 0; font-family:'Playfair Display', serif">Contact</h4>
-        <p class="small muted" style="margin:0"><a class="btn" href="mailto:aurnill21@gmail.com" aria-label="Gamil">aurnill21@gmail.com</a></p>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <a class="btn" href="#" aria-label="LinkedIn">LinkedIn</a>
-        <a class="btn" href="https://www.instagram.com/_aurnil?igsh=dTc5cXUwZnV5bXFm" aria-label="Instagram">@_aurnil</a>
-        <a class="btn" href="#" aria-label="Fiver">Fiver</a>
+    <section style="max-width:900px;margin:20px auto;padding:0 24px" class="reveal">
+      <div class="about-card">
+        <h3 style="margin:0 0 8px 0; font-family:'Playfair Display',serif">About — short</h3>
+        <p class="muted small">I’m a freelance writer focused on SEO articles, engaging blog posts and creative pieces. Fluent in English and eager to help clients connect with readers.</p>
       </div>
     </section>
 
-    <footer class="reveal">
+    <footer class="reveal" style="margin-top:28px">
       <div class="small muted">© <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer</div>
-      
+      <div class="small muted">Built with care • GitHub Pages ready</div>
     </footer>
-    </section>
   </main>
 
-<link rel="stylesheet" href="style.css">
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
-  <div class="floating-shapes">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  </div>
-          </html>
+                                     </html>
