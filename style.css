@@ -290,3 +290,12 @@ a:hover{ color:#222222; text-decoration:underline; }
   display: block;
   margin: 0 auto 12px; /* centers and adds spacing */
 }
+.card img {
+  width: 60px;       /* control the size */
+  height: 60px;      /* keep them square */
+  object-fit: contain; /* keeps proportions */
+  margin-bottom: 10px; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
