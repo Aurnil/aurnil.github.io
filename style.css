@@ -283,3 +283,10 @@ a:hover{ color:#222222; text-decoration:underline; }
 .social-links a:hover {
   color: #005bea;
 }
+.icon-img {
+  width: 80px;   /* adjust size */
+  height: 80px;
+  object-fit: contain; /* keeps proportions */
+  display: block;
+  margin: 0 auto 12px; /* centers and adds spacing */
+}
