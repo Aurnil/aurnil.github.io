@@ -284,8 +284,8 @@ a:hover{ color:#222222; text-decoration:underline; }
   color: #005bea;
 }
 .icon-img {
-  width: 80px;   /* adjust size */
-  height: 80px;
+  width: 20px;   /* adjust size */
+  height: 20px;
   object-fit: contain; /* keeps proportions */
   display: block;
   margin: 0 auto 12px; /* centers and adds spacing */
