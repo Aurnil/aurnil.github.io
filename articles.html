@@ -3,131 +3,49 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ahnaf Hassan Aurnil — Freelance Writer</title>
+  <title>Articles — Ahnaf Hassan Aurnil</title>
 
-  <!-- early theme set to avoid flash -->
   <script>
-    (function(){
-      try {
-        const s = localStorage.getItem('aurnil_theme');
-        if(s === 'dark') document.documentElement.classList.add('dark');
-        else if(!s && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');
-      } catch(e){}
-    })();
+    (function(){ try{ var s=localStorage.getItem('aurnil_theme'); if(s==='dark') document.documentElement.classList.add('dark'); else if(!s && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark'); }catch(e){} })();
   </script>
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- floating shapes behind everything -->
-  <div class="floating-shapes" aria-hidden="true">
-    <span class="s1"></span>
-    <span class="s2"></span>
-    <span class="s3"></span>
-    <span class="s4"></span>
-  </div>
-
   <header class="topbar">
-    <div class="brand">
-      <div class="logo">AH</div>
-      <div>
-        <h1>Ahnaf Hassan Aurnil</h1>
-        <p class="small muted">Freelance writer — SEO · Articles · Blogs · Creative</p>
-      </div>
-    </div>
-
-    <nav class="topnav" aria-label="Main navigation">
-      <a href="index.html" class="active">Home</a>
-      <a href="articles.html">Articles</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative</a>
-      <a href="about.html">About</a>
-    </nav>
-
-    <div style="display:flex;align-items:center;gap:10px">
-      <button data-theme-toggle class="btn" aria-pressed="false" title="Toggle theme">🌞</button>
-      <a class="btn primary" href="mailto:your@email.com">Hire Me</a>
-    </div>
+    <div class="brand"><div class="logo">AH</div><div><h1>Articles</h1><p class="small muted">Long-form pieces</p></div></div>
+    <nav class="topnav"><a href="index.html">Home</a><a href="articles.html" class="active">Articles</a><a href="blogs.html">Blogs</a><a href="seo.html">SEO</a><a href="creative.html">Creative</a><a href="about.html">About</a></nav>
+    <div style="display:flex;gap:8px"><button data-theme-toggle class="btn" aria-pressed="false">🌞</button><a class="btn primary" href="mailto:your@email.com">Hire Me</a></div>
   </header>
 
-  <main>
-    <section class="home-section container reveal">
-      <div class="hero-wrap">
-        <div class="hero-left">
-          <h1>Words that rank, stories that connect.</h1>
-          <p class="lead">I’m <strong>Ahnaf Hassan Aurnil</strong>, a freelance writer specializing in SEO-friendly articles, engaging blogs and creative pieces that resonate with readers.</p>
-
-          <div class="cta-row">
-            <a class="btn primary" href="articles.html">Explore Articles</a>
-            <a class="btn" href="creative.html">View Creative</a>
-          </div>
-
-          <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
-            <div class="pill">SEO Articles</div>
-            <div class="pill">Blog Posts</div>
-            <div class="pill">Creative Writing</div>
-            <div class="pill small muted">New to the field — hungry to grow</div>
-          </div>
-        </div>
-
-        <div class="shapes" aria-hidden="true">
-          <!-- decorative stacked SVG — replace with hero image later -->
-          <svg width="220" height="180" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="8" width="96" height="86" rx="18" fill="#16697A22"/>
-            <path d="M10 20c18-12 50-10 58 5" stroke="#FFB400" stroke-width="5" stroke-linecap="round"/>
-          </svg>
-        </div>
-      </div>
+  <main class="container">
+    <section class="reveal" style="margin-top:20px">
+      <h2>Articles</h2>
+      <p class="muted small">Well-researched long-form articles optimized for clarity and SEO.</p>
     </section>
 
-    <!-- services grid -->
-    <section class="grid reveal" aria-label="Services">
-      <a class="card" href="articles.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
-        <div><h3>Articles</h3><p class="muted small">Long-form, researched pieces optimized for clarity & SEO.</p></div>
-      </a>
+    <section style="margin-top:18px">
+      <article class="post reveal">
+        <div class="img-placeholder" style="margin-bottom:12px">Image coming soon</div>
+        <h2>Keyword Research Guide</h2>
+        <div class="meta">Published: 2025-09-15</div>
+        <p>How to choose the right keywords and structure content for readers and search engines.</p>
+        <p><a href="samples/seo1.html">Read full article →</a></p>
+      </article>
 
-      <a class="card" href="blogs.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
-        <div><h3>Blogs</h3><p class="muted small">Shorter posts for audience growth & voice building.</p></div>
-      </a>
-
-      <a class="card" href="seo.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
-        <div><h3>SEO</h3><p class="muted small">Keyword research, structure & on-page optimization.</p></div>
-      </a>
-
-      <a class="card" href="creative.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">Icon</div></div>
-        <div><h3>Creative Writing</h3><p class="muted small">Short stories & experiments that highlight voice.</p></div>
-      </a>
-
-      <a class="card" href="about.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">Info</div></div>
-        <div><h3>About</h3><p class="muted small">Read more about my background and services.</p></div>
-      </a>
-
-      <a class="card" href="contact.html">
-        <div style="flex:0 0 84px"><div class="img-placeholder">✉️</div></div>
-        <div><h3>Contact</h3><p class="muted small">Email & phone placeholders ready — add details later.</p></div>
-      </a>
+      <article class="post reveal">
+        <div class="img-placeholder" style="margin-bottom:12px">Image coming soon</div>
+        <h2>On-Page SEO Best Practices</h2>
+        <div class="meta">Published: 2025-09-01</div>
+        <p>Checklist for headings, meta descriptions, and readability.</p>
+        <p><a href="samples/seo2.html">Read full article →</a></p>
+      </article>
     </section>
 
-    <section style="max-width:900px;margin:20px auto;padding:0 24px" class="reveal">
-      <div class="about-card">
-        <h3 style="margin:0 0 8px 0; font-family:'Playfair Display',serif">About — short</h3>
-        <p class="muted small">I’m a freelance writer focused on SEO articles, engaging blog posts and creative pieces. Fluent in English and eager to help clients connect with readers.</p>
-      </div>
-    </section>
-
-    <footer class="reveal" style="margin-top:28px">
-      <div class="small muted">© <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer</div>
-      <div class="small muted">Built with care • GitHub Pages ready</div>
-    </footer>
+    <footer style="margin-top:28px" class="reveal"><div class="small muted">© 2025 Ahnaf Hassan Aurnil</div></footer>
   </main>
 
   <script src="script.js"></script>
 </body>
-          </html>
+</html>
