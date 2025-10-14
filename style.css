@@ -465,3 +465,34 @@ body.dark .section {
 }
 
 /* You can change the shape count or size as you like */
+.hero-right-image {
+  max-width: 420px; /* or whatever width looks good */
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 0 auto; /* center it vertically */
+}
+
+.hero-right-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+   .hero {
+  display: grid;
+  grid-template-columns: 1fr auto; /* text + image */
+  gap: 40px;
+  align-items: center;
+}
+
+/* On smaller screens: stack them */
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+  .hero-right-image {
+    margin-top: 24px;
+  }
+}
