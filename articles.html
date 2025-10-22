@@ -49,5 +49,20 @@
   </main>
 
   <script src="script.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".container");
+  if (!container) return;
+
+  const posts = Array.from(container.querySelectorAll(".post"));
+  posts.sort((a, b) => {
+    const dateA = new Date(a.querySelector(".meta").textContent.replace("Published:", "").trim());
+    const dateB = new Date(b.querySelector(".meta").textContent.replace("Published:", "").trim());
+    return dateB - dateA; // newest first
+  });
+
+  posts.forEach(post => container.appendChild(post));
+});
+  </script>
 </body>
 </html>
