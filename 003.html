@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark">
+  <title>Why Personal Branding Matters In 2025 — Ahnaf Hassan Aurnil</title>
+
+  <!-- Meta description (you can edit later) -->
+  <meta name="description" content="Discover why personal branding matters in 2025 and how to build a strong, consistent online identity to attract clients and grow your business. Practical tips on niche, consistency, online image and common mistakes to avoid.">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------- Basic variables ---------- */
+    :root{
+      --bg: #F7F3EF;
+      --page-padding: 18px;
+      --card-bg: #ffffff;
+      --accent: #8A5BFF;
+      --muted:#6b6b6b;
+      --radius:14px;
+      --shadow: 0 14px 30px rgba(20,20,20,0.06);
+      --max-width:1100px;
+    }
+
+    /* prefer dark */
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b0d0f;
+        /* keep article card light so black text stays readable per request */
+        --card-bg: #ffffff;
+        --muted:#9aa0a6;
+      }
+    }
+
+    /* ---------- Reset & base ---------- */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      color: black !important; /* user requested: all fonts black */
+      -webkit-text-size-adjust:100%;
+      padding:var(--page-padding);
+      line-height:1.6;
+    }
+
+    a{color:inherit; text-decoration:none} /* links appear black by default */
+    a:hover{text-decoration:underline}
+
+    /* topbar */
+    .topbar{
+      max-width:var(--max-width);
+      margin:0 auto 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px 14px;
+      border-radius:12px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(6px);
+    }
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;background: linear-gradient(135deg,#8A5BFF,#E07A5F);color:#fff;font-weight:700;font-family:"Playfair Display",serif}
+    nav.topnav{display:flex;gap:14px;align-items:center}
+    nav.topnav a{font-weight:600;color:#333;padding:6px 8px;border-radius:8px}
+    .controls{display:flex;gap:8px;align-items:center}
+    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;background:transparent;font-weight:600}
+    .btn.primary{background:linear-gradient(90deg,#8A5BFF,#E07A5F);color:#fff}
+
+    /* hero / page header */
+    .page-hero{max-width:var(--max-width);margin:18px auto;padding:0 12px;display:block}
+    .hero-title{font-family:"Playfair Display",serif;font-size:1.6rem;margin:0 0 10px 0;color:black !important}
+    .hero-sub{margin:0 0 14px 0;color:var(--muted);font-size:1rem}
+
+    /* article wrapper: shapes | article | shapes */
+    .article-wrapper{
+      max-width:var(--max-width);
+      margin:20px auto 48px;
+      display:grid;
+      grid-template-columns: 140px 1fr 140px;
+      gap:20px;
+      align-items:start;
+      padding:0 12px;
+    }
+
+    /* shapes column */
+    .shapes-col{position:relative;height:100%}
+    .shape{
+      position:absolute;
+      border-radius:12px;
+      opacity:0.95;
+      transition: transform .6s ease;
+      will-change: transform;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.12));
+    }
+    .shape-float{animation:floaty 7s ease-in-out infinite}
+
+    @keyframes floaty{
+      0%{transform: translateY(0px)}
+      50%{transform: translateY(-12px)}
+      100%{transform: translateY(0px)}
+    }
+
+    /* central article */
+    .article-card{
+      background:var(--card-bg);
+      border-radius:12px;
+      padding:22px;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(0,0,0,0.04);
+      color: black !important; /* ensure article text black */
+    }
+
+    .article-card h1{font-family:"Playfair Display",serif;font-weight:600;font-size:1.4rem;margin:0 0 12px 0;color:black !important}
+    .article-card h2{font-family:"Playfair Display",serif;font-weight:600;font-size:1.05rem;margin:18px 0 8px 0;color:black !important}
+    .article-card p{margin:0 0 14px;color:black !important}
+    .article-card .muted{color:var(--muted);font-size:0.95rem}
+
+    /* image placeholders */
+    .img-placeholder{
+      width:100%;
+      height:220px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,#f1f3f7,#e9eefb);
+      color:var(--muted);font-weight:600;margin:16px 0;
+      border:1px dashed rgba(0,0,0,0.06);
+    }
+
+    /* small utilities */
+    .small{font-size:0.92rem}
+    .center{display:grid;place-items:center}
+
+    /* footer */
+    footer{max-width:var(--max-width);margin:20px auto 80px;padding:0 12px;color:var(--muted);text-align:center}
+
+    /* responsive */
+    @media (max-width:980px){
+      .article-wrapper{grid-template-columns: 90px 1fr 90px}
+    }
+    @media (max-width:800px){
+      .topbar{flex-direction:column;align-items:flex-start}
+      nav.topnav{display:none}
+      .article-wrapper{grid-template-columns: 1fr; padding:0}
+      .shapes-col{display:none}
+      .img-placeholder{height:180px}
+      .hero-title{font-size:1.3rem}
+    }
+    @media (max-width:420px){
+      body{padding:12px}
+      .article-card{padding:16px}
+      .img-placeholder{height:150px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header (keeps navigation links intact) -->
+  <header class="topbar" role="banner">
+    <div class="brand">
+      <div class="logo">AH</div>
+      <div>
+        <h1 style="margin:0;font-family:'Playfair Display',serif;font-size:1rem;color:black">Ahnaf Hassan Aurnil</h1>
+        <p class="small muted" style="margin:0">Freelance writer — SEO · Articles · Blogs · Creative</p>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="articles.html">Articles</a>
+      <a href="blogs.html">Blogs</a>
+      <a href="seo.html">SEO</a>
+      <a href="creative.html">Creative</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="controls">
+      <button id="themeToggle" class="btn" title="Toggle theme">🌙</button>
+      <a class="btn primary" href="#contact">Hire Me</a>
+    </div>
+  </header>
+
+  <!-- page hero -->
+  <main>
+    <section class="page-hero">
+      <div class="hero-left">
+        <h2 class="hero-title">Why Personal Branding Matters In 2025?</h2>
+        <p class="hero-sub">A concise look at why a strong personal identity online matters more than ever — for freelancers, creators and businesses.</p>
+      </div>
+    </section>
+
+    <!-- article: shapes | article | shapes -->
+    <section class="article-wrapper" aria-labelledby="articleTitle">
+      <!-- left shapes column -->
+      <aside class="shapes-col" aria-hidden="true">
+        <!-- decorative shapes (you can replace with images later) -->
+        <div class="shape shape-float" style="left:6%;top:6%;width:86px;height:86px;background:linear-gradient(135deg,#8A5BFF33,#E07A5F22);"></div>
+        <div class="shape shape-float" style="left:10%;bottom:18%;width:56px;height:56px;background:#E07A5F22;border:2px solid #E07A5F;"></div>
+      </aside>
+
+      <!-- main article -->
+      <article class="article-card" id="articleContent" role="article">
+        <!-- Keep the article text exactly as provided -->
+<h1 id="articleTitle">Why Personal Branding Matters In 2025?</h1>
+
+<div class="article">
+      <h2>Introduction</h2>
+      <p>In the current time many people decide professionalism by one's <b>personal branding</b>. Many people choose the business especially based on <b>personal branding</b>. Because of that reason it has become a huge factor in choosing business/person. Many businesses are starting to build their <b>personal branding</b> so people see them as reliable and established. Some even judge a business's quality of work by their <b>personal branding</b>. It also shows one's dedication and creativity and many people prefer that in this modern age because it tells them about the business and their work style. It can also help in bringing new clients to the business and if a business has strong <b>personal branding</b> it will have a much higher chance of succeeding than most others. If a business spends their resources building their <b>personal branding</b>, it will be greatly beneficial for them.</p>
+
+      <img src="image1.jpg" alt="Personal Branding Concept">
+
+      <h2>Why <b>Personal Branding</b> Matters?</h2>
+      <p>In this time when AI is taking over everything and competition is higher than ever, <b>personal branding</b> is a very powerful weapon in surpassing them. It also helps build <b>reputation</b> and <b>client trust</b>. People like businesses that have a good reputation, history, <b>personal branding</b>, and customer support. <b>Personal branding</b> is one of the most important things because if you have good <b>personal branding</b> it speaks to clients before you can even talk. It helps to get new clients fast and can help grow a business rapidly. It also helps improve the quality of the product. So it is important, especially for newer businesses—it will help them create their own unique identity and find more consumers.</p>
+
+      <img src="image2.jpg" alt="Branding Importance">
+
+      <h2>How To Build A Strong <b>Personal Brand</b></h2>
+      <p>To build a strong <b>Personal Brand</b> one must know his/her <b>niche</b>, be <b>consistent</b>, have a good <b>online image</b>, post helpful content, etc. Let’s discuss them more thoroughly:</p>
+
+      <h3><b>Niche</b></h3>
+      <p><b>Niche</b> means a specialist in a field or a part of the market. It means your speciality in something—what you do best—and if you know it, you will be successful if you can make a living out of it. Many people do not know about their <b>niche</b> and do what is trendy, but if you can find your <b>niche</b>, your chances of success greatly increase.</p>
+
+      <h3><b>Being Consistent</b></h3>
+      <p>The truth is you can never be successful at anything if you are not <b>consistent</b>. Being <b>consistent</b> is the key to becoming successful. If you’re not consistent, you cannot do anything, so the first thing to do is be <b>consistent</b>.</p>
+
+      <h3><b>Having A Good Online Image And Posting Helpful Content</b></h3>
+      <p>To build a <b>personal brand</b> you need to build a presence on the internet. You can do that by building a <b>website</b> or creating <b>social media</b> accounts. Because people can know you by your website or by your work, even if you have a good website but poor quality work, people will think you are not good in that field and won’t hire or buy from you. So posting or having good quality work is essential for building a <b>personal brand</b>. If you post helpful content, people will start following and reading your work, gradually building an <b>online presence</b> and <b>personal brand</b>.</p>
+
+      <img src="image3.jpg" alt="Online Branding">
+
+      <h2>Common Mistakes To Avoid</h2>
+      <p>When creating a <b>personal brand</b> many make some common mistakes and because of that, in the end, they cannot build a strong one. Let’s discuss the common mistakes people make:</p>
+
+      <h3><b>Copying Others’ Style</b></h3>
+      <p><b>Copying</b> is a serious mistake many people make when starting out, but it leads to massive problems later on. People notice these things quickly, and after it’s discovered, your reputation is destroyed. It’s hard to rebuild from there. <b>Copying</b> also creates distrust and affects your business since stealing others’ work and style is seen as a crime online.</p>
+
+      <h3><b>Posting Poor Quality Work</b></h3>
+      <p>Posting <b>poor quality work</b> is another very common mistake. If you post <b>poor quality work</b>, people will soon lose interest in your work. You should research and practice before posting so it’s well made. If your work is good, people will read it and you’ll have a consistent audience.</p>
+
+      <h3><b>Being Inconsistent</b></h3>
+      <p><b>Inconsistency</b> is a big problem. By being <b>inconsistent</b>, you lose everything you built with hard work. If you don’t post for a long time, people will forget and move on. The audience you created will fade, so if you’re <b>inconsistent</b>, you’re done.</p>
+
+      <img src="image4.jpg" alt="Consistency">
+
+      <h2>Conclusion</h2>
+      <p>The true thing is everything is limited by you. If you think you can, you can do it—but if you think you can’t, you can’t. In the end, everything depends on you—your dedication, your abilities, and your imagination. So, <b>practice</b> and be <b>consistent</b> and you will succeed one day.</p>
+</div>
+      </article>
+
+      <!-- right shapes column -->
+      <aside class="shapes-col" aria-hidden="true">
+        <div class="shape shape-float" style="right:6%;top:6%;width:86px;height:86px;background:linear-gradient(135deg,#E07A5F33,#8A5BFF22);"></div>
+        <div class="shape shape-float" style="right:12%;bottom:18%;width:64px;height:64px;background:#8A5BFF22;border:2px solid #8A5BFF;"></div>
+        <div class="shape shape-float" style="right:22%;top:40%;width:40px;height:40px;background:#E07A5F22;border-radius:8px;"></div>
+      </aside>
+    </section>
+
+    <!-- small contact / footer -->
+    <section style="max-width:var(--max-width);margin:0 auto;padding:0 12px 20px" id="contact">
+      <div style="background:var(--card-bg);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,0.04);color:black">
+        <h3 style="margin:0 0 8px 0;font-family:'Playfair Display',serif;color:black">Contact</h3>
+        <p class="small muted" style="margin:0;color:black">Put your phone number and email here. Example: <strong>+880 1XXXXXXXXX</strong> · <a href="mailto:your@email.com">your@email.com</a></p>
+      </div>
+    </section>
+
+    <footer>
+      © <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer
+    </footer>
+  </main>
+
+  <!-- Inline JS: mobile menu + theme toggle + small reveals -->
+  <script>
+    (function(){
+      // Mobile nav toggle (if present)
+      const topbar = document.querySelector('.topbar');
+      const nav = document.querySelector('nav.topnav');
+      // create a simple mobile button if nav is hidden by CSS
+      function ensureMobileNav(){
+        if(window.innerWidth <= 800 && !document.getElementById('mobileToggleBtn')){
+          const btn = document.createElement('button');
+          btn.id = 'mobileToggleBtn';
+          btn.className = 'btn';
+          btn.innerText = 'Menu';
+          btn.style.marginLeft = '8px';
+          btn.addEventListener('click', () => {
+            if(nav.style.display === 'flex' || nav.style.display === '') {
+              nav.style.display = (nav.style.display === 'none' ? 'flex' : 'none');
+            } else {
+              nav.style.display = (getComputedStyle(nav).display === 'none' ? 'flex' : 'none');
+            }
+            nav.style.flexDirection = 'column';
+            nav.style.gap = '10px';
+          });
+          document.querySelector('.controls').insertBefore(btn, document.querySelector('.controls').firstChild);
+          nav.style.display = 'none';
+        }
+      }
+      ensureMobileNav();
+      window.addEventListener('resize', ensureMobileNav);
+
+      // theme toggle (simple)
+      const themeToggle = document.getElementById('themeToggle');
+      const root = document.documentElement;
+      const LS = 'aurnil_theme_pref';
+      function applyThemeFromStorage(){
+        try{
+          const v = localStorage.getItem(LS);
+          if(v === 'dark'){ document.documentElement.classList.add('dark'); return; }
+          if(v === 'light'){ document.documentElement.classList.remove('dark'); return; }
+          // fallback to prefers-color-scheme
+          if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }catch(e){}
+      }
+      applyThemeFromStorage();
+
+      if(themeToggle){
+        themeToggle.addEventListener('click', function(){
+          document.documentElement.classList.toggle('dark');
+          try{ localStorage.setItem(LS, document.documentElement.classList.contains('dark') ? 'dark' : 'light'); }catch(e){}
+        });
+      }
+
+      // small reveal animations for .article-card and shapes
+      document.addEventListener('DOMContentLoaded', function(){
+        const a = document.querySelector('.article-card');
+        if(a) { setTimeout(()=> a.style.opacity = 1, 180); a.style.transition = 'opacity .6s ease'; a.style.opacity = 0; setTimeout(()=> a.style.opacity = 1, 220); }
+
+        // subtle shape transforms on hover (desktop)
+        document.querySelectorAll('.shape').forEach(s => {
+          s.addEventListener('mouseenter', ()=> s.style.transform = 'scale(1.04) translateY(-6px)');
+          s.addEventListener('mouseleave', ()=> s.style.transform = 'scale(1) translateY(0)');
+        });
+      });
+
+    })();
+  </script>
+</body>
+</html>
