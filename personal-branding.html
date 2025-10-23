@@ -2,216 +2,179 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light dark">
-  <title>Why Personal Branding Matters In 2025 — Ahnaf Hassan Aurnil</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Why Personal Branding Matters In 2025?— Ahnaf Hassan Aurnil</title>
 
-  <!-- Meta description (you can edit later) -->
-  <meta name="description" content="Discover why personal branding matters in 2025 and how to build a strong, consistent online identity to attract clients and grow your business. Practical tips on niche, consistency, online image and common mistakes to avoid.">
+  <meta name="description" content="Learn why personal branding matters in 2025, how to build a strong online presence, and the key mistakes to avoid for lasting professional success.">
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
-    /* ---------- Basic variables ---------- */
-    :root{
-      --bg: #F7F3EF;
-      --page-padding: 18px;
-      --card-bg: #ffffff;
-      --accent: #8A5BFF;
-      --muted:#6b6b6b;
+    :root {
+      --bg:#F7F3EF;
+      --text:#222;
+      --card:#fff;
+      --muted:#666;
+      --accent:#8A5BFF;
       --radius:14px;
-      --shadow: 0 14px 30px rgba(20,20,20,0.06);
-      --max-width:1100px;
+      --shadow:0 8px 20px rgba(0,0,0,0.08);
     }
-
-    /* prefer dark */
-    @media (prefers-color-scheme: dark){
-      :root{
-        --bg: #0b0d0f;
-        /* keep article card light so black text stays readable per request */
-        --card-bg: #ffffff;
-        --muted:#9aa0a6;
-      }
+    body.dark {
+      --bg:#0F1114;
+      --text:#EEE;
+      --card:#14171A;
+      --muted:#AAA;
+      --accent:#B48CFF;
     }
-
-    /* ---------- Reset & base ---------- */
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
+    body {
       margin:0;
-      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      font-family:Montserrat,system-ui;
       background:var(--bg);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      color: black !important; /* user requested: all fonts black */
-      -webkit-text-size-adjust:100%;
-      padding:var(--page-padding);
-      line-height:1.6;
+      color:var(--text);
+      line-height:1.7;
+      transition:background .4s,color .4s;
+      scroll-behavior:smooth;
+      overflow-x:hidden;
     }
 
-    a{color:inherit; text-decoration:none} /* links appear black by default */
-    a:hover{text-decoration:underline}
-
-    /* topbar */
-    .topbar{
-      max-width:var(--max-width);
-      margin:0 auto 18px;
+    header {
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:12px;
-      padding:10px 14px;
-      border-radius:12px;
-      background: rgba(255,255,255,0.06);
-      backdrop-filter: blur(6px);
+      align-items:center;
+      padding:18px 24px;
+      position:sticky;
+      top:0;
+      background:rgba(255,255,255,0.6);
+      backdrop-filter:blur(10px);
+      z-index:30;
+      box-shadow:0 1px 8px rgba(0,0,0,0.05);
     }
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:46px;height:46px;border-radius:10px;display:grid;place-items:center;background: linear-gradient(135deg,#8A5BFF,#E07A5F);color:#fff;font-weight:700;font-family:"Playfair Display",serif}
-    nav.topnav{display:flex;gap:14px;align-items:center}
-    nav.topnav a{font-weight:600;color:#333;padding:6px 8px;border-radius:8px}
-    .controls{display:flex;gap:8px;align-items:center}
-    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;background:transparent;font-weight:600}
-    .btn.primary{background:linear-gradient(90deg,#8A5BFF,#E07A5F);color:#fff}
+    body.dark header {
+      background:rgba(20,20,20,0.6);
+    }
 
-    /* hero / page header */
-    .page-hero{max-width:var(--max-width);margin:18px auto;padding:0 12px;display:block}
-    .hero-title{font-family:"Playfair Display",serif;font-size:1.6rem;margin:0 0 10px 0;color:black !important}
-    .hero-sub{margin:0 0 14px 0;color:var(--muted);font-size:1rem}
+    button {
+      background:var(--accent);
+      color:#fff;
+      border:none;
+      padding:6px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:.3s;
+    }
+    button:hover {opacity:0.8;}
 
-    /* article wrapper: shapes | article | shapes */
-    .article-wrapper{
-      max-width:var(--max-width);
-      margin:20px auto 48px;
+    main {
       display:grid;
-      grid-template-columns: 140px 1fr 140px;
+      grid-template-columns: 1fr minmax(0,850px) 1fr;
+      gap:25px;
+      max-width:1300px;
+      margin:auto;
+      padding:40px 20px;
+    }
+
+    @media(max-width:900px){
+      main{grid-template-columns:1fr; padding:20px;}
+      .shapes{display:none;}
+      article{padding:22px;}
+    }
+
+    .shapes {
+      display:flex;
+      flex-direction:column;
       gap:20px;
-      align-items:start;
-      padding:0 12px;
+      align-items:center;
+      justify-content:flex-start;
+      opacity:0;
+      transform:translateY(30px);
+      animation:fadeIn 2s ease forwards, floaty 6s ease-in-out infinite alternate;
+      animation-delay:0.4s;
     }
 
-    /* shapes column */
-    .shapes-col{position:relative;height:100%}
-    .shape{
-      position:absolute;
-      border-radius:12px;
-      opacity:0.95;
-      transition: transform .6s ease;
-      will-change: transform;
-      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.12));
-    }
-    .shape-float{animation:floaty 7s ease-in-out infinite}
-
-    @keyframes floaty{
-      0%{transform: translateY(0px)}
-      50%{transform: translateY(-12px)}
-      100%{transform: translateY(0px)}
+    @keyframes floaty {
+      from { transform:translateY(0);}
+      to { transform:translateY(-15px);}
     }
 
-    /* central article */
-    .article-card{
-      background:var(--card-bg);
-      border-radius:12px;
-      padding:22px;
+    @keyframes fadeIn {
+      to {opacity:0.6; transform:translateY(0);}
+    }
+
+    article {
+      background:var(--card);
+      border-radius:var(--radius);
       box-shadow:var(--shadow);
-      border:1px solid rgba(0,0,0,0.04);
-      color: black !important; /* ensure article text black */
+      padding:30px 26px;
+      border:1px solid rgba(0,0,0,0.03);
+      opacity:0;
+      transform:translateY(40px);
+      animation:fadeUp 1s ease forwards;
+    }
+    @keyframes fadeUp {
+      to {opacity:1; transform:translateY(0);}
     }
 
-    .article-card h1{font-family:"Playfair Display",serif;font-weight:600;font-size:1.4rem;margin:0 0 12px 0;color:black !important}
-    .article-card h2{font-family:"Playfair Display",serif;font-weight:600;font-size:1.05rem;margin:18px 0 8px 0;color:black !important}
-    .article-card p{margin:0 0 14px;color:black !important}
-    .article-card .muted{color:var(--muted);font-size:0.95rem}
+    h1,h2 { font-family:"Playfair Display",serif; color:var(--text);}
+    h1 { font-size:1.8rem; margin-bottom:14px; text-align:center; }
+    h2 { font-size:1.3rem; margin-top:30px; margin-bottom:10px; color:var(--accent);}
+    p { margin-bottom:16px; }
 
-    /* image placeholders */
-    .img-placeholder{
+    .img-box {
       width:100%;
       height:220px;
-      border-radius:10px;
+      background:linear-gradient(135deg,#ccc,#eee);
+      border-radius:12px;
       display:grid;
       place-items:center;
-      background:linear-gradient(135deg,#f1f3f7,#e9eefb);
-      color:var(--muted);font-weight:600;margin:16px 0;
-      border:1px dashed rgba(0,0,0,0.06);
+      color:var(--muted);
+      margin:20px 0;
+      font-weight:600;
+      font-style:italic;
+      animation:fadeIn 1s ease forwards;
     }
 
-    /* small utilities */
-    .small{font-size:0.92rem}
-    .center{display:grid;place-items:center}
-
-    /* footer */
-    footer{max-width:var(--max-width);margin:20px auto 80px;padding:0 12px;color:var(--muted);text-align:center}
-
-    /* responsive */
-    @media (max-width:980px){
-      .article-wrapper{grid-template-columns: 90px 1fr 90px}
-    }
-    @media (max-width:800px){
-      .topbar{flex-direction:column;align-items:flex-start}
-      nav.topnav{display:none}
-      .article-wrapper{grid-template-columns: 1fr; padding:0}
-      .shapes-col{display:none}
-      .img-placeholder{height:180px}
-      .hero-title{font-size:1.3rem}
-    }
-    @media (max-width:420px){
-      body{padding:12px}
-      .article-card{padding:16px}
-      .img-placeholder{height:150px}
+    footer {
+      text-align:center;
+      padding:30px;
+      color:var(--muted);
+      font-size:0.9rem;
+      opacity:0;
+      animation:fadeIn 1.2s ease forwards;
+      animation-delay:1s;
     }
   </style>
+
+  <script>
+    (function(){
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const stored = localStorage.getItem('theme');
+      if(stored === 'dark' || (!stored && prefersDark))
+        document.body.classList.add('dark');
+    })();
+
+    function toggleTheme(){
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark':'light');
+    }
+  </script>
 </head>
+
 <body>
-
-  <!-- Header (keeps navigation links intact) -->
-  <header class="topbar" role="banner">
-    <div class="brand">
-      <div class="logo">AH</div>
-      <div>
-        <h1 style="margin:0;font-family:'Playfair Display',serif;font-size:1rem;color:black">Ahnaf Hassan Aurnil</h1>
-        <p class="small muted" style="margin:0">Freelance writer — SEO · Articles · Blogs · Creative</p>
-      </div>
-    </div>
-
-    <nav class="topnav" aria-label="Main navigation">
-      <a href="index.html">Home</a>
-      <a href="articles.html">Articles</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="seo.html">SEO</a>
-      <a href="creative.html">Creative</a>
-      <a href="about.html">About</a>
-    </nav>
-
-    <div class="controls">
-      <button id="themeToggle" class="btn" title="Toggle theme">🌙</button>
-      <a class="btn primary" href="#contact">Hire Me</a>
-    </div>
+  <header>
+    <a href="index.html" style="font-weight:600;color:var(--text);text-decoration:none;">&larr; Back</a>
+    <button onclick="toggleTheme()">Toggle Theme</button>
   </header>
 
-  <!-- page hero -->
   <main>
-    <section class="page-hero">
-      <div class="hero-left">
-        <h2 class="hero-title">Why Personal Branding Matters In 2025?</h2>
-        <p class="hero-sub">A concise look at why a strong personal identity online matters more than ever — for freelancers, creators and businesses.</p>
-      </div>
-    </section>
+    <div class="shapes">
+      <svg width="90" height="90"><circle cx="45" cy="45" r="40" fill="#8A5BFF33"/></svg>
+      <svg width="70" height="70"><rect width="70" height="70" rx="14" fill="#E07A5F33"/></svg>
+      <svg width="60" height="60"><polygon points="30,0 60,60 0,60" fill="#8A5BFF22"/></svg>
+    </div>
 
-    <!-- article: shapes | article | shapes -->
-    <section class="article-wrapper" aria-labelledby="articleTitle">
-      <!-- left shapes column -->
-      <aside class="shapes-col" aria-hidden="true">
-        <!-- decorative shapes (you can replace with images later) -->
-        <div class="shape shape-float" style="left:6%;top:6%;width:86px;height:86px;background:linear-gradient(135deg,#8A5BFF33,#E07A5F22);"></div>
-        <div class="shape shape-float" style="left:10%;bottom:18%;width:56px;height:56px;background:#E07A5F22;border:2px solid #E07A5F;"></div>
-      </aside>
-
-      <!-- main article -->
-      <article class="article-card" id="articleContent" role="article">
-        <!-- Keep the article text exactly as provided -->
-<h1 id="articleTitle">Why Personal Branding Matters In 2025?</h1>
-
-<div class="article">
+    <article>
+      <div class="article">
       <h2>Introduction</h2>
       <p>In the current time many people decide professionalism by one's <b>personal branding</b>. Many people choose the business especially based on <b>personal branding</b>. Because of that reason it has become a huge factor in choosing business/person. Many businesses are starting to build their <b>personal branding</b> so people see them as reliable and established. Some even judge a business's quality of work by their <b>personal branding</b>. It also shows one's dedication and creativity and many people prefer that in this modern age because it tells them about the business and their work style. It can also help in bringing new clients to the business and if a business has strong <b>personal branding</b> it will have a much higher chance of succeeding than most others. If a business spends their resources building their <b>personal branding</b>, it will be greatly beneficial for them.</p>
 
@@ -252,94 +215,16 @@
 
       <h2>Conclusion</h2>
       <p>The true thing is everything is limited by you. If you think you can, you can do it—but if you think you can’t, you can’t. In the end, everything depends on you—your dedication, your abilities, and your imagination. So, <b>practice</b> and be <b>consistent</b> and you will succeed one day.</p>
-</div>
-      </article>
+      </div>
+    </article>
 
-      <!-- right shapes column -->
-      <aside class="shapes-col" aria-hidden="true">
-        <div class="shape shape-float" style="right:6%;top:6%;width:86px;height:86px;background:linear-gradient(135deg,#E07A5F33,#8A5BFF22);"></div>
-        <div class="shape shape-float" style="right:12%;bottom:18%;width:64px;height:64px;background:#8A5BFF22;border:2px solid #8A5BFF;"></div>
-        <div class="shape shape-float" style="right:22%;top:40%;width:40px;height:40px;background:#E07A5F22;border-radius:8px;"></div>
-      </aside>
-    </section>
-
-    <!-- small contact / footer -->
-    
-
-    <footer>
-      © <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer
-    </footer>
+    <div class="shapes">
+      <svg width="90" height="90"><circle cx="45" cy="45" r="40" fill="#E07A5F33"/></svg>
+      <svg width="70" height="70"><rect width="70" height="70" rx="14" fill="#8A5BFF33"/></svg>
+      <svg width="60" height="60"><polygon points="30,0 60,60 0,60" fill="#E07A5F22"/></svg>
+    </div>
   </main>
 
-  <!-- Inline JS: mobile menu + theme toggle + small reveals -->
-  <script>
-    (function(){
-      // Mobile nav toggle (if present)
-      const topbar = document.querySelector('.topbar');
-      const nav = document.querySelector('nav.topnav');
-      // create a simple mobile button if nav is hidden by CSS
-      function ensureMobileNav(){
-        if(window.innerWidth <= 800 && !document.getElementById('mobileToggleBtn')){
-          const btn = document.createElement('button');
-          btn.id = 'mobileToggleBtn';
-          btn.className = 'btn';
-          btn.innerText = 'Menu';
-          btn.style.marginLeft = '8px';
-          btn.addEventListener('click', () => {
-            if(nav.style.display === 'flex' || nav.style.display === '') {
-              nav.style.display = (nav.style.display === 'none' ? 'flex' : 'none');
-            } else {
-              nav.style.display = (getComputedStyle(nav).display === 'none' ? 'flex' : 'none');
-            }
-            nav.style.flexDirection = 'column';
-            nav.style.gap = '10px';
-          });
-          document.querySelector('.controls').insertBefore(btn, document.querySelector('.controls').firstChild);
-          nav.style.display = 'none';
-        }
-      }
-      ensureMobileNav();
-      window.addEventListener('resize', ensureMobileNav);
-
-      // theme toggle (simple)
-      const themeToggle = document.getElementById('themeToggle');
-      const root = document.documentElement;
-      const LS = 'aurnil_theme_pref';
-      function applyThemeFromStorage(){
-        try{
-          const v = localStorage.getItem(LS);
-          if(v === 'dark'){ document.documentElement.classList.add('dark'); return; }
-          if(v === 'light'){ document.documentElement.classList.remove('dark'); return; }
-          // fallback to prefers-color-scheme
-          if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        }catch(e){}
-      }
-      applyThemeFromStorage();
-
-      if(themeToggle){
-        themeToggle.addEventListener('click', function(){
-          document.documentElement.classList.toggle('dark');
-          try{ localStorage.setItem(LS, document.documentElement.classList.contains('dark') ? 'dark' : 'light'); }catch(e){}
-        });
-      }
-
-      // small reveal animations for .article-card and shapes
-      document.addEventListener('DOMContentLoaded', function(){
-        const a = document.querySelector('.article-card');
-        if(a) { setTimeout(()=> a.style.opacity = 1, 180); a.style.transition = 'opacity .6s ease'; a.style.opacity = 0; setTimeout(()=> a.style.opacity = 1, 220); }
-
-        // subtle shape transforms on hover (desktop)
-        document.querySelectorAll('.shape').forEach(s => {
-          s.addEventListener('mouseenter', ()=> s.style.transform = 'scale(1.04) translateY(-6px)');
-          s.addEventListener('mouseleave', ()=> s.style.transform = 'scale(1) translateY(0)');
-        });
-      });
-
-    })();
-  </script>
+  <footer>© <strong>Ahnaf Hassan Aurnil</strong> — Freelance Writer</footer>
 </body>
 </html>
