@@ -1,55 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="auto">
 <head>
-  <meta charset="UTF-8" />
-  <title>Your Name</title>
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/theme.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ahnaf Hassan — Tech Freelance Writer</title>
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <script src="assets/js/theme-switch.js" defer></script>
 </head>
+
 <body>
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Ahnaf Hassan</h1>
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
+  </header>
 
-<header>
-  <nav>
-    <strong>Your Name</strong>
-    <div class="links">
-      <a href="articles.html">Articles</a>
-      <a href="articles.html#blog">Blog</a>
-      <a href="about.html">About</a>
-      <span id="themeToggle" class="theme-toggle">⚙</span>
-    </div>
-  </nav>
-</header>
-
-<main class="container">
-  <section class="hero fade-in">
-    <div>
-      <h1>Tech Freelancer & Writer</h1>
-      <p>I write about technology, systems, and practical thinking.</p>
-    </div>
-    <img src="assets/images/profile-placeholder.png" alt="Profile">
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Tech Specialist Freelance Writer</h2>
+    <p>I help turn complex technology into clear, useful, human-friendly content.</p>
   </section>
 
-  <section class="fade-in">
-    <div class="card">
-      <h2>Articles</h2>
-      <p>Research-driven, structured writing.</p>
-    </div>
+  <!-- ARTICLES -->
+  <section class="section">
+    <h3>Articles</h3>
+    <p>Formal, business-focused writing.</p>
+    <a href="articles/index.html">View all articles →</a>
   </section>
 
-  <section class="fade-in">
-    <div class="card">
-      <h2>Blog</h2>
-      <p>Personal thoughts, observations, and ideas.</p>
-    </div>
+  <!-- BLOGS -->
+  <section class="section">
+    <h3>Blogs</h3>
+    <p>Personal thoughts, ideas, and reflections.</p>
+    <a href="blogs/index.html">View all blogs →</a>
   </section>
-</main>
 
-<footer>
-  © 2025 Your Name
-</footer>
+  <!-- ABOUT -->
+  <section class="section">
+    <h3>About Me</h3>
+    <p>
+      I’m Ahnaf Hassan, a tech-focused freelance writer passionate about clarity,
+      usability, and thoughtful communication. This site documents my work and journey.
+    </p>
+  </section>
 
-<script src="js/theme.js"></script>
-<script src="js/motion.js"></script>
+  <footer class="footer">
+    © <span id="year"></span> Ahnaf Hassan
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
