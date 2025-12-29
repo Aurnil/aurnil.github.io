@@ -1,0 +1,32 @@
+:root {
+  --transition-fast: 0.25s ease;
+}
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --bg-gradient: linear-gradient(
+    180deg,
+    #0F2854 0%,
+    #1C4D8D 40%,
+    #4988C4 100%
+  );
+
+  --text-primary: #EAF6FB;
+  --text-secondary: #BDE8F5;
+  --accent: #BDE8F5;
+  --card-bg: rgba(15, 40, 84, 0.65);
+}
+
+/* ===== LIGHT THEME ===== */
+[data-theme="light"] {
+  --bg-gradient: linear-gradient(
+    180deg,
+    #F4F7FB 0%,
+    #E6EEF6 100%
+  );
+
+  --text-primary: #0F2854;
+  --text-secondary: #1C4D8D;
+  --accent: #4988C4;
+  --card-bg: rgba(255, 255, 255, 0.85);
+}
