@@ -2,48 +2,84 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Aurnil — Technology Content Specialist</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
 
-<div class="bg-layer layer-1"></div>
-<div class="bg-layer layer-2"></div>
-
 <header class="nav">
-  <div class="logo">AURNIL</div>
+  <div class="logo">Aurnil</div>
   <nav>
     <a href="articles.html">Articles</a>
-    <a href="blog.html">Blog</a>
-    <button id="themeToggle" aria-label="Toggle theme">
-  ⚙️
-    </button>
+    <a href="blogs.html">Blog</a>
   </nav>
 </header>
 
-<section class="hero reveal">
-  <div class="hero-text">
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-content">
     <h1>Ahnaf Hassan Aurnil</h1>
-    <p class="role">Technology Content Specialist</p>
-    <p class="desc">Deep analysis of PC hardware, AI systems, and emerging technology.</p>
+    <h2>Technology Content Specialist</h2>
+
+    <p class="typewriter">
+      <span id="typewriter"></span>
+    </p>
+
+    <div class="socials">
+      <a href="#" title="Instagram"><img src="assets/icons/instagram.svg"></a>
+      <a href="#" title="LinkedIn"><img src="assets/icons/linkedin.svg"></a>
+      <a href="#" title="Fiverr"><img src="assets/icons/fiverr.svg"></a>
+    </div>
   </div>
-  <div class="hero-img">
-    <img src="assets/img/hero.jpg" alt="Aurnil" />
+
+  <div class="hero-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
   </div>
 </section>
 
-<section class="gateway reveal">
-  <a href="articles.html" class="gateway-card">Articles</a>
-  <a href="blog.html" class="gateway-card">Blog</a>
+<section class="intro">
+  <p>
+    I write about upcoming technology, PC hardware, and artificial intelligence — 
+    transforming complex topics into clear, engaging narratives.
+  </p>
 </section>
 
-<footer class="about reveal">
-  <h2>About</h2>
-  <p>I specialize in technology content that values clarity, depth, and long-term relevance.</p>
-  <div class="socials">● ● ●</div>
+<section class="content-links">
+  <div class="card" onclick="location.href='articles.html'">
+    <h3>Articles</h3>
+    <p>In-depth, research-driven technology writing</p>
+  </div>
+
+  <div class="card" onclick="location.href='blogs.html'">
+    <h3>Blog</h3>
+    <p>Thoughts, opinions, and casual insights</p>
+  </div>
+</section>
+
+<section class="about">
+  <h2>About Me</h2>
+  <p>
+    I specialize in writing high-quality technology content with a focus on 
+    PC hardware, AI trends, and emerging innovations.
+  </p>
+
+  <ul class="skills">
+    <li>PC Hardware Analysis</li>
+    <li>AI & Emerging Tech</li>
+    <li>Long-form Articles</li>
+    <li>SEO-friendly Writing</li>
+  </ul>
+</section>
+
+<footer>
+  <p>© 2025 Ahnaf Hassan Aurnil</p>
 </footer>
 
-<script src="assets/js/main.js"></script>
+<script src="js/main.js"></script>
+<script src="js/typewriter.js"></script>
 </body>
 </html>
