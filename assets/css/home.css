@@ -1,0 +1,93 @@
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 120px 10%;
+}
+
+.hero-content {
+  max-width: 600px;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+}
+
+.hero h2 {
+  font-family: 'Dancing Script', cursive;
+  color: var(--soft);
+  margin-top: 10px;
+}
+
+.typewriter {
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.socials img {
+  width: 28px;
+  margin-right: 16px;
+  filter: brightness(0.9);
+}
+
+.hero-shapes .shape {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.15;
+  background: linear-gradient(135deg, var(--accent), transparent);
+}
+
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  right: 5%;
+}
+
+.shape-2 {
+  width: 200px;
+  height: 200px;
+  bottom: 15%;
+  left: 10%;
+}
+
+.shape-3 {
+  width: 150px;
+  height: 150px;
+  top: 40%;
+  right: 30%;
+}
+
+.content-links {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 100px 10%;
+}
+
+.card {
+  background: rgba(255,255,255,0.03);
+  padding: 40px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.about {
+  padding: 120px 15%;
+}
+
+.skills {
+  margin-top: 20px;
+  list-style: none;
+}
+
+.skills li {
+  margin-bottom: 8px;
+}
