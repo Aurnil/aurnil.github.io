@@ -1,0 +1,170 @@
+:root {
+  --bg-dark: #070f2b;
+  --bg-mid: #1b1a55;
+  --accent: #535c91;
+  --soft: #9290c3;
+
+  --text-main: #eef1ff;
+  --text-muted: rgba(238,241,255,0.75);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(180deg, var(--bg-dark), var(--bg-mid));
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
+}
+
+/* NAV */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+}
+
+.nav a {
+  margin-left: 1.5rem;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 95vh;
+  display: flex;
+  align-items: center;
+  padding: 0 10vw;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 700px;
+  z-index: 2;
+}
+
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 5vw, 4.5rem);
+}
+
+.hero h2 {
+  margin-top: 0.5rem;
+  font-weight: 400;
+  color: var(--soft);
+}
+
+.hero p {
+  margin-top: 1.5rem;
+  max-width: 520px;
+}
+
+/* Background shapes */
+.hero-bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.6;
+}
+
+.shape-one {
+  width: 400px;
+  height: 400px;
+  background: var(--accent);
+  top: 10%;
+  left: -100px;
+}
+
+.shape-two {
+  width: 500px;
+  height: 500px;
+  background: var(--soft);
+  bottom: -150px;
+  right: -150px;
+}
+
+/* Spacer */
+.spacer {
+  height: 25vh;
+}
+
+/* CONTENT HUB */
+.content-hub {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 6rem;
+  padding: 0 10vw 20vh;
+}
+
+.content-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+}
+
+.content-block p {
+  margin: 1rem 0 2rem;
+  color: var(--text-muted);
+}
+
+.cta {
+  text-decoration: none;
+  color: var(--text-main);
+  border-bottom: 1px solid var(--soft);
+}
+
+/* BIO */
+.bio {
+  position: relative;
+  padding: 20vh 10vw;
+  overflow: hidden;
+}
+
+.bio-shape {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: var(--accent);
+  border-radius: 50%;
+  filter: blur(160px);
+  top: -200px;
+  right: -200px;
+  opacity: 0.4;
+}
+
+.bio-content {
+  max-width: 700px;
+}
+
+.bio h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+}
+
+.skills {
+  margin-top: 2rem;
+  list-style: none;
+}
+
+.skills li {
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+/* FOOTER */
+.footer {
+  padding: 4rem 10vw;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.socials a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: var(--text-muted);
+    }
