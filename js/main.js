@@ -1,5 +1,6 @@
-const toggle = document.getElementById("themeToggle");
+const nav = document.querySelector('.nav');
 
-toggle.addEventListener("click", () => {
-  document.body.classList.toggle("light");
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
 });
