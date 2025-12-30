@@ -47,3 +47,28 @@ transition:.6s
 .featured{border-left:4px solid var(--accent)}
 
 .about{text-align:center;padding:120px 40px;opacity:.9}
+/* Grain overlay */
+body::after{
+content:"";
+position:fixed;inset:0;
+pointer-events:none;
+background:url('../img/grain.png');
+opacity:.05;z-index:999;
+}
+
+/* Theme toggle */
+#themeToggle{
+background:none;border:none;color:#fff;
+font-size:1.4rem;cursor:pointer;
+transition:transform .6s ease;
+}
+#themeToggle.rotate{transform:rotate(180deg)}
+
+/* Scroll reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:1s ease}
+.reveal.visible{opacity:1;transform:none}
+
+/* Cursor micro-interaction */
+a:hover,.gateway-card:hover{
+cursor:pointer;
+}
