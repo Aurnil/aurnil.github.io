@@ -1,170 +1,124 @@
 :root {
-  --bg-dark: #070f2b;
-  --bg-mid: #1b1a55;
-  --accent: #535c91;
-  --soft: #9290c3;
-
-  --text-main: #eef1ff;
-  --text-muted: rgba(238,241,255,0.75);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  --bg-dark: #0b0d18;
+  --bg-light: #eef1ff;
+  --accent1: #6f7cff;
+  --accent2: #aab4ff;
+  --text-dark: #e6e9ff;
+  --text-light: #0b0d18;
 }
 
 body {
-  background: linear-gradient(180deg, var(--bg-dark), var(--bg-mid));
-  color: var(--text-main);
+  margin: 0;
   font-family: 'Inter', sans-serif;
-  line-height: 1.6;
+  background: linear-gradient(180deg, #0b0d18, #141736);
+  color: var(--text-dark);
+  overflow-x: hidden;
 }
 
-/* NAV */
-.nav {
-  display: flex;
-  justify-content: space-between;
-  padding: 1.5rem 3rem;
+body.light {
+  background: linear-gradient(180deg, #eef1ff, #d2daff);
+  color: var(--text-light);
 }
 
-.nav a {
-  margin-left: 1.5rem;
-  color: var(--text-muted);
-  text-decoration: none;
+/* THEME TOGGLE */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  background: none;
+  border: 1px solid currentColor;
+  color: inherit;
+  padding: 8px 12px;
+  cursor: pointer;
 }
+
+/* BACKGROUND SHAPES */
+.bg-shapes span {
+  position: fixed;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(111,124,255,0.15), transparent);
+  border-radius: 50%;
+  animation: float 20s infinite alternate;
+}
+
+.bg-shapes span:nth-child(1) { top: -100px; left: -100px; }
+.bg-shapes span:nth-child(2) { bottom: 10%; right: -150px; }
+.bg-shapes span:nth-child(3) { top: 50%; left: 60%; }
 
 /* HERO */
 .hero {
-  position: relative;
-  min-height: 95vh;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  padding: 0 10vw;
-  overflow: hidden;
-}
-
-.hero-content {
-  max-width: 700px;
-  z-index: 2;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 10%;
 }
 
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-size: 3.5rem;
 }
 
 .hero h2 {
-  margin-top: 0.5rem;
   font-weight: 400;
-  color: var(--soft);
+  opacity: 0.85;
 }
 
 .hero p {
-  margin-top: 1.5rem;
-  max-width: 520px;
+  max-width: 600px;
+  margin-top: 20px;
 }
 
-/* Background shapes */
-.hero-bg-shape {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(120px);
-  opacity: 0.6;
-}
-
-.shape-one {
-  width: 400px;
-  height: 400px;
-  background: var(--accent);
-  top: 10%;
-  left: -100px;
-}
-
-.shape-two {
-  width: 500px;
-  height: 500px;
-  background: var(--soft);
-  bottom: -150px;
-  right: -150px;
-}
-
-/* Spacer */
+/* SPACER */
 .spacer {
-  height: 25vh;
+  height: 40vh;
 }
 
-/* CONTENT HUB */
-.content-hub {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 6rem;
-  padding: 0 10vw 20vh;
+/* FEATURES */
+.features {
+  display: flex;
+  gap: 40px;
+  padding: 0 10%;
 }
 
-.content-block h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2rem;
-}
-
-.content-block p {
-  margin: 1rem 0 2rem;
-  color: var(--text-muted);
-}
-
-.cta {
+.feature-card {
+  flex: 1;
+  padding: 40px;
+  background: linear-gradient(135deg, rgba(111,124,255,0.15), rgba(170,180,255,0.05));
+  border-radius: 20px;
   text-decoration: none;
-  color: var(--text-main);
-  border-bottom: 1px solid var(--soft);
+  color: inherit;
+  backdrop-filter: blur(10px);
+  transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
 /* BIO */
 .bio {
-  position: relative;
-  padding: 20vh 10vw;
-  overflow: hidden;
+  padding: 0 10% 10%;
 }
 
-.bio-shape {
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  background: var(--accent);
-  border-radius: 50%;
-  filter: blur(160px);
-  top: -200px;
-  right: -200px;
-  opacity: 0.4;
-}
-
-.bio-content {
-  max-width: 700px;
-}
-
-.bio h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem;
-}
-
-.skills {
-  margin-top: 2rem;
-  list-style: none;
-}
-
-.skills li {
-  margin-bottom: 0.5rem;
-  color: var(--text-muted);
+.bio-card {
+  max-width: 800px;
+  padding: 50px;
+  border-radius: 25px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
 }
 
 /* FOOTER */
-.footer {
-  padding: 4rem 10vw;
-  text-align: center;
-  color: var(--text-muted);
+footer {
+  padding: 40px 10%;
+  opacity: 0.8;
 }
 
 .socials a {
-  margin: 0 1rem;
+  margin-right: 20px;
   text-decoration: none;
-  color: var(--text-muted);
-    }
+  color: inherit;
+}
