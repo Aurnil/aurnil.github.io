@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Articles – Aurnil</title>
+  <title>Articles — Aurnil</title>
+
   <link rel="stylesheet" href="assets/css/base.css">
   <link rel="stylesheet" href="assets/css/theme.css">
   <link rel="stylesheet" href="assets/css/layout.css">
+  <link rel="stylesheet" href="assets/css/animations.css">
 </head>
 
 <body>
@@ -13,23 +15,24 @@
   <a href="index.html">← Home</a>
 </nav>
 
-<header class="page-header">
+<header class="page-header tech">
   <h1>Articles</h1>
-  <p>In-depth, structured technology analysis.</p>
+  <p>In-depth, research-driven technology writing</p>
 </header>
 
 <section class="article-grid">
-  <div class="article-card">
-    <h3>Upcoming GPU Architectures in 2025</h3>
-    <p>A deep look into performance, power, and AI workloads.</p>
-  </div>
+  <article class="article-card reveal">
+    <h3>Why Hardware Still Matters in the AI Era</h3>
+    <p>Exploring performance, efficiency, and real-world constraints.</p>
+  </article>
 
-  <div class="article-card">
-    <h3>AI Acceleration on Consumer CPUs</h3>
-    <p>What actually matters and what doesn’t.</p>
-  </div>
+  <article class="article-card reveal delay">
+    <h3>The Myth of “Future-Proof” PCs</h3>
+    <p>A realistic look at upgrade cycles and expectations.</p>
+  </article>
 </section>
 
 <script src="assets/js/themeToggle.js"></script>
+<script src="assets/js/scrollEffects.js"></script>
 </body>
 </html>
