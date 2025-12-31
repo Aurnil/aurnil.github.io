@@ -1,13 +1,20 @@
-const bg = document.querySelector(".hero-bg");
 const toggle = document.getElementById("themeToggle");
-
-window.addEventListener("scroll", () => {
-  const y = window.scrollY;
-  if (bg) {
-    bg.style.transform = `translateY(${y * 0.25}px)`;
-  }
-});
 
 toggle?.addEventListener("click", () => {
   document.body.classList.toggle("light");
 });
+
+// TYPEWRITER
+const text = "Technology Content Specialist";
+let i = 0;
+const target = document.querySelector(".typewriter");
+
+function type() {
+  if (!target) return;
+  if (i < text.length) {
+    target.textContent += text.charAt(i);
+    i++;
+    setTimeout(type, 80);
+  }
+}
+type();
