@@ -1,0 +1,12 @@
+:root {
+  --bg: #0e1124;
+  --text: #e6e8ff;
+  --accent: #7aa2ff;
+  --card: rgba(255,255,255,0.06);
+}
+
+.light {
+  --bg: #f5f7ff;
+  --text: #0e1124;
+  --accent: #3a5cff;
+}
