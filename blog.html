@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>Blog – Aurnil</title>
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
 </head>
-<body>
 
-<header class="nav">
-  <div class="nav-inner">
-    <div class="logo">Ahnaf Hassan Aurnil</div>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="articles.html">Articles</a>
-      <a href="blog.html" class="active">Blog</a>
-    </nav>
-  </div>
+<body>
+<nav class="nav solid">
+  <a href="index.html">← Home</a>
+</nav>
+
+<header class="page-header soft">
+  <h1>Blog</h1>
+  <p>Thoughts, experiments, and personal writing.</p>
 </header>
 
-<section class="page-hero blog-hero">
-  <h1>Blog</h1>
-  <p>Thoughts, observations, and personal writing.</p>
-</section>
-
-<section class="section">
-  <div class="card-list">
-    <div class="card">Newest Blog Post</div>
-    <div class="card">Older Blog Post</div>
+<section class="blog-list">
+  <div class="blog-entry">
+    <h3>Why Hardware Still Matters in the AI Era</h3>
+    <p>Some personal thoughts on performance and reality.</p>
   </div>
 </section>
 
-<script src="js/main.js"></script>
+<script src="assets/js/themeToggle.js"></script>
 </body>
 </html>
