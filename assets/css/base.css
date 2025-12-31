@@ -1,7 +1,13 @@
-* { box-sizing: border-box; }
+:root {
+  --bg: #0f1224;
+  --text: #eaeaff;
+  --accent: #8fa8ff;
+  --card: rgba(255,255,255,0.06);
+}
+
 body {
   margin: 0;
-  font-family: var(--font-main);
+  font-family: "Georgia", serif;
   background: var(--bg);
   color: var(--text);
 }
