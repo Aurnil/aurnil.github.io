@@ -1,6 +1,11 @@
-window.addEventListener("scroll", () => {
-  document.querySelectorAll("[data-depth]").forEach(el => {
-    el.style.transform =
-      `translateY(${window.scrollY * el.dataset.depth}px)`;
+const reveals = document.querySelectorAll(".reveal");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
   });
 });
+
+reveals.forEach(r => observer.observe(r));
