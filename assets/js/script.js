@@ -1,17 +1,17 @@
-// Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
-const onScroll = () => {
-  reveals.forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
-      el.classList.add('active');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('active');
     }
   });
-};
-window.addEventListener('scroll', onScroll);
-onScroll();
+}, { threshold: 0.2 });
 
-// Parallax
-const bg = document.querySelector('.hero-bg');
+reveals.forEach(el => observer.observe(el));
+
 window.addEventListener('scroll', () => {
-  if (bg) bg.style.setProperty('--parallax', `${window.scrollY * 0.2}px`);
+  document.querySelectorAll('.parallax').forEach(section => {
+    section.style.backgroundPositionY = window.scrollY * 0.3 + 'px';
+  });
 });
