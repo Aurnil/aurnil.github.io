@@ -1,34 +1,52 @@
-// TYPEWRITER
-const text = "Technology Content Specialist";
-let i = 0;
-const speed = 80;
-const target = document.getElementById("typewriter");
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  document.body.classList.toggle('light');
+  themeToggle.style.transform = 'rotate(360deg)';
+});
 
+// Auto-detect theme
+if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  document.body.classList.add('dark');
+} else {
+  document.body.classList.add('light');
+}
+
+// Typewriter effect
+const taglineText = "I write about PC hardware and AI.";
+let i = 0;
+const typewriter = document.getElementById('typewriter');
 function type() {
-  if (i < text.length) {
-    target.innerHTML += text.charAt(i);
+  if(i < taglineText.length){
+    typewriter.innerHTML += taglineText.charAt(i);
     i++;
-    setTimeout(type, speed);
+    setTimeout(type, 80);
   }
 }
-type();
+if(typewriter) type();
 
-// SCROLL REVEAL
-const reveals = document.querySelectorAll(".reveal");
+// Articles & blogs placeholders
+const articles = [
+  {title:"AI in 2026", img:"assets/images/article1.jpg", link:"#"},
+  {title:"Best PC Hardware 2026", img:"assets/images/article2.jpg", link:"#"}
+];
+const blogs = [
+  {title:"My Tech Journey", img:"assets/images/blog1.jpg", link:"#"}
+];
 
-window.addEventListener("scroll", () => {
-  const trigger = window.innerHeight * 0.85;
-  reveals.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < trigger) el.classList.add("active");
+function renderCards(containerId, items){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  items.forEach(item=>{
+    const card = document.createElement('div');
+    card.className='card';
+    card.innerHTML = `<img src="${item.img}" alt="${item.title}"><h3>${item.title}</h3><a href="${item.link}">Read More</a>`;
+    container.appendChild(card);
   });
-});
+}
 
-// PARALLAX FLOAT WORDS
-const words = document.querySelectorAll(".floating-words span");
-window.addEventListener("scroll", () => {
-  const y = window.scrollY;
-  words.forEach((w, i) => {
-    w.style.transform = `translateY(${-(y * 0.15 * (i+1))}px)`;
-  });
-});
+renderCards('articleCards', articles);
+renderCards('blogCards', blogs);
+renderCards('articleCardsPage', articles);
+renderCards('blogCardsPage', blogs);
