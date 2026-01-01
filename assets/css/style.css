@@ -1,88 +1,72 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@500;600&display=swap');
-
 :root {
-  --bg: #0A0D14;
-  --bg2: #0F1623;
-  --overlay: #141C2F;
-  --accent: #7C7CFF;
-  --text: #E6EAF0;
-  --text2: #A1A7B3;
+  --bg: #0b0f17;
+  --panel: #121826;
+  --accent: #8b5cf6;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
 }
 
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: Inter, sans-serif;
+  font-family: system-ui, sans-serif;
   background: var(--bg);
   color: var(--text);
 }
 
-.page-fade {
-  animation: fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 40px;
+  position: sticky;
+  top: 0;
+  background: rgba(11,15,23,0.8);
+  backdrop-filter: blur(10px);
 }
 
 .hero {
-  position: relative;
-  padding: 5rem 2rem;
-  overflow: hidden;
-}
-
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, var(--bg2), var(--bg));
-  transform: translateY(var(--parallax, 0));
-}
-
-.hero-content {
-  position: relative;
+  min-height: 100vh;
   display: flex;
-  gap: 2rem;
-  max-width: 1100px;
-  margin: auto;
+  align-items: center;
 }
 
-.profile-img {
-  width: 180px;
-  border-radius: 12px;
-}
-
-h1, h2, h3 {
-  font-family: Space Grotesk, sans-serif;
-}
-
-.nav-cards {
+.hero-inner {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 2rem;
-  padding: 4rem 2rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  padding: 80px;
+}
+
+.hero-image img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(139,92,246,0.3);
 }
 
 .card {
-  background: var(--overlay);
-  padding: 2rem;
+  background: var(--panel);
+  padding: 40px;
   border-radius: 16px;
-  transition: transform .3s ease, box-shadow .3s ease;
+  transition: transform 0.4s, box-shadow 0.4s;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 30px rgba(124,124,255,.2);
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(139,92,246,0.3);
 }
 
 .reveal {
   opacity: 0;
-  transform: translateY(10px);
-  transition: .6s ease;
+  transform: translateY(30px);
+  transition: 0.8s ease;
 }
 
 .reveal.active {
   opacity: 1;
   transform: none;
 }
+
+.delay-1 { transition-delay: .2s; }
+.delay-2 { transition-delay: .4s; }
+.delay-3 { transition-delay: .6s; }
