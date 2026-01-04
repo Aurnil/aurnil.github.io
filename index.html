@@ -1,316 +1,260 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
 
+<!-- ICONS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
+<!-- FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
 <style>
-/* =====================
-   ROOT & RESET
-===================== */
-:root {
-  --bg-main: #07090f;
-  --bg-deep: #0b0f1d;
-  --accent: #7c6cff;
-  --text-main: #e6e8f0;
-  --text-muted: #a0a4b8;
+:root{
+  --bg:#05060b;
+  --panel:#0c1122;
+  --text:#e6e8f2;
+  --muted:#9aa1c7;
+  --accent:#6f7cff;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* RESET */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:radial-gradient(1200px 600px at 10% 10%,#0c1230,transparent),
+             radial-gradient(900px 500px at 90% 80%,#120b2f,transparent),
+             var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
 }
 
-body {
-  background: radial-gradient(1200px 600px at 20% 10%, #12162b, transparent),
-              radial-gradient(800px 500px at 80% 80%, #0a0e22, transparent),
-              var(--bg-main);
-  color: var(--text-main);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  overflow-x: hidden;
-}
-
-/* =====================
-   DEPTH BACKGROUND
-===================== */
-.bg-geometry {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: -1;
-}
-
-.bg-geometry::before,
-.bg-geometry::after {
-  content: "";
-  position: absolute;
-  inset: -50%;
+/* BACKGROUND GRID */
+.bg-grid{
+  position:fixed;
+  inset:0;
   background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(124,108,255,0.06) 0px,
-      rgba(124,108,255,0.06) 1px,
-      transparent 1px,
-      transparent 80px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      rgba(124,108,255,0.04) 0px,
-      rgba(124,108,255,0.04) 1px,
-      transparent 1px,
-      transparent 120px
-    );
-  animation: drift 60s linear infinite;
+    linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:radial-gradient(circle at 50% 50%,black 40%,transparent 70%);
+  pointer-events:none;
+  z-index:-2;
 }
 
-.bg-geometry::after {
-  animation-direction: reverse;
-  opacity: 0.4;
+/* FLOATING SHAPES */
+.shape{
+  position:fixed;
+  border:1px solid rgba(111,124,255,.35);
+  box-shadow:0 0 30px rgba(111,124,255,.15);
+  opacity:.35;
+  animation:float 18s linear infinite;
+}
+.shape.cpu{width:180px;height:120px;top:20%;left:8%}
+.shape.board{width:260px;height:180px;bottom:15%;right:10%;animation-duration:26s}
+
+@keyframes float{
+  from{transform:translateY(0) rotate(0deg)}
+  to{transform:translateY(-120px) rotate(12deg)}
 }
 
-@keyframes drift {
-  from { transform: translate3d(0,0,0) rotate(0deg); }
-  to { transform: translate3d(200px,200px,0) rotate(360deg); }
+/* NAV */
+.nav{
+  max-width:1200px;
+  margin:auto;
+  padding:24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:28px;
+  font-weight:500;
+}
+.nav a:hover{color:var(--accent)}
+
+/* HERO */
+.hero{
+  max-width:1200px;
+  margin:80px auto 120px;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:1.1fr .9fr;
+  gap:60px;
+  align-items:center;
+}
+.hero h1{
+  font-size:56px;
+  line-height:1.05;
+  margin:0;
+}
+.hero h2{
+  color:var(--accent);
+  font-weight:600;
+  margin:12px 0 24px;
+}
+.hero p{
+  color:var(--muted);
+  max-width:520px;
+  line-height:1.7;
+}
+.hero-card{
+  height:360px;
+  background:linear-gradient(135deg,#0c1128,#080b18);
+  border:1px solid rgba(111,124,255,.3);
+  box-shadow:0 40px 120px rgba(0,0,0,.6),
+             inset 0 0 60px rgba(111,124,255,.08);
+  transform:perspective(800px) rotateY(-6deg);
 }
 
-/* =====================
-   LAYOUT HELPERS
-===================== */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+/* SOCIAL ICONS */
+.socials{
+  margin-top:32px;
+  display:flex;
+  gap:18px;
+}
+.socials a{
+  width:44px;height:44px;
+  display:grid;place-items:center;
+  border:1px solid rgba(111,124,255,.4);
+  color:var(--accent);
+  text-decoration:none;
+  transition:.3s;
+}
+.socials a:hover{
+  background:rgba(111,124,255,.15);
+  box-shadow:0 0 30px rgba(111,124,255,.4);
 }
 
-section {
-  padding: 120px 0;
+/* SECTIONS */
+.section{
+  max-width:1200px;
+  margin:120px auto;
+  padding:0 24px;
+}
+.section h3{
+  font-size:34px;
+  margin-bottom:40px;
 }
 
-/* =====================
-   HERO
-===================== */
-.hero {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 80px;
-  align-items: center;
+/* CARDS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:32px;
+}
+.card{
+  background:linear-gradient(180deg,#0d132a,#070b18);
+  padding:28px;
+  border:1px solid rgba(111,124,255,.25);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  transition:.35s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 40px 100px rgba(111,124,255,.25);
+}
+.card span{
+  color:var(--accent);
+  font-size:13px;
+}
+.card h4{margin:14px 0}
+.card p{color:var(--muted);line-height:1.6}
+
+/* BIO */
+.bio{
+  max-width:800px;
+  margin:auto;
+  text-align:center;
+  color:var(--muted);
+  line-height:1.8;
 }
 
-.hero h1 {
-  font-size: clamp(3rem, 5vw, 4.5rem);
-  line-height: 1.05;
-  margin-bottom: 20px;
-}
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(40px);transition:1s ease}
+.reveal.show{opacity:1;transform:none}
 
-.hero h2 {
-  font-size: 1.2rem;
-  color: var(--accent);
-  letter-spacing: 1px;
-  margin-bottom: 24px;
-}
-
-.hero p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-  max-width: 520px;
-}
-
-.hero-image {
-  position: relative;
-  aspect-ratio: 4 / 5;
-  border-radius: 18px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #141a3a, #0a0f2a);
-  box-shadow: 0 40px 120px rgba(0,0,0,0.6);
-}
-
-.hero-image::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border: 1px solid rgba(124,108,255,0.4);
-  box-shadow: inset 0 0 40px rgba(124,108,255,0.25);
-}
-
-.hero-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* =====================
-   CARDS
-===================== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 40px;
-}
-
-.card {
-  background: linear-gradient(180deg, #0f1430, #0a0e22);
-  border-radius: 18px;
-  overflow: hidden;
-  transform-style: preserve-3d;
-  transition: transform .4s ease, box-shadow .4s ease;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 50px 120px rgba(124,108,255,0.25);
-}
-
-.card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.card-content {
-  padding: 24px;
-}
-
-.card h3 {
-  margin-bottom: 10px;
-}
-
-.card p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
-}
-
-/* =====================
-   BIO
-===================== */
-.bio {
-  max-width: 720px;
-}
-
-.bio p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--text-muted);
-}
-
-/* =====================
-   FOOTER
-===================== */
-footer {
-  padding: 80px 0;
-  text-align: center;
-  color: var(--text-muted);
-  border-top: 1px solid rgba(124,108,255,0.15);
-}
-
-/* =====================
-   SCROLL ANIMATION
-===================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 1s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* =====================
-   RESPONSIVE
-===================== */
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
+/* FOOTER */
+footer{
+  padding:60px 24px;
+  text-align:center;
+  color:#6b7196;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-geometry"></div>
+<div class="bg-grid"></div>
+<div class="shape cpu"></div>
+<div class="shape board"></div>
 
-<!-- HERO -->
-<section>
-  <div class="container hero reveal">
-    <div>
-      <h2>TECHNOLOGY CONTENT SPECIALIST</h2>
-      <h1>Ahnaf Hassan Aurnil</h1>
-      <p>
-        I write deep, technically accurate content on PC hardware,
-        artificial intelligence, and modern computing for businesses,
-        publications, and tech-focused brands.
-      </p>
-    </div>
-    <div class="hero-image">
-      <img src="images/hero.jpg" alt="Ahnaf">
-    </div>
-  </div>
-</section>
+<header class="nav reveal">
+  <strong>AURNIL</strong>
+  <nav>
+    <a href="#">Articles</a>
+    <a href="#">Blog</a>
+  </nav>
+</header>
 
-<!-- ARTICLES -->
-<section>
-  <div class="container reveal">
-    <h2 style="margin-bottom:40px;">Featured Articles</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="images/article1.jpg">
-        <div class="card-content">
-          <h3>How Modern CPUs Actually Work</h3>
-          <p>A deep dive into modern processor architecture and performance scaling.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/article2.jpg">
-        <div class="card-content">
-          <h3>AI Hardware Explained</h3>
-          <p>Understanding NPUs, GPUs, and why AI workloads are changing PCs.</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/article3.jpg">
-        <div class="card-content">
-          <h3>Choosing the Right Laptop</h3>
-          <p>A technical breakdown for professionals, not marketing fluff.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BIO -->
-<section>
-  <div class="container bio reveal">
-    <h2 style="margin-bottom:24px;">About Me</h2>
+<section class="hero reveal">
+  <div>
+    <h1>Ahnaf Hassan Aurnil</h1>
+    <h2>Technology Content Specialist</h2>
     <p>
-      I’m a technology-focused writer specializing in PC hardware,
-      artificial intelligence, and performance analysis. My work
-      prioritizes clarity, technical accuracy, and real-world value.
-      I help readers and businesses understand complex systems without
-      oversimplification or hype.
+      I write structured, research-driven content on PC hardware, AI systems,
+      and modern computing — built for professionals, not hype.
     </p>
+
+    <div class="socials">
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fa-solid fa-briefcase"></i></a>
+    </div>
   </div>
+
+  <div class="hero-card"></div>
+</section>
+
+<section class="section reveal">
+  <h3>Latest Work</h3>
+  <div class="grid">
+    <div class="card">
+      <span>CPU · Architecture</span>
+      <h4>Why Cache Matters More Than Clock Speed</h4>
+      <p>Understanding real-world performance beyond spec sheets.</p>
+    </div>
+    <div class="card">
+      <span>AI · Systems</span>
+      <h4>Memory Bandwidth Is the Real AI Bottleneck</h4>
+      <p>Why compute alone doesn’t scale modern workloads.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal bio">
+  <p>
+    My focus is precision: translating complex systems into content that is
+    clear, credible, and useful. I work at the intersection of hardware,
+    artificial intelligence, and future-facing compute.
+  </p>
 </section>
 
 <footer>
-  © 2026 — Ahnaf Hassan Aurnil
+  © 2026 Ahnaf Hassan Aurnil
 </footer>
 
 <script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-    }
-  });
-});
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>e.isIntersecting&&e.target.classList.add('show'))
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 
 </body>
-          </html>
+</html>
