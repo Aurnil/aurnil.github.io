@@ -5,17 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
 
-<!-- ICONS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#05060b;
   --panel:#0b1020;
-  --panel-2:#0f1630;
+  --panel2:#0f1630;
   --text:#e7e9f4;
   --muted:#9aa3c7;
   --accent:#6f7cff;
@@ -27,40 +23,23 @@ body{
   margin:0;
   font-family:Inter,system-ui,sans-serif;
   background:
-    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
-    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
+    radial-gradient(900px 500px at 20% 10%,#10174a,transparent),
+    radial-gradient(900px 500px at 80% 85%,#1a1140,transparent),
     var(--bg);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* TECH GRID BACKGROUND */
+/* BACKGROUND GRID */
 .bg-grid{
   position:fixed;
   inset:0;
   background:
-    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
   background-size:90px 90px;
   mask-image:radial-gradient(circle at 50% 40%,black 45%,transparent 70%);
-  z-index:-3;
-  pointer-events:none;
-}
-
-/* ABSTRACT TECH SHAPES */
-.shape{
-  position:fixed;
-  border:1px solid rgba(111,124,255,.25);
-  box-shadow:0 0 40px rgba(111,124,255,.15);
-  opacity:.35;
-  animation:drift 22s linear infinite;
-}
-.shape.cpu{width:200px;height:120px;top:18%;left:6%}
-.shape.bus{width:280px;height:160px;bottom:12%;right:8%;animation-duration:30s}
-
-@keyframes drift{
-  from{transform:translateY(0) rotate(0deg)}
-  to{transform:translateY(-140px) rotate(14deg)}
+  z-index:-2;
 }
 
 /* NAV */
@@ -73,7 +52,7 @@ body{
   align-items:center;
 }
 .nav strong{
-  letter-spacing:.12em;
+  letter-spacing:.14em;
   font-size:14px;
 }
 .nav a{
@@ -87,10 +66,10 @@ body{
 /* HERO */
 .hero{
   max-width:1200px;
-  margin:90px auto 140px;
+  margin:90px auto 160px;
   padding:0 24px;
   display:grid;
-  grid-template-columns:1.2fr .8fr;
+  grid-template-columns:1.1fr .9fr;
   gap:80px;
   align-items:center;
 }
@@ -101,109 +80,109 @@ body{
   font-weight:900;
 }
 .hero h2{
-  color:var(--accent);
-  font-size:20px;
+  margin:18px 0 28px;
+  font-size:22px;
   font-weight:600;
-  margin:16px 0 28px;
+  color:var(--accent);
 }
 .hero p{
-  color:var(--muted);
   max-width:560px;
-  line-height:1.75;
+  color:var(--muted);
   font-size:16px;
+  line-height:1.8;
 }
-.hero-visual{
-  height:380px;
+
+/* HERO IMAGE FRAME */
+.hero-photo{
+  height:420px;
   background:
-    linear-gradient(135deg,#0e1435,#080b18);
-  border:1px solid rgba(111,124,255,.35);
+    linear-gradient(135deg,#11184a,#080b18);
+  border:1px solid rgba(111,124,255,.45);
   box-shadow:
-    0 50px 140px rgba(0,0,0,.7),
-    inset 0 0 80px rgba(111,124,255,.08);
-  transform:perspective(900px) rotateY(-8deg);
-}
-
-/* SOCIAL */
-.socials{
-  margin-top:36px;
+    0 60px 160px rgba(0,0,0,.75),
+    inset 0 0 80px rgba(111,124,255,.12);
   display:flex;
-  gap:18px;
-}
-.socials a{
-  width:46px;height:46px;
-  display:grid;place-items:center;
-  border:1px solid rgba(111,124,255,.4);
-  color:var(--accent);
-  transition:.35s;
-}
-.socials a:hover{
-  background:rgba(111,124,255,.12);
-  box-shadow:0 0 35px rgba(111,124,255,.45);
+  align-items:center;
+  justify-content:center;
+  color:#7c84c9;
+  font-size:14px;
+  letter-spacing:.08em;
 }
 
-/* SECTION */
+/* SECTIONS */
 .section{
   max-width:1200px;
-  margin:140px auto;
+  margin:160px auto;
   padding:0 24px;
 }
+.section.panel{
+  background:linear-gradient(180deg,var(--panel2),var(--panel));
+  padding:100px 24px;
+}
 .section h3{
-  font-size:38px;
-  margin-bottom:56px;
+  font-size:40px;
+  margin-bottom:64px;
   font-weight:800;
 }
 
-/* CARD GRID */
+/* ARTICLE CARDS */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  grid-template-columns:repeat(2,1fr);
   gap:40px;
 }
 .card{
-  background:linear-gradient(180deg,var(--panel-2),var(--panel));
-  padding:32px;
-  border:1px solid rgba(111,124,255,.28);
-  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  background:linear-gradient(180deg,#111842,#0b1020);
+  border:1px solid rgba(111,124,255,.3);
+  box-shadow:0 30px 90px rgba(0,0,0,.7);
   transition:.4s;
+  overflow:hidden;
 }
 .card:hover{
-  transform:translateY(-12px);
-  box-shadow:0 50px 120px rgba(111,124,255,.28);
+  transform:translateY(-10px);
+  box-shadow:0 50px 120px rgba(111,124,255,.35);
 }
-.card span{
-  color:var(--accent);
+.card-img{
+  height:160px;
+  background:linear-gradient(135deg,#1a2270,#0b1020);
+}
+.card-body{
+  padding:28px;
+}
+.card-body span{
   font-size:12px;
-  letter-spacing:.08em;
+  letter-spacing:.1em;
+  color:var(--accent);
 }
-.card h4{
-  margin:18px 0 14px;
-  font-size:20px;
+.card-body h4{
+  margin:16px 0 12px;
+  font-size:22px;
 }
-.card p{
-  color:var(--muted);
-  line-height:1.7;
+.card-body p{
   font-size:15px;
+  line-height:1.7;
+  color:var(--muted);
 }
 
-/* BIO */
-.bio{
+/* ABOUT */
+.about{
   max-width:880px;
   margin:auto;
   text-align:center;
   font-size:16px;
   color:var(--muted);
-  line-height:1.85;
+  line-height:1.9;
 }
 
 /* FOOTER */
 footer{
-  padding:80px 24px;
+  padding:90px 24px;
   text-align:center;
   color:#6b7196;
   font-size:13px;
 }
 
-/* SCROLL ANIM */
+/* REVEAL ANIMATION */
 .reveal{
   opacity:0;
   transform:translateY(40px);
@@ -213,83 +192,89 @@ footer{
   opacity:1;
   transform:none;
 }
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero{
+    grid-template-columns:1fr;
+    gap:60px;
+  }
+  .grid{
+    grid-template-columns:1fr;
+  }
+  .hero h1{font-size:48px}
+}
 </style>
 </head>
 
 <body>
 
 <div class="bg-grid"></div>
-<div class="shape cpu"></div>
-<div class="shape bus"></div>
 
 <header class="nav reveal">
   <strong>AURNIL</strong>
   <nav>
-    <a href="#">ARTICLES</a>
-    <a href="#">BLOG</a>
+    <a href="articles.html">ARTICLES</a>
+    <a href="blog.html">BLOG</a>
   </nav>
 </header>
 
-<section class="hero reveal">
-  <div>
+<section class="hero">
+  <div class="reveal">
     <h1>Ahnaf Hassan Aurnil</h1>
-    <h2>Technology Content Specialist</h2>
+    <h2>Explaining PC Hardware & AI Systems with Precision</h2>
     <p>
-      I create structured, research-driven content on PC hardware,
-      AI systems, and modern computing — translating complex
-      architectures into clear, credible insights for professionals.
+      Technology content specialist focused on PC hardware architecture,
+      AI systems, and performance analysis — translating complex systems
+      into structured, professional insight.
     </p>
-
-    <div class="socials">
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fa-solid fa-briefcase"></i></a>
-    </div>
   </div>
 
-  <div class="hero-visual"></div>
+  <div class="hero-photo reveal">
+    PROFESSIONAL PHOTO
+  </div>
+</section>
+
+<section class="section panel reveal">
+  <h3>Featured Articles</h3>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-img"></div>
+      <div class="card-body">
+        <span>CPU ARCHITECTURE</span>
+        <h4>Why Cache Hierarchy Beats Raw Clock Speed</h4>
+        <p>
+          A systems-level explanation of latency, cache tiers,
+          and real-world CPU performance.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-img"></div>
+      <div class="card-body">
+        <span>AI SYSTEMS</span>
+        <h4>Memory Bandwidth: The Real AI Bottleneck</h4>
+        <p>
+          Why modern AI workloads stall long before compute limits
+          are reached.
+        </p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="section reveal">
-  <h3>Featured Writing</h3>
-  <div class="grid">
-    <div class="card">
-      <span>CPU ARCHITECTURE</span>
-      <h4>Why Cache Hierarchy Matters More Than Clock Speed</h4>
-      <p>
-        A practical breakdown of latency, cache design, and
-        real-world performance beyond marketing numbers.
-      </p>
-    </div>
-
-    <div class="card">
-      <span>AI SYSTEMS</span>
-      <h4>Memory Bandwidth Is the Real AI Bottleneck</h4>
-      <p>
-        Understanding why modern AI workloads stall long before
-        compute limits are reached.
-      </p>
-    </div>
-
-    <div class="card">
-      <span>HARDWARE ANALYSIS</span>
-      <h4>Desktop vs Mobile Silicon: The Trade-offs That Matter</h4>
-      <p>
-        Power, thermals, and sustained performance explained
-        from a systems perspective.
-      </p>
-    </div>
+  <div class="about">
+    <p>
+      My work focuses on accuracy, clarity, and technical depth.
+      I write for readers who care how systems actually behave —
+      not just how they are marketed. This site serves as a
+      professional archive of my research-driven writing on
+      modern computing.
+    </p>
   </div>
-</section>
-
-<section class="section reveal bio">
-  <p>
-    My work focuses on clarity, precision, and technical depth.
-    I specialize in explaining how hardware and AI systems
-    actually behave — not just how they are marketed.
-    This site serves as a professional archive of my analysis,
-    research-driven articles, and long-form technical writing.
-  </p>
 </section>
 
 <footer>
@@ -299,8 +284,8 @@ footer{
 <script>
 const obs=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('show')
-  })
+    if(e.isIntersecting) e.target.classList.add('show');
+  });
 },{threshold:.15});
 
 document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
