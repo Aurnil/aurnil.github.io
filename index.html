@@ -1,294 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-
 <style>
-:root{
-  --bg:#05060b;
-  --panel:#0b1020;
-  --panel2:#0f1630;
-  --text:#e7e9f4;
-  --muted:#9aa3c7;
-  --accent:#6f7cff;
+:root {
+  --bg-main: #05070d;
+  --bg-panel: #0b1020;
+  --accent: #6ae3ff;
+  --text-main: #e6ebf2;
+  --text-muted: #9aa3b2;
 }
 
-/* RESET */
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,system-ui,sans-serif;
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  background: radial-gradient(1200px 600px at 70% -10%, #101a3a 0%, transparent 60%),
+              radial-gradient(900px 500px at -10% 30%, #0a1230 0%, transparent 60%),
+              var(--bg-main);
+  color: var(--text-main);
+  overflow-x: hidden;
+}
+
+/* ---------- GLOBAL ---------- */
+section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 100px 24px;
+}
+
+h1, h2, h3 {
+  margin: 0 0 16px;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 2.2rem;
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.hero-tag {
+  color: var(--accent);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 16px;
+}
+
+.hero-cta {
+  margin-top: 32px;
+  display: inline-block;
+  padding: 14px 26px;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.hero-cta:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.hero-visual {
+  position: relative;
+  aspect-ratio: 1 / 1.1;
+  border-radius: 20px;
   background:
-    radial-gradient(900px 500px at 20% 10%,#10174a,transparent),
-    radial-gradient(900px 500px at 80% 85%,#1a1140,transparent),
-    var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
-
-/* BACKGROUND GRID */
-.bg-grid{
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:90px 90px;
-  mask-image:radial-gradient(circle at 50% 40%,black 45%,transparent 70%);
-  z-index:-2;
-}
-
-/* NAV */
-.nav{
-  max-width:1200px;
-  margin:auto;
-  padding:28px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.nav strong{
-  letter-spacing:.14em;
-  font-size:14px;
-}
-.nav a{
-  color:var(--muted);
-  text-decoration:none;
-  margin-left:32px;
-  font-size:14px;
-}
-.nav a:hover{color:var(--accent)}
-
-/* HERO */
-.hero{
-  max-width:1200px;
-  margin:90px auto 160px;
-  padding:0 24px;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:80px;
-  align-items:center;
-}
-.hero h1{
-  font-size:64px;
-  line-height:1.05;
-  margin:0;
-  font-weight:900;
-}
-.hero h2{
-  margin:18px 0 28px;
-  font-size:22px;
-  font-weight:600;
-  color:var(--accent);
-}
-.hero p{
-  max-width:560px;
-  color:var(--muted);
-  font-size:16px;
-  line-height:1.8;
-}
-
-/* HERO IMAGE FRAME */
-.hero-photo{
-  height:420px;
-  background:
-    linear-gradient(135deg,#11184a,#080b18);
-  border:1px solid rgba(111,124,255,.45);
+    linear-gradient(145deg, #0d1735, #050816);
   box-shadow:
-    0 60px 160px rgba(0,0,0,.75),
-    inset 0 0 80px rgba(111,124,255,.12);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:#7c84c9;
-  font-size:14px;
-  letter-spacing:.08em;
+    0 0 0 1px rgba(106,227,255,0.25),
+    0 40px 120px rgba(0,0,0,0.8);
 }
 
-/* SECTIONS */
-.section{
-  max-width:1200px;
-  margin:160px auto;
-  padding:0 24px;
-}
-.section.panel{
-  background:linear-gradient(180deg,var(--panel2),var(--panel));
-  padding:100px 24px;
-}
-.section h3{
-  font-size:40px;
-  margin-bottom:64px;
-  font-weight:800;
+.hero-visual::after {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: 14px;
+  border: 1px solid rgba(106,227,255,0.35);
 }
 
-/* ARTICLE CARDS */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:40px;
-}
-.card{
-  background:linear-gradient(180deg,#111842,#0b1020);
-  border:1px solid rgba(111,124,255,.3);
-  box-shadow:0 30px 90px rgba(0,0,0,.7);
-  transition:.4s;
-  overflow:hidden;
-}
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 50px 120px rgba(111,124,255,.35);
-}
-.card-img{
-  height:160px;
-  background:linear-gradient(135deg,#1a2270,#0b1020);
-}
-.card-body{
-  padding:28px;
-}
-.card-body span{
-  font-size:12px;
-  letter-spacing:.1em;
-  color:var(--accent);
-}
-.card-body h4{
-  margin:16px 0 12px;
-  font-size:22px;
-}
-.card-body p{
-  font-size:15px;
-  line-height:1.7;
-  color:var(--muted);
+/* ---------- CARDS ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
 }
 
-/* ABOUT */
-.about{
-  max-width:880px;
-  margin:auto;
-  text-align:center;
-  font-size:16px;
-  color:var(--muted);
-  line-height:1.9;
+.card {
+  background: linear-gradient(180deg, #0d1430, #070b18);
+  border-radius: 16px;
+  padding: 22px;
+  border: 1px solid rgba(106,227,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  transition: all 0.35s ease;
 }
 
-/* FOOTER */
-footer{
-  padding:90px 24px;
-  text-align:center;
-  color:#6b7196;
-  font-size:13px;
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
+  border-color: rgba(106,227,255,0.4);
 }
 
-/* REVEAL ANIMATION */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s cubic-bezier(.2,.8,.2,1);
-}
-.reveal.show{
-  opacity:1;
-  transform:none;
+.card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 16px;
 }
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero{
-    grid-template-columns:1fr;
-    gap:60px;
+.card h3 {
+  font-size: 1.2rem;
+}
+
+/* ---------- BIO ---------- */
+.bio {
+  background: linear-gradient(180deg, #0a0f25, #05070d);
+  border-radius: 20px;
+  padding: 60px;
+  border: 1px solid rgba(106,227,255,0.15);
+}
+
+/* ---------- SOCIAL ---------- */
+.socials {
+  display: flex;
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.socials a {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(106,227,255,0.3);
+  transition: all 0.3s ease;
+}
+
+.socials a:hover {
+  background: var(--accent);
+}
+
+.socials svg {
+  width: 20px;
+  height: 20px;
+  stroke: var(--accent);
+}
+
+.socials a:hover svg {
+  stroke: #000;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  text-align: center;
+  padding: 40px 20px 60px;
+  color: var(--text-muted);
+}
+
+/* ---------- MOBILE ---------- */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
   }
-  .grid{
-    grid-template-columns:1fr;
+
+  h1 {
+    font-size: 2.4rem;
   }
-  .hero h1{font-size:48px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg-grid"></div>
-
-<header class="nav reveal">
-  <strong>AURNIL</strong>
-  <nav>
-    <a href="articles.html">ARTICLES</a>
-    <a href="blog.html">BLOG</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="reveal">
+<!-- HERO -->
+<section class="hero fade">
+  <div>
+    <div class="hero-tag">Technology Content Specialist</div>
     <h1>Ahnaf Hassan Aurnil</h1>
-    <h2>Explaining PC Hardware & AI Systems with Precision</h2>
     <p>
-      Technology content specialist focused on PC hardware architecture,
-      AI systems, and performance analysis — translating complex systems
-      into structured, professional insight.
+      I write deep, research-driven content on PC hardware, AI systems,
+      and emerging compute technologies — translating complex engineering
+      into clarity for professionals and businesses.
     </p>
+    <a class="hero-cta" href="#">View Articles</a>
   </div>
 
-  <div class="hero-photo reveal">
-    PROFESSIONAL PHOTO
-  </div>
+  <div class="hero-visual"></div>
 </section>
 
-<section class="section panel reveal">
-  <h3>Featured Articles</h3>
-
-  <div class="grid">
+<!-- FEATURED ARTICLES -->
+<section class="fade">
+  <h2>Featured Articles</h2>
+  <div class="cards">
     <div class="card">
-      <div class="card-img"></div>
-      <div class="card-body">
-        <span>CPU ARCHITECTURE</span>
-        <h4>Why Cache Hierarchy Beats Raw Clock Speed</h4>
-        <p>
-          A systems-level explanation of latency, cache tiers,
-          and real-world CPU performance.
-        </p>
-      </div>
+      <img src="https://picsum.photos/600/400?random=1" alt="">
+      <h3>How CPU Architecture Impacts AI Workloads</h3>
+      <p>Breaking down cache, cores, and memory pipelines for modern AI tasks.</p>
     </div>
 
     <div class="card">
-      <div class="card-img"></div>
-      <div class="card-body">
-        <span>AI SYSTEMS</span>
-        <h4>Memory Bandwidth: The Real AI Bottleneck</h4>
-        <p>
-          Why modern AI workloads stall long before compute limits
-          are reached.
-        </p>
-      </div>
+      <img src="https://picsum.photos/600/400?random=2" alt="">
+      <h3>GPU Compute: Beyond Gaming</h3>
+      <p>A technical look at parallel compute, VRAM, and professional workloads.</p>
     </div>
   </div>
 </section>
 
-<section class="section reveal">
-  <div class="about">
+<!-- BIO -->
+<section class="fade">
+  <div class="bio">
+    <h2>About Me</h2>
     <p>
-      My work focuses on accuracy, clarity, and technical depth.
-      I write for readers who care how systems actually behave —
-      not just how they are marketed. This site serves as a
-      professional archive of my research-driven writing on
-      modern computing.
+      I’m a technology writer focused on the intersection of hardware and
+      artificial intelligence. My work is built on research, benchmarking,
+      and systems-level thinking — not surface-level trends. I write for
+      audiences who care about performance, architecture, and real-world impact.
     </p>
+
+    <div class="socials">
+      <!-- Twitter -->
+      <a href="#">
+        <svg fill="none" viewBox="0 0 24 24">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53A4.48 4.48 0 0016 3a4.48 4.48 0 00-4.47 4.47c0 .35.04.7.11 1.03A12.94 12.94 0 013 4s-4 9 5 13a13.07 13.07 0 01-8 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+
+      <!-- GitHub -->
+      <a href="#">
+        <svg fill="none" viewBox="0 0 24 24">
+          <path d="M12 1C5.92 1 1 5.92 1 12c0 4.87 3.16 9 7.55 10.46.55.1.75-.24.75-.53v-1.87c-3.07.67-3.72-1.48-3.72-1.48-.5-1.27-1.22-1.6-1.22-1.6-1-.68.08-.66.08-.66 1.1.08 1.68 1.14 1.68 1.14.98 1.68 2.56 1.2 3.18.92.1-.7.38-1.2.69-1.48-2.45-.28-5.02-1.23-5.02-5.47 0-1.21.43-2.2 1.13-2.98-.11-.28-.49-1.4.11-2.92 0 0 .93-.3 3.05 1.14a10.5 10.5 0 015.56 0C17.1 6.6 18 6.9 18 6.9c.6 1.52.22 2.64.11 2.92.7.78 1.13 1.77 1.13 2.98 0 4.25-2.58 5.19-5.04 5.46.39.34.74 1 .74 2.02v3c0 .3.2.64.76.53C19.84 21 23 16.87 23 12c0-6.08-4.92-11-11-11z"
+          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
   </div>
 </section>
 
 <footer>
-  © 2026 Ahnaf Hassan Aurnil · Technology Content Specialist
+  © 2026 Ahnaf Hassan Aurnil — Technology Content Specialist
 </footer>
 
 <script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('show');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
   });
-},{threshold:.15});
+}, { threshold: 0.15 });
 
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll(".fade").forEach(el => observer.observe(el));
 </script>
 
 </body>
