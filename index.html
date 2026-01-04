@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
 
 <!-- ICONS -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
 <!-- FONT -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
   --bg:#05060b;
-  --panel:#0c1122;
-  --text:#e6e8f2;
-  --muted:#9aa1c7;
+  --panel:#0b1020;
+  --panel-2:#0f1630;
+  --text:#e7e9f4;
+  --muted:#9aa3c7;
   --accent:#6f7cff;
 }
 
@@ -25,165 +26,192 @@
 body{
   margin:0;
   font-family:Inter,system-ui,sans-serif;
-  background:radial-gradient(1200px 600px at 10% 10%,#0c1230,transparent),
-             radial-gradient(900px 500px at 90% 80%,#120b2f,transparent),
-             var(--bg);
+  background:
+    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
+    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
+    var(--bg);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* BACKGROUND GRID */
+/* TECH GRID BACKGROUND */
 .bg-grid{
   position:fixed;
   inset:0;
   background:
-    linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
-  background-size:80px 80px;
-  mask-image:radial-gradient(circle at 50% 50%,black 40%,transparent 70%);
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:90px 90px;
+  mask-image:radial-gradient(circle at 50% 40%,black 45%,transparent 70%);
+  z-index:-3;
   pointer-events:none;
-  z-index:-2;
 }
 
-/* FLOATING SHAPES */
+/* ABSTRACT TECH SHAPES */
 .shape{
   position:fixed;
-  border:1px solid rgba(111,124,255,.35);
-  box-shadow:0 0 30px rgba(111,124,255,.15);
+  border:1px solid rgba(111,124,255,.25);
+  box-shadow:0 0 40px rgba(111,124,255,.15);
   opacity:.35;
-  animation:float 18s linear infinite;
+  animation:drift 22s linear infinite;
 }
-.shape.cpu{width:180px;height:120px;top:20%;left:8%}
-.shape.board{width:260px;height:180px;bottom:15%;right:10%;animation-duration:26s}
+.shape.cpu{width:200px;height:120px;top:18%;left:6%}
+.shape.bus{width:280px;height:160px;bottom:12%;right:8%;animation-duration:30s}
 
-@keyframes float{
+@keyframes drift{
   from{transform:translateY(0) rotate(0deg)}
-  to{transform:translateY(-120px) rotate(12deg)}
+  to{transform:translateY(-140px) rotate(14deg)}
 }
 
 /* NAV */
 .nav{
   max-width:1200px;
   margin:auto;
-  padding:24px;
+  padding:28px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
 }
+.nav strong{
+  letter-spacing:.12em;
+  font-size:14px;
+}
 .nav a{
   color:var(--muted);
   text-decoration:none;
-  margin-left:28px;
-  font-weight:500;
+  margin-left:32px;
+  font-size:14px;
 }
 .nav a:hover{color:var(--accent)}
 
 /* HERO */
 .hero{
   max-width:1200px;
-  margin:80px auto 120px;
+  margin:90px auto 140px;
   padding:0 24px;
   display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:60px;
+  grid-template-columns:1.2fr .8fr;
+  gap:80px;
   align-items:center;
 }
 .hero h1{
-  font-size:56px;
+  font-size:64px;
   line-height:1.05;
   margin:0;
+  font-weight:900;
 }
 .hero h2{
   color:var(--accent);
+  font-size:20px;
   font-weight:600;
-  margin:12px 0 24px;
+  margin:16px 0 28px;
 }
 .hero p{
   color:var(--muted);
-  max-width:520px;
-  line-height:1.7;
+  max-width:560px;
+  line-height:1.75;
+  font-size:16px;
 }
-.hero-card{
-  height:360px;
-  background:linear-gradient(135deg,#0c1128,#080b18);
-  border:1px solid rgba(111,124,255,.3);
-  box-shadow:0 40px 120px rgba(0,0,0,.6),
-             inset 0 0 60px rgba(111,124,255,.08);
-  transform:perspective(800px) rotateY(-6deg);
+.hero-visual{
+  height:380px;
+  background:
+    linear-gradient(135deg,#0e1435,#080b18);
+  border:1px solid rgba(111,124,255,.35);
+  box-shadow:
+    0 50px 140px rgba(0,0,0,.7),
+    inset 0 0 80px rgba(111,124,255,.08);
+  transform:perspective(900px) rotateY(-8deg);
 }
 
-/* SOCIAL ICONS */
+/* SOCIAL */
 .socials{
-  margin-top:32px;
+  margin-top:36px;
   display:flex;
   gap:18px;
 }
 .socials a{
-  width:44px;height:44px;
+  width:46px;height:46px;
   display:grid;place-items:center;
   border:1px solid rgba(111,124,255,.4);
   color:var(--accent);
-  text-decoration:none;
-  transition:.3s;
+  transition:.35s;
 }
 .socials a:hover{
-  background:rgba(111,124,255,.15);
-  box-shadow:0 0 30px rgba(111,124,255,.4);
+  background:rgba(111,124,255,.12);
+  box-shadow:0 0 35px rgba(111,124,255,.45);
 }
 
-/* SECTIONS */
+/* SECTION */
 .section{
   max-width:1200px;
-  margin:120px auto;
+  margin:140px auto;
   padding:0 24px;
 }
 .section h3{
-  font-size:34px;
-  margin-bottom:40px;
+  font-size:38px;
+  margin-bottom:56px;
+  font-weight:800;
 }
 
-/* CARDS */
+/* CARD GRID */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:32px;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:40px;
 }
 .card{
-  background:linear-gradient(180deg,#0d132a,#070b18);
-  padding:28px;
-  border:1px solid rgba(111,124,255,.25);
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-  transition:.35s;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  padding:32px;
+  border:1px solid rgba(111,124,255,.28);
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  transition:.4s;
 }
 .card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 40px 100px rgba(111,124,255,.25);
+  transform:translateY(-12px);
+  box-shadow:0 50px 120px rgba(111,124,255,.28);
 }
 .card span{
   color:var(--accent);
-  font-size:13px;
+  font-size:12px;
+  letter-spacing:.08em;
 }
-.card h4{margin:14px 0}
-.card p{color:var(--muted);line-height:1.6}
+.card h4{
+  margin:18px 0 14px;
+  font-size:20px;
+}
+.card p{
+  color:var(--muted);
+  line-height:1.7;
+  font-size:15px;
+}
 
 /* BIO */
 .bio{
-  max-width:800px;
+  max-width:880px;
   margin:auto;
   text-align:center;
+  font-size:16px;
   color:var(--muted);
-  line-height:1.8;
+  line-height:1.85;
 }
-
-/* SCROLL REVEAL */
-.reveal{opacity:0;transform:translateY(40px);transition:1s ease}
-.reveal.show{opacity:1;transform:none}
 
 /* FOOTER */
 footer{
-  padding:60px 24px;
+  padding:80px 24px;
   text-align:center;
   color:#6b7196;
+  font-size:13px;
+}
+
+/* SCROLL ANIM */
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:1s cubic-bezier(.2,.8,.2,1);
+}
+.reveal.show{
+  opacity:1;
+  transform:none;
 }
 </style>
 </head>
@@ -192,13 +220,13 @@ footer{
 
 <div class="bg-grid"></div>
 <div class="shape cpu"></div>
-<div class="shape board"></div>
+<div class="shape bus"></div>
 
 <header class="nav reveal">
   <strong>AURNIL</strong>
   <nav>
-    <a href="#">Articles</a>
-    <a href="#">Blog</a>
+    <a href="#">ARTICLES</a>
+    <a href="#">BLOG</a>
   </nav>
 </header>
 
@@ -207,8 +235,9 @@ footer{
     <h1>Ahnaf Hassan Aurnil</h1>
     <h2>Technology Content Specialist</h2>
     <p>
-      I write structured, research-driven content on PC hardware, AI systems,
-      and modern computing — built for professionals, not hype.
+      I create structured, research-driven content on PC hardware,
+      AI systems, and modern computing — translating complex
+      architectures into clear, credible insights for professionals.
     </p>
 
     <div class="socials">
@@ -218,42 +247,63 @@ footer{
     </div>
   </div>
 
-  <div class="hero-card"></div>
+  <div class="hero-visual"></div>
 </section>
 
 <section class="section reveal">
-  <h3>Latest Work</h3>
+  <h3>Featured Writing</h3>
   <div class="grid">
     <div class="card">
-      <span>CPU · Architecture</span>
-      <h4>Why Cache Matters More Than Clock Speed</h4>
-      <p>Understanding real-world performance beyond spec sheets.</p>
+      <span>CPU ARCHITECTURE</span>
+      <h4>Why Cache Hierarchy Matters More Than Clock Speed</h4>
+      <p>
+        A practical breakdown of latency, cache design, and
+        real-world performance beyond marketing numbers.
+      </p>
     </div>
+
     <div class="card">
-      <span>AI · Systems</span>
+      <span>AI SYSTEMS</span>
       <h4>Memory Bandwidth Is the Real AI Bottleneck</h4>
-      <p>Why compute alone doesn’t scale modern workloads.</p>
+      <p>
+        Understanding why modern AI workloads stall long before
+        compute limits are reached.
+      </p>
+    </div>
+
+    <div class="card">
+      <span>HARDWARE ANALYSIS</span>
+      <h4>Desktop vs Mobile Silicon: The Trade-offs That Matter</h4>
+      <p>
+        Power, thermals, and sustained performance explained
+        from a systems perspective.
+      </p>
     </div>
   </div>
 </section>
 
 <section class="section reveal bio">
   <p>
-    My focus is precision: translating complex systems into content that is
-    clear, credible, and useful. I work at the intersection of hardware,
-    artificial intelligence, and future-facing compute.
+    My work focuses on clarity, precision, and technical depth.
+    I specialize in explaining how hardware and AI systems
+    actually behave — not just how they are marketed.
+    This site serves as a professional archive of my analysis,
+    research-driven articles, and long-form technical writing.
   </p>
 </section>
 
 <footer>
-  © 2026 Ahnaf Hassan Aurnil
+  © 2026 Ahnaf Hassan Aurnil · Technology Content Specialist
 </footer>
 
 <script>
-const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>e.isIntersecting&&e.target.classList.add('show'))
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add('show')
+  })
 },{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 
 </body>
