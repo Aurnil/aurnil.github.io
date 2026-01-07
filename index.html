@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
 
+<!-- Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
 :root{
@@ -18,53 +21,52 @@
   --accent:#6f7cff;
 }
 
+/* RESET */
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Inter,system-ui,sans-serif;
   background:
-    radial-gradient(900px 420px at 15% 12%,#10174a,transparent),
-    radial-gradient(900px 520px at 85% 88%,#1a1140,transparent),
+    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
+    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
     var(--bg);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* BACKGROUND GRID */
+/* GRID BACKGROUND */
 .bg-grid{
   position:fixed;
   inset:0;
   background:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
   background-size:90px 90px;
-  mask-image:radial-gradient(circle at 50% 40%,black 46%,transparent 72%);
+  mask-image:radial-gradient(circle at 50% 40%,black 45%,transparent 70%);
   z-index:-3;
-  pointer-events:none;
 }
 
-/* FLOATING SHAPES */
+/* SHAPES */
 .shape{
   position:fixed;
-  border:1px solid rgba(111,124,255,.28);
-  box-shadow:0 0 40px rgba(111,124,255,.18);
+  border:1px solid rgba(111,124,255,.25);
+  box-shadow:0 0 40px rgba(111,124,255,.15);
   opacity:.35;
-  animation:drift 26s linear infinite;
+  animation:drift 24s linear infinite;
 }
-.shape.cpu{width:220px;height:130px;top:18%;left:6%}
-.shape.bus{width:300px;height:170px;bottom:12%;right:8%;animation-duration:34s}
+.shape.cpu{width:200px;height:120px;top:18%;left:6%}
+.shape.bus{width:280px;height:160px;bottom:12%;right:8%;animation-duration:32s}
 
 @keyframes drift{
   from{transform:translateY(0) rotate(0deg)}
-  to{transform:translateY(-160px) rotate(16deg)}
+  to{transform:translateY(-140px) rotate(14deg)}
 }
 
 /* NAV */
 .nav{
   max-width:1200px;
   margin:auto;
-  padding:32px 24px;
+  padding:28px 24px;
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -76,112 +78,110 @@ body{
 .nav a{
   color:var(--muted);
   text-decoration:none;
-  margin-left:36px;
+  margin-left:32px;
   font-size:14px;
   position:relative;
 }
 .nav a::after{
   content:"";
   position:absolute;
-  left:0;bottom:-6px;
-  width:0;height:1px;
+  left:0;
+  bottom:-6px;
+  width:0;
+  height:2px;
   background:var(--accent);
-  transition:.35s;
+  transition:.25s;
 }
-.nav a:hover{
-  color:var(--accent);
-}
-.nav a:hover::after{
-  width:100%;
-}
+.nav a:hover::after{width:100%}
+.nav a:hover{color:var(--accent)}
 
 /* HERO */
 .hero{
   max-width:1200px;
-  margin:120px auto 180px;
+  margin:110px auto 160px;
   padding:0 24px;
   display:grid;
-  grid-template-columns:1.25fr .75fr;
-  gap:96px;
+  grid-template-columns:1.2fr .8fr;
+  gap:90px;
   align-items:center;
 }
 .hero h1{
-  font-size:72px;
-  line-height:1.03;
-  margin:0;
+  font-size:clamp(3rem,6vw,4rem);
   font-weight:900;
+  line-height:1.05;
+  margin:0;
 }
 .hero h2{
   color:var(--accent);
-  font-size:22px;
+  font-size:20px;
   font-weight:600;
-  margin:18px 0 32px;
+  margin:18px 0 30px;
 }
 .hero p{
   color:var(--muted);
-  max-width:580px;
-  line-height:1.8;
+  max-width:640px;
+  line-height:1.75;
   font-size:16px;
 }
 .hero-visual{
   height:400px;
   background:linear-gradient(135deg,#0e1435,#080b18);
-  border:1px solid rgba(111,124,255,.38);
-  box-shadow:
-    0 60px 160px rgba(0,0,0,.75),
-    inset 0 0 90px rgba(111,124,255,.1);
+  border:1px solid rgba(111,124,255,.35);
+  box-shadow:0 50px 140px rgba(0,0,0,.7), inset 0 0 80px rgba(111,124,255,.08);
   transform:perspective(900px) rotateY(-8deg);
 }
 
-/* SOCIAL */
+/* SOCIALS */
 .socials{
-  margin-top:40px;
+  margin-top:42px;
   display:flex;
-  gap:20px;
+  gap:18px;
 }
 .socials a{
-  width:48px;height:48px;
+  width:46px;height:46px;
   display:grid;place-items:center;
-  border:1px solid rgba(111,124,255,.42);
+  border:1px solid rgba(111,124,255,.4);
   color:var(--accent);
-  transition:.35s;
+  transition:.3s;
 }
 .socials a:hover{
-  background:rgba(111,124,255,.14);
-  box-shadow:0 0 38px rgba(111,124,255,.5);
+  transform:translateY(-3px);
+  box-shadow:0 0 35px rgba(111,124,255,.45);
 }
 
 /* SECTION */
 .section{
   max-width:1200px;
-  margin:180px auto;
+  margin:160px auto;
   padding:0 24px;
 }
 .section h3{
-  font-size:40px;
+  font-size:36px;
   margin-bottom:64px;
   font-weight:800;
 }
 
-/* CARDS */
+/* ARTICLE GRID */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:44px;
+  gap:40px;
 }
+
+/* CLICKABLE CARD */
 .card{
   display:block;
   background:linear-gradient(180deg,var(--panel-2),var(--panel));
   padding:34px;
-  border:1px solid rgba(111,124,255,.3);
-  box-shadow:0 32px 90px rgba(0,0,0,.7);
+  border:1px solid rgba(111,124,255,.28);
+  box-shadow:0 30px 80px rgba(0,0,0,.65);
+  transition:.35s;
   text-decoration:none;
   color:inherit;
-  transition:.45s;
 }
 .card:hover{
-  transform:translateY(-14px);
-  box-shadow:0 60px 140px rgba(111,124,255,.32);
+  transform:translateY(-10px);
+  box-shadow:0 50px 120px rgba(111,124,255,.28);
 }
 .card span{
   color:var(--accent);
@@ -189,23 +189,23 @@ body{
   letter-spacing:.1em;
 }
 .card h4{
-  margin:20px 0 14px;
-  font-size:21px;
+  margin:18px 0 14px;
+  font-size:20px;
 }
 .card p{
   color:var(--muted);
-  line-height:1.75;
+  line-height:1.7;
   font-size:15px;
 }
 
 /* BIO */
 .bio{
-  max-width:900px;
+  max-width:880px;
   margin:auto;
   text-align:center;
   font-size:16px;
   color:var(--muted);
-  line-height:1.9;
+  line-height:1.85;
 }
 
 /* FOOTER */
@@ -216,25 +216,24 @@ footer{
   font-size:13px;
 }
 
-/* SCROLL ANIM */
+/* REVEAL */
 .reveal{
   opacity:0;
-  transform:translateY(44px);
-  transition:1.1s cubic-bezier(.2,.8,.2,1);
+  transform:translateY(36px);
+  transition:1s cubic-bezier(.2,.8,.2,1);
 }
 .reveal.show{
   opacity:1;
   transform:none;
 }
 
-/* MOBILE */
+/* RESPONSIVE */
 @media(max-width:900px){
   .hero{
     grid-template-columns:1fr;
-    gap:64px;
+    gap:70px;
   }
-  .hero h1{font-size:54px}
-  .section{margin:140px auto}
+  .hero-visual{height:300px}
 }
 </style>
 </head>
@@ -248,8 +247,8 @@ footer{
 <header class="nav reveal">
   <strong>AURNIL</strong>
   <nav>
-    <a href="articles.html">ARTICLES</a>
-    <a href="blog.html">BLOG</a>
+    <a href="#">ARTICLES</a>
+    <a href="#">BLOG</a>
   </nav>
 </header>
 
@@ -264,9 +263,9 @@ footer{
     </p>
 
     <div class="socials">
-      <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
-      <a href="#" target="_blank"><i class="fa-solid fa-briefcase"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fa-solid fa-briefcase"></i></a>
     </div>
   </div>
 
@@ -276,22 +275,22 @@ footer{
 <section class="section reveal">
   <h3>Featured Writing</h3>
   <div class="grid">
-    <a href="article-1.html" class="card">
+    <a href="#" class="card">
       <span>CPU ARCHITECTURE</span>
       <h4>Why Cache Hierarchy Matters More Than Clock Speed</h4>
-      <p>Latency, cache design, and real-world performance explained beyond marketing numbers.</p>
+      <p>Latency, cache design, and real-world performance beyond marketing numbers.</p>
     </a>
 
-    <a href="article-2.html" class="card">
+    <a href="#" class="card">
       <span>AI SYSTEMS</span>
       <h4>Memory Bandwidth Is the Real AI Bottleneck</h4>
-      <p>Why modern AI workloads stall long before raw compute limits are reached.</p>
+      <p>Why modern AI workloads stall long before compute limits are reached.</p>
     </a>
 
-    <a href="article-3.html" class="card">
+    <a href="#" class="card">
       <span>HARDWARE ANALYSIS</span>
       <h4>Desktop vs Mobile Silicon: The Trade-offs That Matter</h4>
-      <p>Power, thermals, and sustained performance from a systems-level perspective.</p>
+      <p>Power, thermals, and sustained performance from a systems perspective.</p>
     </a>
   </div>
 </section>
@@ -299,9 +298,8 @@ footer{
 <section class="section reveal bio">
   <p>
     My work focuses on clarity, precision, and technical depth.
-    I specialize in explaining how hardware and AI systems actually behave —
-    not just how they are marketed. This site serves as a professional archive
-    of my research-driven writing and technical analysis.
+    I specialize in explaining how hardware and AI systems
+    actually behave — not just how they are marketed.
   </p>
 </section>
 
