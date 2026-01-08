@@ -1,42 +1,205 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Articles</title>
-  <link rel="stylesheet" href="assets/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — Ahnaf Hassan Aurnil</title>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg:#05060b;
+  --panel:#0b1020;
+  --panel-2:#0f1630;
+  --text:#e7e9f4;
+  --muted:#9aa3c7;
+  --accent:#6f7cff;
+}
+
+/* RESET */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,system-ui,sans-serif;
+  background:
+    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
+    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
+    var(--bg);
+  color:var(--text);
+}
+
+/* NAV */
+.nav{
+  max-width:1100px;
+  margin:auto;
+  padding:28px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav strong{
+  letter-spacing:.18em;
+  font-size:13px;
+}
+.nav a{
+  color:var(--muted);
+  text-decoration:none;
+  margin-left:32px;
+  font-size:14px;
+}
+.nav a:hover{color:var(--accent)}
+
+/* PAGE HEADER */
+.page-header{
+  max-width:1100px;
+  margin:100px auto 80px;
+  padding:0 24px;
+}
+.page-header h1{
+  font-size:42px;
+  font-weight:800;
+  margin:0 0 16px;
+}
+.page-header p{
+  max-width:720px;
+  color:var(--muted);
+  line-height:1.75;
+  font-size:16px;
+}
+
+/* ARTICLES LIST */
+.articles{
+  max-width:1100px;
+  margin:auto;
+  padding:0 24px 140px;
+  display:flex;
+  flex-direction:column;
+  gap:36px;
+}
+
+/* ARTICLE ITEM */
+.article{
+  display:block;
+  padding:32px;
+  background:linear-gradient(180deg,var(--panel-2),var(--panel));
+  border:1px solid rgba(111,124,255,.22);
+  text-decoration:none;
+  color:inherit;
+  transition:.3s;
+}
+.article:hover{
+  transform:translateY(-4px);
+  border-color:rgba(111,124,255,.45);
+}
+
+.article-meta{
+  display:flex;
+  gap:14px;
+  font-size:12px;
+  letter-spacing:.08em;
+  color:var(--accent);
+  margin-bottom:14px;
+}
+
+.article h2{
+  font-size:22px;
+  font-weight:700;
+  margin:0 0 14px;
+  line-height:1.35;
+}
+
+.article p{
+  color:var(--muted);
+  font-size:15px;
+  line-height:1.75;
+  max-width:900px;
+}
+
+/* FOOTER */
+footer{
+  padding:80px 24px;
+  text-align:center;
+  color:#6b7196;
+  font-size:13px;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .page-header h1{font-size:34px}
+  .article{padding:26px}
+}
+</style>
 </head>
+
 <body>
 
-  
-<nav class="nav">
-  <div class="logo">Aurnil</div>
-  <div class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="blog.html">Blog</a>
-  </div>
-</nav>
+<header class="nav">
+  <strong>AURNIL</strong>
+  <nav>
+    <a href="index.html">HOME</a>
+    <a href="#">BLOG</a>
+  </nav>
+</header>
 
 <section class="page-header">
   <h1>Articles</h1>
-  <p>Professional, research-focused writing.</p>
+  <p>
+    Long-form technical writing focused on PC hardware architecture,
+    AI systems, and real-world performance analysis.
+    These articles prioritize clarity, accuracy, and systems-level understanding.
+  </p>
 </section>
 
-<section class="section">
-  <div class="card-grid">
-    <div class="card">
-      <img src="assets/images/article1.jpg">
-      <h4>AI Compute Bottlenecks</h4>
-      <p>Why software isn’t the only problem.</p>
-    </div>
+<section class="articles">
 
-    <div class="card">
-      <img src="assets/images/article2.jpg">
-      <h4>Memory Bandwidth Wars</h4>
-      <p>Where performance is actually lost.</p>
+  <!-- NEWEST -->
+  <a href="#" class="article">
+    <div class="article-meta">
+      <span>AI SYSTEMS</span>
+      <span>2026</span>
     </div>
-  </div>
+    <h2>Why Memory Bandwidth, Not Compute, Limits Modern AI Systems</h2>
+    <p>
+      An in-depth look at how data movement, memory hierarchy,
+      and bandwidth constraints shape real AI performance
+      more than raw compute capability.
+    </p>
+  </a>
+
+  <a href="#" class="article">
+    <div class="article-meta">
+      <span>CPU ARCHITECTURE</span>
+      <span>2025</span>
+    </div>
+    <h2>Cache Hierarchy Explained: Latency, Throughput, and Real Performance</h2>
+    <p>
+      Breaking down L1, L2, and L3 cache behavior and why
+      clock speed alone fails to represent modern CPU performance.
+    </p>
+  </a>
+
+  <a href="#" class="article">
+    <div class="article-meta">
+      <span>HARDWARE ANALYSIS</span>
+      <span>2025</span>
+    </div>
+    <h2>Desktop vs Mobile Silicon: Power, Thermals, and Sustained Workloads</h2>
+    <p>
+      A systems-level comparison of desktop and mobile processors,
+      focusing on power limits, thermal envelopes, and long-duration workloads.
+    </p>
+  </a>
+
 </section>
 
-<script src="assets/script.js"></script>
+<footer>
+  © 2026 Ahnaf Hassan Aurnil · Technology Content Specialist
+</footer>
+
 </body>
 </html>
