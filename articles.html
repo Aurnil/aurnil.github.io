@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Articles — Ahnaf Hassan Aurnil</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,7 +23,7 @@ body{
   margin:0;
   font-family:Inter,system-ui,sans-serif;
   background:
-    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
+    radial-gradient(900px 450px at 15% 10%,#10174a,transparent),
     radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
     var(--bg);
   color:var(--text);
@@ -50,7 +50,7 @@ body{
 }
 .nav a:hover{color:var(--accent)}
 
-/* PAGE HEADER */
+/* HEADER */
 .header{
   max-width:1100px;
   margin:110px auto 90px;
@@ -68,26 +68,27 @@ body{
   font-size:16px;
 }
 
-/* ARTICLES WRAPPER */
+/* ARTICLES */
 .articles{
   max-width:1100px;
   margin:auto;
   padding:0 24px 140px;
   display:flex;
   flex-direction:column;
-  gap:56px;
+  gap:64px;
 }
 
 /* ARTICLE CARD */
 .article{
   display:grid;
-  grid-template-columns:170px 1fr;
+  grid-template-columns:180px 1fr;
   gap:36px;
-  padding:36px;
+  padding:38px;
   background:linear-gradient(180deg,var(--panel-2),var(--panel));
   border:1px solid rgba(111,124,255,.22);
   text-decoration:none;
   color:inherit;
+  cursor:pointer;
   transition:
     transform .35s cubic-bezier(.2,.8,.2,1),
     box-shadow .35s cubic-bezier(.2,.8,.2,1),
@@ -109,7 +110,7 @@ body{
   border:1px solid rgba(111,124,255,.35);
   box-shadow:
     inset 0 0 40px rgba(111,124,255,.08),
-    0 10px 40px rgba(0,0,0,.6);
+    0 12px 40px rgba(0,0,0,.6);
 }
 
 /* CONTENT */
@@ -138,14 +139,6 @@ body{
   max-width:820px;
 }
 
-/* FOOTER */
-footer{
-  padding:80px 24px;
-  text-align:center;
-  color:#6b7196;
-  font-size:13px;
-}
-
 /* SCROLL REVEAL */
 .reveal{
   opacity:0;
@@ -157,10 +150,19 @@ footer{
   transform:none;
 }
 
+/* FOOTER */
+footer{
+  padding:80px 24px;
+  text-align:center;
+  color:#6b7196;
+  font-size:13px;
+}
+
 /* RESPONSIVE */
 @media(max-width:760px){
   .article{
     grid-template-columns:1fr;
+    gap:26px;
   }
   .thumb{
     height:170px;
@@ -185,30 +187,30 @@ footer{
 <section class="header reveal">
   <h1>Articles</h1>
   <p>
-    Long-form technical analysis on PC hardware, AI systems,
-    and modern computing — written with precision,
-    clarity, and professional intent.
+    Long-form technical writing on PC hardware, system architecture,
+    and artificial intelligence — written for clarity, depth, and credibility.
   </p>
 </section>
 
 <section class="articles">
 
-  <a href="article-1.html" class="article reveal">
+  <!-- NEWEST -->
+  <a href="article-ai-bandwidth.html" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
         <span>AI SYSTEMS</span>
         <span>2026</span>
       </div>
-      <h2>Why Memory Bandwidth Limits Modern AI Performance</h2>
+      <h2>Why Memory Bandwidth Is the Real AI Bottleneck</h2>
       <p>
-        A systems-level look at why data movement,
-        not compute, defines real-world AI throughput.
+        Compute scales fast — memory doesn’t. A systems-level look at
+        why data movement defines real-world AI performance.
       </p>
     </div>
   </a>
 
-  <a href="article-2.html" class="article reveal">
+  <a href="article-cache-hierarchy.html" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
@@ -217,13 +219,14 @@ footer{
       </div>
       <h2>Cache Hierarchy: Latency, Throughput, and Reality</h2>
       <p>
-        How modern CPUs behave beyond clock speeds,
-        and why cache design dominates performance.
+        Why clock speeds lie, how cache behavior shapes performance,
+        and what modern CPUs actually optimize for.
       </p>
     </div>
   </a>
 
-  <a href="article-3.html" class="article reveal">
+  <!-- OLDEST -->
+  <a href="article-mobile-vs-desktop.html" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
@@ -232,8 +235,8 @@ footer{
       </div>
       <h2>Desktop vs Mobile Silicon Under Sustained Load</h2>
       <p>
-        Power envelopes, thermal constraints,
-        and why benchmarks rarely tell the full story.
+        Thermal envelopes, power budgets, and why benchmarks
+        rarely reflect sustained real-world workloads.
       </p>
     </div>
   </a>
@@ -245,13 +248,13 @@ footer{
 </footer>
 
 <script>
-const obs=new IntersectionObserver(entries=>{
+const observer=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting) e.target.classList.add('show');
   });
 },{threshold:.15});
 
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 </script>
 
 </body>
