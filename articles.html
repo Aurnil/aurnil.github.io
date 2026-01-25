@@ -50,16 +50,16 @@ body{
 }
 .nav a:hover{color:var(--accent)}
 
-/* HEADER */
+/* PAGE HEADER */
 .header{
   max-width:1100px;
-  margin:110px auto 90px;
+  margin:110px auto 80px;
   padding:0 24px;
 }
 .header h1{
   font-size:44px;
   font-weight:800;
-  margin:0 0 18px;
+  margin:0 0 16px;
 }
 .header p{
   max-width:760px;
@@ -68,14 +68,14 @@ body{
   font-size:16px;
 }
 
-/* ARTICLES */
+/* ARTICLES LIST */
 .articles{
   max-width:1100px;
   margin:auto;
   padding:0 24px 140px;
   display:flex;
   flex-direction:column;
-  gap:64px;
+  gap:56px;
 }
 
 /* ARTICLE CARD */
@@ -83,7 +83,7 @@ body{
   display:grid;
   grid-template-columns:180px 1fr;
   gap:36px;
-  padding:38px;
+  padding:40px;
   background:linear-gradient(180deg,var(--panel-2),var(--panel));
   border:1px solid rgba(111,124,255,.22);
   text-decoration:none;
@@ -113,24 +113,20 @@ body{
     0 12px 40px rgba(0,0,0,.6);
 }
 
-/* CONTENT */
+/* ARTICLE CONTENT */
 .meta{
   display:flex;
   gap:16px;
   font-size:12px;
   letter-spacing:.08em;
   color:var(--accent);
-  margin-bottom:16px;
+  margin-bottom:14px;
 }
 .article h2{
-  font-size:22px;
+  font-size:24px;
   font-weight:700;
   margin:0 0 14px;
   line-height:1.35;
-  transition:color .3s;
-}
-.article:hover h2{
-  color:#ffffff;
 }
 .article p{
   color:var(--muted);
@@ -142,7 +138,7 @@ body{
 /* SCROLL REVEAL */
 .reveal{
   opacity:0;
-  transform:translateY(32px);
+  transform:translateY(28px);
   transition:1s cubic-bezier(.2,.8,.2,1);
 }
 .reveal.show{
@@ -165,7 +161,7 @@ footer{
     gap:26px;
   }
   .thumb{
-    height:170px;
+    height:180px;
   }
   .header h1{
     font-size:34px;
@@ -187,56 +183,56 @@ footer{
 <section class="header reveal">
   <h1>Articles</h1>
   <p>
-    Long-form technical writing on PC hardware, system architecture,
-    and artificial intelligence — written for clarity, depth, and credibility.
+    Long-form technical articles on hardware architecture, system design,
+    and applied artificial intelligence — written with clarity and depth.
   </p>
 </section>
 
 <section class="articles">
 
   <!-- NEWEST -->
-  <a href="article-ai-bandwidth.html" class="article reveal">
+  <a href="#" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
         <span>AI SYSTEMS</span>
-        <span>2026</span>
+        <span>JAN 2026</span>
       </div>
       <h2>Why Memory Bandwidth Is the Real AI Bottleneck</h2>
       <p>
-        Compute scales fast — memory doesn’t. A systems-level look at
-        why data movement defines real-world AI performance.
+        Compute scales fast, memory does not. A systems-level analysis
+        of why data movement defines real-world AI performance.
       </p>
     </div>
   </a>
 
-  <a href="article-cache-hierarchy.html" class="article reveal">
+  <a href="#" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
         <span>CPU ARCHITECTURE</span>
-        <span>2025</span>
+        <span>OCT 2025</span>
       </div>
       <h2>Cache Hierarchy: Latency, Throughput, and Reality</h2>
       <p>
-        Why clock speeds lie, how cache behavior shapes performance,
+        Why clock speeds mislead, how cache behavior shapes performance,
         and what modern CPUs actually optimize for.
       </p>
     </div>
   </a>
 
   <!-- OLDEST -->
-  <a href="article-mobile-vs-desktop.html" class="article reveal">
+  <a href="#" class="article reveal">
     <div class="thumb"></div>
     <div>
       <div class="meta">
         <span>HARDWARE ANALYSIS</span>
-        <span>2025</span>
+        <span>JUL 2025</span>
       </div>
       <h2>Desktop vs Mobile Silicon Under Sustained Load</h2>
       <p>
-        Thermal envelopes, power budgets, and why benchmarks
-        rarely reflect sustained real-world workloads.
+        Thermal limits, power envelopes, and why benchmarks fail
+        to reflect sustained real-world workloads.
       </p>
     </div>
   </a>
@@ -249,8 +245,10 @@ footer{
 
 <script>
 const observer=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('show');
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
   });
 },{threshold:.15});
 
