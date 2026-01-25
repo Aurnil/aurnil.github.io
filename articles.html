@@ -17,36 +17,49 @@
   --accent:#6f7cff;
 }
 
-/* ---------- BASE ---------- */
+/* ================= BASE ================= */
 *{box-sizing:border-box}
+html,body{margin:0;padding:0}
 
 body{
-  margin:0;
   font-family:Inter,system-ui,sans-serif;
   background:var(--bg);
   color:var(--text);
   overflow-x:hidden;
 }
 
-/* ---------- ANIMATED BACKGROUND LAYER ---------- */
-.bg-anim{
+/* ================= LIVING BACKGROUND ================= */
+.bg{
   position:fixed;
-  inset:0;
-  z-index:-1;
+  inset:-20%;
+  z-index:-2;
   background:
-    radial-gradient(900px 450px at 15% 10%,#10174a,transparent),
-    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
-    var(--bg);
-  animation:bgDrift 28s ease-in-out infinite alternate;
+    radial-gradient(900px 450px at 20% 10%,#10174a,transparent),
+    radial-gradient(800px 500px at 80% 90%,#1a1140,transparent);
+  animation:driftA 32s ease-in-out infinite alternate;
   will-change:transform;
 }
 
-@keyframes bgDrift{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(-40px,30px,0)}
+.bg::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(700px 400px at 60% 30%,#0c1240,transparent);
+  opacity:.6;
+  animation:driftB 46s ease-in-out infinite alternate;
 }
 
-/* ---------- NAV ---------- */
+@keyframes driftA{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(-60px,40px,0)}
+}
+@keyframes driftB{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(80px,-50px,0)}
+}
+
+/* ================= NAV ================= */
 .nav{
   max-width:1100px;
   margin:auto;
@@ -67,32 +80,29 @@ body{
 }
 .nav a:hover{color:var(--accent)}
 
-/* ---------- HEADER ---------- */
+/* ================= HEADER ================= */
 .header{
   max-width:1100px;
   margin:120px auto 90px;
   padding:0 24px;
-  opacity:0;
-  transform:translateY(22px);
-  transition:.8s cubic-bezier(.4,0,.2,1);
-}
-.header.show{
-  opacity:1;
-  transform:none;
 }
 .header h1{
   font-size:44px;
   font-weight:800;
   margin:0 0 18px;
+  opacity:0;
+  transform:translateY(26px);
 }
 .header p{
   max-width:760px;
   font-size:16px;
   line-height:1.8;
   color:var(--muted);
+  opacity:0;
+  transform:translateY(18px);
 }
 
-/* ---------- ARTICLES ---------- */
+/* ================= ARTICLES ================= */
 .articles{
   max-width:1100px;
   margin:auto;
@@ -102,44 +112,44 @@ body{
   gap:64px;
 }
 
-/* ---------- ARTICLE CARD ---------- */
+/* ================= ARTICLE CARD ================= */
 .article{
   display:grid;
   grid-template-columns:200px 1fr;
   gap:40px;
   padding:44px;
   background:linear-gradient(180deg,var(--panel-soft),var(--panel));
-  border:1px solid rgba(111,124,255,.18);
+  border:1px solid rgba(111,124,255,.16);
   border-radius:4px;
   text-decoration:none;
   color:inherit;
-  cursor:pointer;
 
   opacity:0;
-  transform:translateY(26px);
+  transform:translateY(32px) scale(.985);
   will-change:transform,opacity;
 
   transition:
     opacity .6s cubic-bezier(.4,0,.2,1),
     transform .6s cubic-bezier(.4,0,.2,1),
-    box-shadow .3s ease,
-    border-color .3s ease;
+    box-shadow .35s cubic-bezier(.2,.7,.2,1),
+    border-color .35s ease;
 }
 
 .article.show{
   opacity:1;
-  transform:translateY(0);
+  transform:none;
 }
 
 .article:hover{
-  transform:translateY(-4px);
-  border-color:rgba(111,124,255,.4);
+  transform:translateY(-6px) scale(1.003);
+  border-color:rgba(111,124,255,.45);
   box-shadow:
-    0 40px 120px rgba(0,0,0,.6),
-    0 0 0 1px rgba(111,124,255,.15);
+    0 60px 160px rgba(0,0,0,.65),
+    0 0 0 1px rgba(111,124,255,.18);
+  cursor:pointer;
 }
 
-/* ---------- THUMB ---------- */
+/* ================= THUMB ================= */
 .thumb{
   height:130px;
   background:linear-gradient(135deg,#0e1435,#080b18);
@@ -147,13 +157,13 @@ body{
   box-shadow:
     inset 0 0 40px rgba(111,124,255,.08),
     0 16px 50px rgba(0,0,0,.6);
-  transition:transform .4s ease;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1);
 }
 .article:hover .thumb{
-  transform:scale(1.04);
+  transform:scale(1.05);
 }
 
-/* ---------- CONTENT ---------- */
+/* ================= CONTENT ================= */
 .meta{
   display:flex;
   gap:18px;
@@ -174,7 +184,7 @@ body{
   max-width:820px;
 }
 
-/* ---------- FOOTER ---------- */
+/* ================= FOOTER ================= */
 footer{
   padding:80px 24px;
   text-align:center;
@@ -182,7 +192,7 @@ footer{
   color:#6b7196;
 }
 
-/* ---------- MOBILE ---------- */
+/* ================= MOBILE ================= */
 @media(max-width:820px){
   .article{
     grid-template-columns:1fr;
@@ -197,7 +207,7 @@ footer{
 
 <body>
 
-<div class="bg-anim"></div>
+<div class="bg"></div>
 
 <header class="nav">
   <strong>AURNIL</strong>
@@ -209,14 +219,10 @@ footer{
 
 <section class="header">
   <h1>Articles</h1>
-  <p>
-    In-depth technical writing on hardware architecture, system performance,
-    and applied artificial intelligence — focused on clarity and rigor.
-  </p>
+  <p>In-depth technical writing on hardware architecture, system performance, and applied artificial intelligence — focused on clarity and rigor.</p>
 </section>
 
 <section class="articles">
-
   <a href="#" class="article">
     <div class="thumb"></div>
     <div>
@@ -243,33 +249,36 @@ footer{
       <p>Thermal envelopes, sustained power limits, and why benchmarks often lie about long-term performance.</p>
     </div>
   </a>
-
 </section>
 
-<footer>
-  © 2026 Ahnaf Hassan Aurnil · Technology Content Specialist
-</footer>
+<footer>© 2026 Ahnaf Hassan Aurnil · Technology Content Specialist</footer>
 
 <script>
-/* Header load */
+/* Header entrance */
 window.addEventListener('load',()=>{
-  document.querySelector('.header').classList.add('show');
+  document.querySelector('.header h1').animate(
+    [{opacity:0,transform:'translateY(26px)'},{opacity:1,transform:'none'}],
+    {duration:800,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'}
+  );
+  document.querySelector('.header p').animate(
+    [{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'none'}],
+    {duration:900,delay:120,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'}
+  );
 });
 
 /* Scroll reveal */
 const cards=[...document.querySelectorAll('.article')];
-const observer=new IntersectionObserver(entries=>{
+const io=new IntersectionObserver(entries=>{
   entries.forEach(e=>{
     if(e.isIntersecting){
       const i=cards.indexOf(e.target);
-      e.target.style.transitionDelay=`${i*120}ms`;
+      e.target.style.transitionDelay=`${i*110}ms`;
       e.target.classList.add('show');
-      observer.unobserve(e.target);
+      io.unobserve(e.target);
     }
   });
-},{threshold:.15});
-
-cards.forEach(c=>observer.observe(c));
+},{threshold:.18});
+cards.forEach(c=>io.observe(c));
 </script>
 
 </body>
