@@ -1,320 +1,1809 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ahnaf Hassan Aurnil — Technology Content Specialist</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ahnaf Hassan Aurnill — Writer, Game Developer, and Software Engineer. Exploring the edges of code, creativity, and human experience." />
+  <meta name="theme-color" content="#1C1A18" />
+  <title>Ahnaf Hassan Aurnill</title>
 
-<!-- Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- ============================================================
+    FONT IMPORTS
+    Using Playfair Display for editorial display headings
+    and DM Sans for clean, readable body text.
+    Loaded via Google Fonts with preconnect for performance.
+  ============================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
 
-<!-- Font -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+      CSS CUSTOM PROPERTIES — DESIGN SYSTEM
+      All color tokens, spacing, typography, and motion values
+      are defined here. NEVER add new arbitrary colors inline.
+      Use these tokens everywhere for consistency.
+    ============================================================ */
+    :root {
+      /* --- COLOR TOKENS (warm dark palette) --- */
+      --color-bg-primary:       #1C1A18;  /* Main deep warm charcoal background */
+      --color-bg-secondary:     #24211E;  /* Section variation / card backgrounds */
+      --color-accent-primary:   #FF8C42;  /* Warm amber — CTAs, highlights, icons */
+      --color-accent-secondary: #E76F51;  /* Burnt orange — hover state accent */
+      --color-highlight:        #F4A261;  /* Soft gold — subtle accents, borders */
+      --color-text-primary:     #F1EDE6;  /* Cream — main body and heading text */
+      --color-text-secondary:   #CFC7BC;  /* Muted — captions, meta, subtext */
+      --color-border-subtle:    #2E2A26;  /* Low-contrast borders and dividers */
+      --color-shadow-warm:      rgba(255, 140, 66, 0.25); /* Warm glow for shadows */
 
-<style>
-:root{
-  --bg:#05060b;
-  --panel:#0b1020;
-  --panel-2:#0f1630;
-  --text:#e7e9f4;
-  --muted:#9aa3c7;
-  --accent:#6f7cff;
-}
+      /* --- TYPOGRAPHY SCALE --- */
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
 
-/* RESET */
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Inter,system-ui,sans-serif;
-  background:
-    radial-gradient(800px 400px at 15% 10%,#10174a,transparent),
-    radial-gradient(900px 500px at 85% 85%,#1a1140,transparent),
-    var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-}
+      --fs-xs:   0.75rem;   /* 12px */
+      --fs-sm:   0.875rem;  /* 14px */
+      --fs-base: 1rem;      /* 16px */
+      --fs-md:   1.125rem;  /* 18px */
+      --fs-lg:   1.25rem;   /* 20px */
+      --fs-xl:   1.5rem;    /* 24px */
+      --fs-2xl:  2rem;      /* 32px */
+      --fs-3xl:  2.75rem;   /* 44px */
+      --fs-4xl:  3.5rem;    /* 56px */
+      --fs-5xl:  4.5rem;    /* 72px */
 
-/* GRID BACKGROUND */
-.bg-grid{
-  position:fixed;
-  inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:90px 90px;
-  mask-image:radial-gradient(circle at 50% 40%,black 45%,transparent 70%);
-  z-index:-3;
-}
+      /* --- SPACING SCALE (base-8) --- */
+      --sp-1:  0.25rem;
+      --sp-2:  0.5rem;
+      --sp-3:  0.75rem;
+      --sp-4:  1rem;
+      --sp-5:  1.25rem;
+      --sp-6:  1.5rem;
+      --sp-8:  2rem;
+      --sp-10: 2.5rem;
+      --sp-12: 3rem;
+      --sp-16: 4rem;
+      --sp-20: 5rem;
+      --sp-24: 6rem;
 
-/* SHAPES */
-.shape{
-  position:fixed;
-  border:1px solid rgba(111,124,255,.25);
-  box-shadow:0 0 40px rgba(111,124,255,.15);
-  opacity:.35;
-  animation:drift 24s linear infinite;
-}
-.shape.cpu{width:200px;height:120px;top:18%;left:6%}
-.shape.bus{width:280px;height:160px;bottom:12%;right:8%;animation-duration:32s}
+      /* --- LAYOUT --- */
+      --max-width: 1200px;
+      --nav-height: 72px;
 
-@keyframes drift{
-  from{transform:translateY(0) rotate(0deg)}
-  to{transform:translateY(-140px) rotate(14deg)}
-}
+      /* --- MOTION SYSTEM
+        All animations use ONLY transform and opacity for GPU compositing.
+        This prevents layout thrashing and ensures 60fps performance.
+        Easing: cubic-bezier(0.4, 0, 0.2, 1) = Material "Standard" curve
+      ============================================================ */
+      --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+      --dur-fast:       150ms;
+      --dur-base:       300ms;
+      --dur-slow:       600ms;
 
-/* NAV */
-.nav{
-  max-width:1200px;
-  margin:auto;
-  padding:28px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-.nav strong{
-  letter-spacing:.18em;
-  font-size:13px;
-}
-.nav a{
-  color:var(--muted);
-  text-decoration:none;
-  margin-left:32px;
-  font-size:14px;
-  position:relative;
-}
-.nav a::after{
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-6px;
-  width:0;
-  height:2px;
-  background:var(--accent);
-  transition:.25s;
-}
-.nav a:hover::after{width:100%}
-.nav a:hover{color:var(--accent)}
+      /* --- BORDER RADIUS --- */
+      --radius-sm:   6px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-full: 9999px;
+    }
 
-/* HERO */
-.hero{
-  max-width:1200px;
-  margin:110px auto 160px;
-  padding:0 24px;
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:90px;
-  align-items:center;
-}
-.hero h1{
-  font-size:clamp(3rem,6vw,4rem);
-  font-weight:900;
-  line-height:1.05;
-  margin:0;
-}
-.hero h2{
-  color:var(--accent);
-  font-size:20px;
-  font-weight:600;
-  margin:18px 0 30px;
-}
-.hero p{
-  color:var(--muted);
-  max-width:640px;
-  line-height:1.75;
-  font-size:16px;
-}
-.hero-visual{
-  height:400px;
-  background:linear-gradient(135deg,#0e1435,#080b18);
-  border:1px solid rgba(111,124,255,.35);
-  box-shadow:0 50px 140px rgba(0,0,0,.7), inset 0 0 80px rgba(111,124,255,.08);
-  transform:perspective(900px) rotateY(-8deg);
-}
+    /* ============================================================
+      RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
 
-/* SOCIALS */
-.socials{
-  margin-top:42px;
-  display:flex;
-  gap:18px;
-}
-.socials a{
-  width:46px;height:46px;
-  display:grid;place-items:center;
-  border:1px solid rgba(111,124,255,.4);
-  color:var(--accent);
-  transition:.3s;
-}
-.socials a:hover{
-  transform:translateY(-3px);
-  box-shadow:0 0 35px rgba(111,124,255,.45);
-}
+    /* Warm scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-primary); }
 
-/* SECTION */
-.section{
-  max-width:1200px;
-  margin:160px auto;
-  padding:0 24px;
-}
-.section h3{
-  font-size:36px;
-  margin-bottom:64px;
-  font-weight:800;
-}
+    /* ============================================================
+      FOCUS STATES — WCAG AA
+    ============================================================ */
+    :focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
 
-/* ARTICLE GRID */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:40px;
-}
+    /* ============================================================
+      LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    @media (max-width: 768px) { .container { padding-inline: var(--sp-4); } }
 
-/* CLICKABLE CARD */
-.card{
-  display:block;
-  background:linear-gradient(180deg,var(--panel-2),var(--panel));
-  padding:34px;
-  border:1px solid rgba(111,124,255,.28);
-  box-shadow:0 30px 80px rgba(0,0,0,.65);
-  transition:.35s;
-  text-decoration:none;
-  color:inherit;
-}
-.card:hover{
-  transform:translateY(-10px);
-  box-shadow:0 50px 120px rgba(111,124,255,.28);
-}
-.card span{
-  color:var(--accent);
-  font-size:12px;
-  letter-spacing:.1em;
-}
-.card h4{
-  margin:18px 0 14px;
-  font-size:20px;
-}
-.card p{
-  color:var(--muted);
-  line-height:1.7;
-  font-size:15px;
-}
+    /* ============================================================
+      SCROLL REVEAL ANIMATION SYSTEM
+      Elements: opacity 0 + translateY(24px) → opacity 1 + translateY(0)
+      Duration: 600ms, cubic-bezier(0.4,0,0.2,1)
+      Triggered: IntersectionObserver, animate ONCE
+      GPU: will-change: opacity, transform (composited layers only)
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity   var(--dur-slow) var(--ease-standard),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .reveal[data-delay="1"] { transition-delay: 100ms; }
+    .reveal[data-delay="2"] { transition-delay: 200ms; }
+    .reveal[data-delay="3"] { transition-delay: 300ms; }
+    .reveal[data-delay="4"] { transition-delay: 400ms; }
+    .reveal[data-delay="5"] { transition-delay: 500ms; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-/* BIO */
-.bio{
-  max-width:880px;
-  margin:auto;
-  text-align:center;
-  font-size:16px;
-  color:var(--muted);
-  line-height:1.85;
-}
+    /* ============================================================
+      NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      transition:
+        background-color var(--dur-base) var(--ease-standard),
+        border-bottom-color var(--dur-base) var(--ease-standard),
+        backdrop-filter var(--dur-base) var(--ease-standard);
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled {
+      background-color: rgba(28, 26, 24, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border-subtle);
+    }
+    .nav__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__logo span { color: var(--color-accent-primary); }
+    .nav__logo:hover { color: var(--color-accent-primary); }
 
-/* FOOTER */
-footer{
-  padding:90px 24px;
-  text-align:center;
-  color:#6b7196;
-  font-size:13px;
-}
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-8);
+    }
+    .nav__link {
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent-primary);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+    .nav__link:hover,
+    .nav__link[aria-current="page"] { color: var(--color-text-primary); }
+    .nav__link:hover::after,
+    .nav__link[aria-current="page"]::after { width: 100%; }
 
-/* REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(36px);
-  transition:1s cubic-bezier(.2,.8,.2,1);
-}
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
+    /* Hamburger button */
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--dur-fast) var(--ease-out);
+    }
+    .nav__toggle:hover { background-color: var(--color-border-subtle); }
+    .nav__toggle-bar {
+      width: 22px; height: 2px;
+      background: var(--color-text-primary);
+      border-radius: var(--radius-full);
+      transition: transform var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard);
+      transform-origin: center;
+    }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* RESPONSIVE */
-@media(max-width:900px){
-  .hero{
-    grid-template-columns:1fr;
-    gap:70px;
-  }
-  .hero-visual{height:300px}
-}
-</style>
+    /* ============================================================
+      MOBILE NAV — Breakpoint: 768px
+    ============================================================ */
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border-subtle);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--sp-4) var(--sp-6);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+          opacity    var(--dur-base) var(--ease-standard),
+          transform  var(--dur-base) var(--ease-standard);
+      }
+      .nav__links.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .nav__link {
+        padding-block: var(--sp-4);
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-size: var(--fs-base);
+      }
+      .nav__link:last-child { border-bottom: none; }
+      .nav__toggle { display: flex; }
+    }
+
+    /* ============================================================
+      HERO SECTION
+      Full-viewport. GPU-composited ambient gradient orbs.
+      Single H1 for SEO + heading hierarchy.
+    ============================================================ */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding-top: var(--nav-height);
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,140,66,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 20% 80%, rgba(231,111,81,0.08) 0%, transparent 60%),
+        var(--color-bg-primary);
+    }
+    /* Subtle noise grain overlay for visual depth */
+    .hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    /* Floating ambient orbs — GPU composited (transform: translateZ(0)) */
+    .hero__orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      transform: translateZ(0);
+      animation: orb-drift 12s ease-in-out infinite alternate;
+      will-change: transform, opacity;
+    }
+    .hero__orb--1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(255,140,66,0.15) 0%, transparent 70%);
+      top: -10%; right: -5%;
+      animation-duration: 14s;
+    }
+    .hero__orb--2 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(231,111,81,0.10) 0%, transparent 70%);
+      bottom: 10%; left: -5%;
+      animation-duration: 10s;
+      animation-delay: -5s;
+    }
+    /* ONLY transform is animated — no layout properties */
+    @keyframes orb-drift {
+      from { transform: translateZ(0) translate(0, 0); }
+      to   { transform: translateZ(0) translate(20px, 30px); }
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: var(--sp-12) var(--sp-6);
+      max-width: 900px;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 200ms forwards;
+    }
+    .hero__eyebrow::before,
+    .hero__eyebrow::after {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--color-accent-primary);
+      opacity: 0.6;
+    }
+
+    /* ---- THE SINGLE H1 — SEO + heading hierarchy ---- */
+    .hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-3xl), 8vw, var(--fs-5xl));
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 350ms forwards;
+    }
+    .hero__title .name-accent {
+      color: var(--color-accent-primary);
+      font-style: italic;
+      display: block;
+    }
+    .hero__tagline {
+      font-size: clamp(var(--fs-md), 2.5vw, var(--fs-xl));
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto var(--sp-10);
+      line-height: 1.6;
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 500ms forwards;
+    }
+    .hero__tagline strong { color: var(--color-text-primary); font-weight: 500; }
+    .hero__cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 650ms forwards;
+    }
+
+    /* Entrance animation — ONLY opacity + transform */
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Scroll hint */
+    .hero__scroll-hint {
+      position: absolute;
+      bottom: var(--sp-8);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-2);
+      color: var(--color-text-secondary);
+      font-size: var(--fs-xs);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 1200ms forwards;
+    }
+    .hero__scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, var(--color-accent-primary), transparent);
+      animation: scroll-pulse 2s ease-in-out infinite;
+    }
+    @keyframes scroll-pulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.1); }
+    }
+
+    /* ============================================================
+      BUTTON COMPONENTS
+      Hover micro-interaction: translateY(-4px) + shadow elevation
+      Transition: 300ms ease-out (var(--dur-base) var(--ease-out))
+      Min-height: 44px — WCAG touch target requirement
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-8);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out),
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+      will-change: transform;
+    }
+    .btn:hover  { transform: translateY(-4px); }
+    .btn:active { transform: translateY(-1px); }
+
+    .btn--primary { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .btn--primary:hover {
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 32px var(--color-shadow-warm);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-subtle);
+    }
+    .btn--ghost:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      box-shadow: 0 4px 16px rgba(255, 140, 66, 0.12);
+    }
+
+    /* ============================================================
+      ABOUT SECTION (bottom of Home per spec)
+    ============================================================ */
+    .about {
+      background-color: var(--color-bg-secondary);
+      padding: var(--sp-24) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-16);
+      align-items: center;
+    }
+    .about__label {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent-primary);
+      margin-bottom: var(--sp-4);
+    }
+    .about__heading {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-2xl), 4vw, var(--fs-3xl));
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--sp-6);
+    }
+    .about__text {
+      color: var(--color-text-secondary);
+      line-height: 1.8;
+      margin-bottom: var(--sp-4);
+    }
+    .about__text:last-of-type { margin-bottom: var(--sp-8); }
+
+    .about__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-4);
+      margin-top: var(--sp-8);
+    }
+    .stat-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      padding: var(--sp-5) var(--sp-4);
+      text-align: center;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 8px 24px var(--color-shadow-warm);
+    }
+    .stat-card__number {
+      font-family: var(--font-display);
+      font-size: var(--fs-2xl);
+      font-weight: 900;
+      color: var(--color-accent-primary);
+      line-height: 1;
+      margin-bottom: var(--sp-1);
+    }
+    .stat-card__label {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .about__visual { position: relative; display: flex; justify-content: center; }
+    .about__avatar-wrap { position: relative; width: 340px; max-width: 100%; }
+    .about__avatar-bg {
+      position: absolute;
+      inset: -12px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, rgba(255,140,66,0.2) 0%, rgba(231,111,81,0.1) 100%);
+      transform: rotate(3deg);
+      z-index: 0;
+    }
+    .about__avatar-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3/4;
+      border-radius: var(--radius-lg);
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .about__initials {
+      font-family: var(--font-display);
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--color-accent-primary);
+      opacity: 0.15;
+      letter-spacing: -0.04em;
+      user-select: none;
+    }
+    .about__tag {
+      position: absolute;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      padding: var(--sp-2) var(--sp-4);
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      white-space: nowrap;
+      z-index: 2;
+    }
+    .about__tag--1 { top: 10%; right: -10%; }
+    .about__tag--2 { bottom: 15%; left: -10%; }
+
+    @media (max-width: 768px) {
+      .about__grid { grid-template-columns: 1fr; gap: var(--sp-12); }
+      .about__visual { order: -1; }
+      .about__avatar-wrap { width: 260px; }
+      .about__tag--1 { right: 0; }
+      .about__tag--2 { left: 0; }
+    }
+    @media (max-width: 480px) {
+      .about__stats { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ============================================================
+      SECTION SHARED STYLES
+      Consistent vertical rhythm. Alternating backgrounds via
+      .section--alt for visual section separation.
+    ============================================================ */
+    .section { padding: var(--sp-24) 0; }
+    .section--alt { background-color: var(--color-bg-secondary); }
+
+    .section-header { text-align: center; margin-bottom: var(--sp-16); }
+    .section-header__label {
+      display: inline-block;
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent-primary);
+      margin-bottom: var(--sp-3);
+    }
+    .section-header__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-2xl), 4vw, var(--fs-3xl));
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: var(--sp-4);
+    }
+    .section-header__desc {
+      color: var(--color-text-secondary);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .section-divider {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--color-accent-primary), var(--color-accent-secondary));
+      border-radius: var(--radius-full);
+      margin: var(--sp-4) auto 0;
+    }
+
+    /* ============================================================
+      CARD COMPONENT — REUSABLE
+      Used across Articles, Game Dev, Software Dev sections.
+      Hover: translateY(-4px) + warm box-shadow (transform + opacity only).
+    ============================================================ */
+    .card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 140, 66, 0.35);
+      box-shadow: 0 12px 40px var(--color-shadow-warm);
+    }
+    .section--alt .card { background: var(--color-bg-primary); }
+
+    .card__thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--color-bg-primary);
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .card__thumb--gradient {
+      background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card__thumb-icon { font-size: 2.5rem; opacity: 0.15; }
+    .card__thumb::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 140, 66, 0.08);
+      opacity: 0;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    .card:hover .card__thumb::after { opacity: 1; }
+
+    .card__body {
+      padding: var(--sp-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .card__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-3);
+      flex-wrap: wrap;
+    }
+    .card__tag {
+      display: inline-block;
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-full);
+      background: rgba(255, 140, 66, 0.12);
+      color: var(--color-accent-primary);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+    .card__date { font-size: var(--fs-xs); color: var(--color-text-secondary); }
+    .card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: var(--sp-3);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .card:hover .card__title { color: var(--color-highlight); }
+    .card__excerpt {
+      color: var(--color-text-secondary);
+      font-size: var(--fs-sm);
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: var(--sp-5);
+    }
+    .card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      color: var(--color-accent-primary);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      transition: color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+      margin-top: auto;
+    }
+    .card__link:hover { color: var(--color-accent-secondary); gap: var(--sp-3); }
+
+    /* ============================================================
+      CARD GRIDS — Responsive breakpoints
+      Desktop (>1024px):  3 columns
+      Tablet  (768–1024): 2 columns
+      Mobile  (<480px):   1 column
+    ============================================================ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-6);
+    }
+    @media (max-width: 1024px) { .card-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px)  { .card-grid { grid-template-columns: 1fr; } }
+
+    .card-grid--2 { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 768px) { .card-grid--2 { grid-template-columns: 1fr; } }
+
+    /* ============================================================
+      ARTICLES — Featured card (spans full width)
+    ============================================================ */
+    .article-featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--color-border-subtle);
+      overflow: hidden;
+      background: var(--color-bg-secondary);
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+    }
+    .article-featured:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 140, 66, 0.35);
+      box-shadow: 0 12px 40px var(--color-shadow-warm);
+    }
+    .article-featured .card__thumb { aspect-ratio: auto; height: 100%; }
+    .article-featured .card__body { padding: var(--sp-10); }
+    .article-featured .card__title { font-size: var(--fs-2xl); }
+    @media (max-width: 768px) {
+      .article-featured { grid-template-columns: 1fr; }
+      .article-featured .card__thumb { aspect-ratio: 16/9; height: auto; }
+    }
+
+    /* ============================================================
+      PERSONAL WRITING CARDS — editorial pull-quote style
+    ============================================================ */
+    .writing-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-8);
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+    }
+    .writing-card::before {
+      content: '"';
+      position: absolute;
+      top: -16px; left: var(--sp-6);
+      font-family: var(--font-display);
+      font-size: 8rem;
+      color: var(--color-accent-primary);
+      opacity: 0.06;
+      line-height: 1;
+      pointer-events: none;
+    }
+    .writing-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(244, 162, 97, 0.35);
+      box-shadow: 0 12px 40px rgba(244, 162, 97, 0.15);
+    }
+    .writing-card__type {
+      font-size: var(--fs-xs);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-highlight);
+      margin-bottom: var(--sp-4);
+      font-weight: 500;
+    }
+    .writing-card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.3;
+      margin-bottom: var(--sp-4);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .writing-card:hover .writing-card__title { color: var(--color-highlight); }
+    .writing-card__excerpt {
+      color: var(--color-text-secondary);
+      font-size: var(--fs-sm);
+      line-height: 1.8;
+      margin-bottom: var(--sp-6);
+      font-style: italic;
+    }
+    .writing-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      color: var(--color-highlight);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      transition: gap var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+    }
+    .writing-card__link:hover { color: var(--color-accent-primary); gap: var(--sp-3); }
+
+    /* ============================================================
+      GAME DEVELOPMENT CARDS
+    ============================================================ */
+    .game-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+    }
+    .game-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 140, 66, 0.35);
+      box-shadow: 0 12px 40px var(--color-shadow-warm);
+    }
+    .game-card__cover {
+      aspect-ratio: 4/3;
+      background: var(--color-bg-primary);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .game-card__cover-text {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--color-accent-primary);
+      opacity: 0.12;
+      letter-spacing: -0.04em;
+    }
+    .game-card__status {
+      position: absolute;
+      top: var(--sp-3); right: var(--sp-3);
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+    }
+    .game-card__status--wip {
+      background: rgba(244, 162, 97, 0.15);
+      color: var(--color-highlight);
+      border: 1px solid rgba(244, 162, 97, 0.3);
+    }
+    .game-card__status--released {
+      background: rgba(255, 140, 66, 0.15);
+      color: var(--color-accent-primary);
+      border: 1px solid rgba(255, 140, 66, 0.3);
+    }
+    .game-card__body { padding: var(--sp-6); }
+    .game-card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      margin-bottom: var(--sp-2);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .game-card:hover .game-card__title { color: var(--color-accent-primary); }
+    .game-card__desc {
+      color: var(--color-text-secondary);
+      font-size: var(--fs-sm);
+      line-height: 1.7;
+      margin-bottom: var(--sp-4);
+    }
+    .game-card__tech { display: flex; gap: var(--sp-2); flex-wrap: wrap; }
+    .tech-pill {
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-full);
+      font-size: var(--fs-xs);
+      background: var(--color-bg-primary);
+      color: var(--color-text-secondary);
+      border: 1px solid var(--color-border-subtle);
+    }
+
+    /* ============================================================
+      SOFTWARE DEVELOPMENT CARDS
+    ============================================================ */
+    .software-card {
+      background: var(--color-bg-primary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-6);
+      display: flex;
+      gap: var(--sp-5);
+      align-items: flex-start;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+    }
+    .software-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 140, 66, 0.35);
+      box-shadow: 0 8px 32px var(--color-shadow-warm);
+    }
+    .software-card__icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      background: rgba(255, 140, 66, 0.1);
+      border: 1px solid rgba(255, 140, 66, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-accent-primary);
+      transition: background var(--dur-base) var(--ease-out);
+    }
+    .software-card:hover .software-card__icon { background: rgba(255, 140, 66, 0.18); }
+    .software-card__content { flex: 1; min-width: 0; }
+    .software-card__title {
+      font-size: var(--fs-md);
+      font-weight: 600;
+      margin-bottom: var(--sp-2);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .software-card:hover .software-card__title { color: var(--color-accent-primary); }
+    .software-card__desc {
+      color: var(--color-text-secondary);
+      font-size: var(--fs-sm);
+      line-height: 1.7;
+      margin-bottom: var(--sp-4);
+    }
+    .software-card__links { display: flex; gap: var(--sp-4); flex-wrap: wrap; }
+    .software-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: var(--fs-xs);
+      color: var(--color-accent-primary);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color var(--dur-fast) var(--ease-out), gap var(--dur-fast) var(--ease-out);
+    }
+    .software-card__link:hover { color: var(--color-accent-secondary); gap: var(--sp-2); }
+
+    /* ============================================================
+      SOCIAL MEDIA SECTION
+      SVG icon buttons. Hover: scale(1.05) + warm glow.
+      Min 44px touch targets per WCAG.
+    ============================================================ */
+    .social {
+      padding: var(--sp-24) 0;
+      background-color: var(--color-bg-secondary);
+      border-top: 1px solid var(--color-border-subtle);
+      border-bottom: 1px solid var(--color-border-subtle);
+      text-align: center;
+    }
+    .social__grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+      margin-top: var(--sp-12);
+    }
+    /* Social icon button — scale(1.05) + warm glow on hover */
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-3);
+      min-width: 80px;
+      min-height: 44px;
+      padding: var(--sp-5) var(--sp-4);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border-subtle);
+      color: var(--color-text-secondary);
+      background: var(--color-bg-primary);
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        color        var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .social-btn:hover {
+      transform: scale(1.05) translateY(-2px);
+      color: var(--color-accent-primary);
+      border-color: rgba(255, 140, 66, 0.4);
+      box-shadow: 0 8px 24px var(--color-shadow-warm);
+    }
+    .social-btn svg {
+      width: 24px; height: 24px;
+      fill: currentColor;
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+    .social-btn:hover svg { transform: scale(1.1); }
+    .social-btn__label {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    @media (max-width: 480px) {
+      .social__grid { gap: var(--sp-3); }
+      .social-btn { min-width: 68px; padding: var(--sp-4) var(--sp-3); }
+    }
+
+    /* ============================================================
+      FOOTER
+    ============================================================ */
+    .footer { padding: var(--sp-12) 0; border-top: 1px solid var(--color-border-subtle); }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-6);
+      flex-wrap: wrap;
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+    }
+    .footer__logo span { color: var(--color-accent-primary); }
+    .footer__copy { color: var(--color-text-secondary); font-size: var(--fs-sm); }
+    .footer__links { display: flex; gap: var(--sp-6); }
+    .footer__link {
+      font-size: var(--fs-sm);
+      color: var(--color-text-secondary);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__link:hover { color: var(--color-accent-primary); }
+    @media (max-width: 480px) { .footer__inner { flex-direction: column; text-align: center; } }
+
+    /* ============================================================
+      SKIP LINK — WCAG 2.4.1: Bypass Blocks
+    ============================================================ */
+    .skip-link {
+      position: fixed;
+      top: var(--sp-4); left: var(--sp-4);
+      z-index: 200;
+      padding: var(--sp-3) var(--sp-6);
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: var(--fs-sm);
+      transform: translateY(-120%);
+      transition: transform var(--dur-base) var(--ease-out);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* ============================================================
+      RESPONSIVE ADJUSTMENTS
+      Breakpoints: 480px | 768px | 1024px | 1280px
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .section { padding: var(--sp-20) 0; }
+      .about   { padding: var(--sp-20) 0; }
+    }
+    @media (max-width: 768px) {
+      .section        { padding: var(--sp-16) 0; }
+      .about          { padding: var(--sp-16) 0; }
+      .social         { padding: var(--sp-16) 0; }
+      .section-header { margin-bottom: var(--sp-10); }
+    }
+    @media (max-width: 480px) {
+      .section   { padding: var(--sp-12) 0; }
+      .about     { padding: var(--sp-12) 0; }
+      .card-grid { gap: var(--sp-4); }
+    }
+
+    /* ============================================================
+      REDUCED MOTION — respects OS preference
+      Disables all animations for users who prefer it.
+    ============================================================ */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
 </head>
-
 <body>
+  <!-- Skip link for keyboard/screen reader users -->
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<div class="bg-grid"></div>
-<div class="shape cpu"></div>
-<div class="shape bus"></div>
-
-<header class="nav reveal">
-  <strong>AURNIL</strong>
-  <nav>
-    <a href="articles.html">ARTICLES</a>
-    <a href="blog.html">BLOG</a>
-  </nav>
-</header>
-
-<section class="hero reveal">
-  <div>
-    <h1>Ahnaf Hassan Aurnil</h1>
-    <h2>Technology Content Specialist</h2>
-    <p>
-      I create structured, research-driven content on PC hardware,
-      AI systems, and modern computing — translating complex
-      architectures into clear, credible insights for professionals.
-    </p>
-
-    <div class="socials">
-      <a href="#"><i class="fab fa-linkedin-in"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-      <a href="#"><i class="fa-solid fa-briefcase"></i></a>
+  <!-- ============================================================
+    NAVIGATION
+    Fixed. Glassmorphism on scroll via .nav--scrolled (added by JS).
+    Hamburger toggle: aria-expanded drives CSS open/close animation.
+  ============================================================ -->
+  <nav class="nav" role="navigation" aria-label="Main navigation" id="nav">
+    <div class="nav__container">
+      <a href="#home" class="nav__logo" aria-label="Ahnaf Hassan Aurnill — home">
+        Ahnaf<span>.</span>
+      </a>
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="#home"        class="nav__link" aria-current="page">Home</a></li>
+        <li><a href="#articles"    class="nav__link">Articles</a></li>
+        <li><a href="#writing"     class="nav__link">Personal Writing</a></li>
+        <li><a href="#gamedev"     class="nav__link">Game Development</a></li>
+        <li><a href="#softwaredev" class="nav__link">Software Development</a></li>
+      </ul>
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="nav-links"
+      >
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
     </div>
-  </div>
+  </nav>
 
-  <div class="hero-visual"></div>
-</section>
+  <main id="main-content">
+    <!-- ============================================================
+      HOME SECTION — Contains Hero + About (per spec)
+    ============================================================ -->
+    <section id="home" aria-label="Home">
 
-<section class="section reveal">
-  <h3>Featured Writing</h3>
-  <div class="grid">
-    <a href="#" class="card">
-      <span>CPU ARCHITECTURE</span>
-      <h4>Why Cache Hierarchy Matters More Than Clock Speed</h4>
-      <p>Latency, cache design, and real-world performance beyond marketing numbers.</p>
-    </a>
+      <!-- HERO -->
+      <div class="hero" role="banner">
+        <div class="hero__bg" aria-hidden="true">
+          <div class="hero__orb hero__orb--1"></div>
+          <div class="hero__orb hero__orb--2"></div>
+        </div>
+        <div class="hero__content">
+          <p class="hero__eyebrow" aria-hidden="true">Portfolio &amp; Personal Site</p>
 
-    <a href="#" class="card">
-      <span>AI SYSTEMS</span>
-      <h4>Memory Bandwidth Is the Real AI Bottleneck</h4>
-      <p>Why modern AI workloads stall long before compute limits are reached.</p>
-    </a>
+          <!-- Single H1 — critical SEO + heading hierarchy requirement -->
+          <h1 class="hero__title">
+            <span class="name-accent">Ahnaf Hassan Aurnill</span>
+            <span>Where Code Meets Craft.</span>
+          </h1>
 
-    <a href="#" class="card">
-      <span>HARDWARE ANALYSIS</span>
-      <h4>Desktop vs Mobile Silicon: The Trade-offs That Matter</h4>
-      <p>Power, thermals, and sustained performance from a systems perspective.</p>
-    </a>
-  </div>
-</section>
+          <p class="hero__tagline">
+            <strong>Writer. Game Developer. Software Engineer.</strong><br />
+            Exploring the edges of human experience through stories, systems, and software.
+          </p>
+          <div class="hero__cta-group">
+            <a href="#articles" class="btn btn--primary">
+              Read My Work
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="#softwaredev" class="btn btn--ghost">View Projects</a>
+          </div>
+        </div>
+        <div class="hero__scroll-hint" aria-hidden="true">
+          <div class="hero__scroll-line"></div>
+          <span>Scroll</span>
+        </div>
+      </div>
+      <!-- END HERO -->
 
-<section class="section reveal bio">
-  <p>
-    My work focuses on clarity, precision, and technical depth.
-    I specialize in explaining how hardware and AI systems
-    actually behave — not just how they are marketed.
-  </p>
-</section>
+      <!-- ABOUT (bottom of Home per spec) -->
+      <div class="about" id="about">
+        <div class="container">
+          <div class="about__grid">
+            <div>
+              <p class="about__label reveal">About Me</p>
+              <h2 class="about__heading reveal" data-delay="1">
+                Building at the intersection of <em>creativity</em> and engineering.
+              </h2>
+              <p class="about__text reveal" data-delay="2">
+                I'm Ahnaf Hassan Aurnill — a writer, game developer, and software engineer based in Bangladesh.
+                I spend my time building things that matter: games that tell stories, software that solves
+                real problems, and writing that makes people feel something.
+              </p>
+              <p class="about__text reveal" data-delay="3">
+                My work lives at the crossroads of technical depth and creative intuition. Whether I'm
+                architecting a backend system or crafting a narrative arc, I bring the same obsessive
+                attention to detail and relentless pursuit of craft.
+              </p>
+              <div class="reveal" data-delay="4">
+                <a href="#softwaredev" class="btn btn--ghost">
+                  Explore My Work
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+              </div>
+              <div class="about__stats">
+                <div class="stat-card reveal" data-delay="2">
+                  <div class="stat-card__number">5+</div>
+                  <div class="stat-card__label">Years Writing</div>
+                </div>
+                <div class="stat-card reveal" data-delay="3">
+                  <div class="stat-card__number">10+</div>
+                  <div class="stat-card__label">Projects Built</div>
+                </div>
+                <div class="stat-card reveal" data-delay="4">
+                  <div class="stat-card__number">3</div>
+                  <div class="stat-card__label">Games Shipped</div>
+                </div>
+              </div>
+            </div>
+            <div class="about__visual reveal" data-delay="1">
+              <div class="about__avatar-wrap">
+                <div class="about__avatar-bg" aria-hidden="true"></div>
+                <div class="about__avatar-placeholder" role="img" aria-label="Ahnaf Hassan Aurnill">
+                  <span class="about__initials" aria-hidden="true">AHA</span>
+                </div>
+                <span class="about__tag about__tag--1" aria-hidden="true">🎮 Game Dev</span>
+                <span class="about__tag about__tag--2" aria-hidden="true">✍️ Writer</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END ABOUT -->
 
-<footer>
-  © 2026 Ahnaf Hassan Aurnil · Technology Content Specialist
-</footer>
+    </section>
+    <!-- END HOME -->
 
-<script>
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add('show')
-  })
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+    <!-- ============================================================
+      ARTICLES SECTION
+    ============================================================ -->
+    <section id="articles" class="section" aria-labelledby="articles-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-header__label reveal">Published Work</span>
+          <h2 class="section-header__title reveal" data-delay="1" id="articles-heading">Articles</h2>
+          <p class="section-header__desc reveal" data-delay="2">
+            Thoughts on technology, culture, and the spaces between. Long-form writing that earns your attention.
+          </p>
+          <div class="section-divider reveal" data-delay="3" aria-hidden="true"></div>
+        </header>
 
+        <div class="card-grid">
+          <!-- Featured article — full width, 2-col layout -->
+          <article class="article-featured reveal">
+            <div class="card__thumb card__thumb--gradient" role="img" aria-label="Featured article illustration">
+              <span class="card__thumb-icon" aria-hidden="true">📖</span>
+            </div>
+            <div class="card__body">
+              <div class="card__meta">
+                <span class="card__tag">Featured</span>
+                <time class="card__date" datetime="2024-11-15">Nov 15, 2024</time>
+              </div>
+              <h3 class="card__title">The Quiet Collapse: How Modern Games Stopped Trusting Their Players</h3>
+              <p class="card__excerpt">
+                A decade ago, games spoke in riddles. They demanded patience and rewarded exploration with discovery.
+                Today, most blockbusters saturate every moment with objective markers, quest arrows, and constant
+                feedback loops — a design philosophy that mistakes hand-holding for accessibility.
+              </p>
+              <a href="#" class="card__link" aria-label="Read full article: The Quiet Collapse">
+                Read Article
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="1">
+            <div class="card__thumb card__thumb--gradient" role="img" aria-label="Technology article">
+              <span class="card__thumb-icon" aria-hidden="true">💻</span>
+            </div>
+            <div class="card__body">
+              <div class="card__meta">
+                <span class="card__tag">Technology</span>
+                <time class="card__date" datetime="2024-10-02">Oct 2, 2024</time>
+              </div>
+              <h3 class="card__title">Why I Stopped Using Frameworks and Started Listening to the Web</h3>
+              <p class="card__excerpt">
+                The web platform has quietly become extraordinarily capable. Sometimes the best tool is the one already built in.
+              </p>
+              <a href="#" class="card__link" aria-label="Read full article: Why I Stopped Using Frameworks">
+                Read Article
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="2">
+            <div class="card__thumb card__thumb--gradient" role="img" aria-label="Culture article">
+              <span class="card__thumb-icon" aria-hidden="true">🌍</span>
+            </div>
+            <div class="card__body">
+              <div class="card__meta">
+                <span class="card__tag">Culture</span>
+                <time class="card__date" datetime="2024-09-18">Sep 18, 2024</time>
+              </div>
+              <h3 class="card__title">Bangladesh's Indie Game Scene: A Scene That Almost Wasn't</h3>
+              <p class="card__excerpt">
+                Against infrastructure odds and market skepticism, a generation of Bangladeshi developers is
+                building games that speak from the margins.
+              </p>
+              <a href="#" class="card__link" aria-label="Read full article: Bangladesh's Indie Game Scene">
+                Read Article
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="card reveal" data-delay="3">
+            <div class="card__thumb card__thumb--gradient" role="img" aria-label="AI article">
+              <span class="card__thumb-icon" aria-hidden="true">🧠</span>
+            </div>
+            <div class="card__body">
+              <div class="card__meta">
+                <span class="card__tag">AI / Tech</span>
+                <time class="card__date" datetime="2024-08-05">Aug 5, 2024</time>
+              </div>
+              <h3 class="card__title">What Generative AI Gets Wrong About Creativity (And Why It Matters)</h3>
+              <p class="card__excerpt">
+                AI can produce. But production and creation are not the same thing. The difference matters
+                more than the industry wants to admit.
+              </p>
+              <a href="#" class="card__link" aria-label="Read full article: What Generative AI Gets Wrong">
+                Read Article
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--sp-10);" class="reveal">
+          <a href="#" class="btn btn--ghost">View All Articles</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+      PERSONAL WRITING SECTION
+    ============================================================ -->
+    <section id="writing" class="section section--alt" aria-labelledby="writing-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-header__label reveal">Creative Work</span>
+          <h2 class="section-header__title reveal" data-delay="1" id="writing-heading">Personal Writing</h2>
+          <p class="section-header__desc reveal" data-delay="2">
+            Fiction, poetry, and essays. Writing that asks questions without rushing to answers.
+          </p>
+          <div class="section-divider reveal" data-delay="3" aria-hidden="true"></div>
+        </header>
+
+        <div class="card-grid">
+          <article class="writing-card reveal" data-delay="1">
+            <div class="writing-card__type">Short Fiction</div>
+            <h3 class="writing-card__title">The Man Who Counted Tomorrows</h3>
+            <p class="writing-card__excerpt">
+              "He kept them in a jar — not days, not dates, but the hollow weight of futures that
+              never arrived. By Tuesday he had run out of glass."
+            </p>
+            <a href="#" class="writing-card__link" aria-label="Read: The Man Who Counted Tomorrows">
+              Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="writing-card reveal" data-delay="2">
+            <div class="writing-card__type">Essay</div>
+            <h3 class="writing-card__title">On Growing Up Between Languages</h3>
+            <p class="writing-card__excerpt">
+              "There are things I can only say in Bangla, and things that have no translation at all —
+              thoughts that live in the gap between two tongues, belonging to neither."
+            </p>
+            <a href="#" class="writing-card__link" aria-label="Read: On Growing Up Between Languages">
+              Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+
+          <article class="writing-card reveal" data-delay="3">
+            <div class="writing-card__type">Poetry</div>
+            <h3 class="writing-card__title">Dhaka at 3 A.M.</h3>
+            <p class="writing-card__excerpt">
+              "The city breathes differently when everyone's asleep. Traffic lights cycle
+              for nobody. And I am nobody, watching them change."
+            </p>
+            <a href="#" class="writing-card__link" aria-label="Read: Dhaka at 3 A.M.">
+              Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--sp-10);" class="reveal">
+          <a href="#" class="btn btn--ghost">View All Writing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+      GAME DEVELOPMENT SECTION
+    ============================================================ -->
+    <section id="gamedev" class="section" aria-labelledby="gamedev-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-header__label reveal">Interactive Worlds</span>
+          <h2 class="section-header__title reveal" data-delay="1" id="gamedev-heading">Game Development</h2>
+          <p class="section-header__desc reveal" data-delay="2">
+            Games as a medium for empathy, exploration, and meaning. Small teams, big ideas.
+          </p>
+          <div class="section-divider reveal" data-delay="3" aria-hidden="true"></div>
+        </header>
+
+        <div class="card-grid">
+          <article class="game-card reveal" data-delay="1">
+            <div class="game-card__cover">
+              <span class="game-card__cover-text" aria-hidden="true">DRIFT</span>
+              <span class="game-card__status game-card__status--released">Released</span>
+            </div>
+            <div class="game-card__body">
+              <h3 class="game-card__title">Drift</h3>
+              <p class="game-card__desc">
+                A meditative 2D platformer about a figure navigating fragmenting memory.
+                No enemies, no timers — just the act of moving through spaces that keep forgetting themselves.
+              </p>
+              <div class="game-card__tech">
+                <span class="tech-pill">Unity</span>
+                <span class="tech-pill">C#</span>
+                <span class="tech-pill">Narrative Design</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card reveal" data-delay="2">
+            <div class="game-card__cover" style="background: linear-gradient(135deg, #1C1A18, #24211E);">
+              <span class="game-card__cover-text" aria-hidden="true">LOOP</span>
+              <span class="game-card__status game-card__status--released">Released</span>
+            </div>
+            <div class="game-card__body">
+              <h3 class="game-card__title">Loop (Jam Build)</h3>
+              <p class="game-card__desc">
+                A 72-hour game jam entry exploring time loops as a metaphor for grief.
+                Won Best Narrative at Global Game Jam 2023, Dhaka chapter.
+              </p>
+              <div class="game-card__tech">
+                <span class="tech-pill">Godot 4</span>
+                <span class="tech-pill">GDScript</span>
+                <span class="tech-pill">Pixel Art</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="game-card reveal" data-delay="3">
+            <div class="game-card__cover" style="background: linear-gradient(135deg, #1C1A18, #2E2A26);">
+              <span class="game-card__cover-text" aria-hidden="true">ECHO</span>
+              <span class="game-card__status game-card__status--wip">In Progress</span>
+            </div>
+            <div class="game-card__body">
+              <h3 class="game-card__title">Echo Chamber</h3>
+              <p class="game-card__desc">
+                An audio-driven horror game where the only way to see is to listen.
+                In active development. Wishlist on itch.io.
+              </p>
+              <div class="game-card__tech">
+                <span class="tech-pill">Unity</span>
+                <span class="tech-pill">FMOD</span>
+                <span class="tech-pill">Procedural Audio</span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--sp-10);" class="reveal">
+          <a href="#" class="btn btn--ghost">View All Games</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+      SOFTWARE DEVELOPMENT SECTION
+    ============================================================ -->
+    <section id="softwaredev" class="section section--alt" aria-labelledby="softwaredev-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-header__label reveal">Engineering</span>
+          <h2 class="section-header__title reveal" data-delay="1" id="softwaredev-heading">Software Development</h2>
+          <p class="section-header__desc reveal" data-delay="2">
+            Open-source tools, web applications, and developer utilities. Built with care. Documented with patience.
+          </p>
+          <div class="section-divider reveal" data-delay="3" aria-hidden="true"></div>
+        </header>
+
+        <div class="card-grid card-grid--2">
+          <article class="software-card reveal" data-delay="1">
+            <div class="software-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <div class="software-card__content">
+              <h3 class="software-card__title">DevShelf</h3>
+              <p class="software-card__desc">
+                A self-hostable bookmark manager and knowledge base for developers. Supports tags, full-text search,
+                and Markdown notes. Built with Next.js, Postgres, and a ruthless commitment to fast load times.
+              </p>
+              <div class="software-card__links">
+                <a href="#" class="software-card__link" aria-label="GitHub: DevShelf">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  GitHub
+                </a>
+                <a href="#" class="software-card__link" aria-label="Live demo: DevShelf">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  Live Demo
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="software-card reveal" data-delay="2">
+            <div class="software-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="software-card__content">
+              <h3 class="software-card__title">BdAPI</h3>
+              <p class="software-card__desc">
+                An open REST API providing structured data for Bangladeshi districts, upazilas, and postal codes.
+                Used by 40+ projects. Zero auth, zero friction.
+              </p>
+              <div class="software-card__links">
+                <a href="#" class="software-card__link" aria-label="GitHub: BdAPI">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  GitHub
+                </a>
+                <a href="#" class="software-card__link" aria-label="API Docs: BdAPI">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  Docs
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="software-card reveal" data-delay="1">
+            <div class="software-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div class="software-card__content">
+              <h3 class="software-card__title">Letterbox CLI</h3>
+              <p class="software-card__desc">
+                A terminal-first newsletter and writing queue manager. Draft in Markdown, schedule with cron,
+                publish via API. Built for writers who live in the terminal.
+              </p>
+              <div class="software-card__links">
+                <a href="#" class="software-card__link" aria-label="GitHub: Letterbox CLI">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  GitHub
+                </a>
+                <a href="#" class="software-card__link" aria-label="NPM: Letterbox CLI">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  NPM
+                </a>
+              </div>
+            </div>
+          </article>
+
+          <article class="software-card reveal" data-delay="2">
+            <div class="software-card__icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+            </div>
+            <div class="software-card__content">
+              <h3 class="software-card__title">Moshari (Open Source)</h3>
+              <p class="software-card__desc">
+                A Bangla-English technical glossary and translation helper for developers. Designed to make
+                software documentation accessible in Bangla.
+              </p>
+              <div class="software-card__links">
+                <a href="#" class="software-card__link" aria-label="GitHub: Moshari">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                  GitHub
+                </a>
+                <a href="#" class="software-card__link" aria-label="Website: Moshari">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  Website
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div style="text-align: center; margin-top: var(--sp-10);" class="reveal">
+          <a href="https://github.com" class="btn btn--ghost" target="_blank" rel="noopener noreferrer" aria-label="View all projects on GitHub (opens in new tab)">
+            View on GitHub
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+      SOCIAL MEDIA SECTION
+      Accessible SVG icon buttons. Min 44px touch targets.
+      Hover: scale(1.05) + translateY(-2px) + warm glow box-shadow.
+      All defined via .social-btn component in CSS.
+    ============================================================ -->
+    <section class="social" aria-labelledby="social-heading">
+      <div class="container">
+        <header class="section-header">
+          <span class="section-header__label reveal">Connect</span>
+          <h2 class="section-header__title reveal" data-delay="1" id="social-heading">Find Me Online</h2>
+          <p class="section-header__desc reveal" data-delay="2">
+            I post irregularly and think out loud. Come find me wherever feels right.
+          </p>
+          <div class="section-divider reveal" data-delay="3" aria-hidden="true"></div>
+        </header>
+
+        <div class="social__grid" role="list">
+          <!-- GitHub -->
+          <a href="https://github.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Ahnaf on GitHub (opens in new tab)" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            <span class="social-btn__label">GitHub</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://linkedin.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Ahnaf on LinkedIn (opens in new tab)" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            <span class="social-btn__label">LinkedIn</span>
+          </a>
+
+          <!-- X / Twitter -->
+          <a href="https://twitter.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Ahnaf on X / Twitter (opens in new tab)" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            <span class="social-btn__label">X / Twitter</span>
+          </a>
+
+          <!-- Instagram -->
+          <a href="https://instagram.com" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Ahnaf on Instagram (opens in new tab)" role="listitem">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            <span class="social-btn__label">Instagram</span>
+          </a>
+
+          <!-- itch.io -->
+          <a href="https://itch.io" class="social-btn" target="_blank" rel="noopener noreferrer" aria-label="Ahnaf on itch.io (opens in new tab)" role="listitem">
+            <svg viewBox="0 0 245 245" fill="currentColor" aria-hidden="true"><path d="M31.99 2.16C23.38 7.31 0 39.96 0 46.75v7.43c0 14.91 14.01 27.93 26.62 27.93 15.23 0 27.95-12.67 27.95-27.89 0 15.22 12.28 27.89 27.51 27.89 15.22 0 27.28-12.67 27.28-27.89 0 15.22 12.5 27.89 27.73 27.89h.45c15.22 0 27.73-12.67 27.73-27.89 0 15.22 12.06 27.89 27.28 27.89 15.22 0 27.51-12.67 27.51-27.89 0 15.22 12.72 27.89 27.95 27.89C231.98 81.11 246 68.09 246 53.18v-7.43c0-6.79-23.38-39.44-32-44.59-44.61-2.77-137.43-2.77-182.01 0zm96.73 78.32c-7.77 0-14.87-2.49-20.61-6.58-5.74 4.09-12.84 6.58-20.62 6.58-6.97 0-13.47-2.04-18.93-5.56-5.46 3.52-11.96 5.56-18.93 5.56-.8 0-1.6-.03-2.39-.09v81.02l6.08 3.52 41.54 16.73 41.54-16.73 6.08-3.52V80.39c-.79.06-1.59.09-2.38.09-6.97 0-13.47-2.04-18.93-5.56-5.46 3.52-11.96 5.56-18.93 5.56zm-55.5 19.44h18.27v18.27h-18.27v-18.27zm55.5 0h18.27v18.27h-18.27v-18.27zm-27.75 27.75h18.27v18.27h-18.27v-18.27z"/></svg>
+            <span class="social-btn__label">itch.io</span>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:ahnaf@example.com" class="social-btn" aria-label="Email Ahnaf Hassan Aurnill" role="listitem">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <span class="social-btn__label">Email</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="#home" class="footer__logo" aria-label="Back to top">Ahnaf<span>.</span></a>
+        <p class="footer__copy">&copy; <span id="footer-year">2024</span> Ahnaf Hassan Aurnill. All rights reserved.</p>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="#articles" class="footer__link">Articles</a>
+          <a href="#writing"  class="footer__link">Writing</a>
+          <a href="#gamedev"  class="footer__link">Games</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+    JAVASCRIPT — Minimal vanilla JS, no frameworks.
+    Responsibilities:
+      1. Nav scroll class (glassmorphism trigger)
+      2. Mobile hamburger menu toggle
+      3. Scroll reveal via IntersectionObserver (animate once)
+      4. Active nav link via IntersectionObserver (no scroll events)
+      5. Dynamic footer year
+
+    ALL animations are CSS transitions — JS only adds/removes classes.
+    No direct style manipulation from JS.
+  ============================================================ -->
+  <script>
+    // 1. NAV SCROLL — adds .nav--scrolled for glassmorphism effect
+    const nav       = document.getElementById('nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    function handleNavScroll() {
+      nav.classList.toggle('nav--scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    // 2. MOBILE HAMBURGER TOGGLE
+    // aria-expanded state drives both the X animation and the dropdown via CSS
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      navLinks.classList.toggle('is-open', !isOpen);
+    });
+
+    // Close mobile menu on link click
+    navLinks.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('is-open');
+      });
+    });
+
+    // 3. SCROLL REVEAL — IntersectionObserver
+    // Trigger: element ≥ 15% in viewport
+    // Action: add .is-visible → CSS transition fires (opacity + transform)
+    // unobserve() after first fire — animate ONCE per spec
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target); // Fire once only
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // 4. ACTIVE NAV LINK — IntersectionObserver (avoids scroll event overhead)
+    // rootMargin creates a "activation band" in the middle of the viewport
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            document.querySelectorAll('.nav__link').forEach(link => {
+              if (link.getAttribute('href') === `#${id}`) {
+                link.setAttribute('aria-current', 'page');
+              } else {
+                link.removeAttribute('aria-current');
+              }
+            });
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px' }
+    );
+    document.querySelectorAll('section[id]').forEach(s => sectionObserver.observe(s));
+
+    // 5. DYNAMIC YEAR
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
