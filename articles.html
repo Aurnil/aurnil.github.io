@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Articles by Ahnaf Hassan Aurnill — Essays, reflections, and observations on code, creativity, game design, and the human experience." />
+  <meta name="theme-color" content="#1C1A18" />
+  <title>Articles — Ahnaf Hassan Aurnill</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Articles — Ahnaf Hassan Aurnill" />
+  <meta property="og:description" content="Essays, reflections, and observations on code, creativity, game design, and the human experience." />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+      CSS CUSTOM PROPERTIES — DESIGN SYSTEM (identical to homepage)
+    ============================================================ */
+    :root {
+      --color-bg-primary:       #1C1A18;
+      --color-bg-secondary:     #24211E;
+      --color-accent-primary:   #FF8C42;
+      --color-accent-secondary: #E76F51;
+      --color-highlight:        #F4A261;
+      --color-text-primary:     #F1EDE6;
+      --color-text-secondary:   #CFC7BC;
+      --color-border-subtle:    #2E2A26;
+      --color-shadow-warm:      rgba(255, 140, 66, 0.25);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --fs-xs:   0.75rem;
+      --fs-sm:   0.875rem;
+      --fs-base: 1rem;
+      --fs-md:   1.125rem;
+      --fs-lg:   1.25rem;
+      --fs-xl:   1.5rem;
+      --fs-2xl:  2rem;
+      --fs-3xl:  2.75rem;
+      --fs-4xl:  3.5rem;
+      --fs-5xl:  4.5rem;
+
+      --sp-1:  0.25rem;
+      --sp-2:  0.5rem;
+      --sp-3:  0.75rem;
+      --sp-4:  1rem;
+      --sp-5:  1.25rem;
+      --sp-6:  1.5rem;
+      --sp-8:  2rem;
+      --sp-10: 2.5rem;
+      --sp-12: 3rem;
+      --sp-16: 4rem;
+      --sp-20: 5rem;
+      --sp-24: 6rem;
+
+      --max-width: 1200px;
+      --nav-height: 72px;
+
+      --ease-standard:  cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out:       cubic-bezier(0, 0, 0.2, 1);
+      --dur-fast:       150ms;
+      --dur-base:       300ms;
+      --dur-slow:       600ms;
+
+      --radius-sm:   6px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-full: 9999px;
+    }
+
+    /* ============================================================
+      RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-primary); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+      LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    @media (max-width: 768px) { .container { padding-inline: var(--sp-4); } }
+
+    /* ============================================================
+      SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity   var(--dur-slow) var(--ease-standard),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .reveal[data-delay="1"] { transition-delay: 100ms; }
+    .reveal[data-delay="2"] { transition-delay: 200ms; }
+    .reveal[data-delay="3"] { transition-delay: 300ms; }
+    .reveal[data-delay="4"] { transition-delay: 400ms; }
+    .reveal[data-delay="5"] { transition-delay: 500ms; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+      NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      transition:
+        background-color var(--dur-base) var(--ease-standard),
+        border-bottom-color var(--dur-base) var(--ease-standard),
+        backdrop-filter var(--dur-base) var(--ease-standard);
+      border-bottom: 1px solid transparent;
+    }
+    .nav--scrolled {
+      background-color: rgba(28, 26, 24, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border-subtle);
+    }
+    .nav__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__logo span { color: var(--color-accent-primary); }
+    .nav__logo:hover { color: var(--color-accent-primary); }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-8);
+    }
+    .nav__link {
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent-primary);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+    .nav__link:hover,
+    .nav__link[aria-current="page"] { color: var(--color-text-primary); }
+    .nav__link:hover::after,
+    .nav__link[aria-current="page"]::after { width: 100%; }
+
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--dur-fast) var(--ease-out);
+    }
+    .nav__toggle:hover { background-color: var(--color-border-subtle); }
+    .nav__toggle-bar {
+      width: 22px; height: 2px;
+      background: var(--color-text-primary);
+      border-radius: var(--radius-full);
+      transition: transform var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard);
+      transform-origin: center;
+    }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border-subtle);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--sp-4) var(--sp-6);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+          opacity    var(--dur-base) var(--ease-standard),
+          transform  var(--dur-base) var(--ease-standard);
+      }
+      .nav__links.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .nav__link {
+        padding-block: var(--sp-4);
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-size: var(--fs-base);
+      }
+      .nav__link:last-child { border-bottom: none; }
+      .nav__toggle { display: flex; }
+    }
+
+    /* ============================================================
+      BUTTON COMPONENTS (identical to homepage)
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-8);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out),
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+      will-change: transform;
+    }
+    .btn:hover  { transform: translateY(-4px); }
+    .btn:active { transform: translateY(-1px); }
+    .btn--primary { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .btn--primary:hover {
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 32px var(--color-shadow-warm);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-subtle);
+    }
+    .btn--ghost:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      box-shadow: 0 4px 16px rgba(255, 140, 66, 0.12);
+    }
+
+    /* ============================================================
+      HERO — ARTICLES PAGE
+      Compact hero (not full-viewport) with radial gradient + grain
+    ============================================================ */
+    .articles-hero {
+      position: relative;
+      padding-top: calc(var(--nav-height) + var(--sp-20));
+      padding-bottom: var(--sp-20);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    /* Radial gradient background for depth */
+    .articles-hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 50% 0%, rgba(255,140,66,0.10) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 40% at 10% 90%, rgba(231,111,81,0.06) 0%, transparent 60%),
+        var(--color-bg-primary);
+    }
+
+    /* Grain texture overlay */
+    .articles-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .articles-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+
+    /* Eyebrow label above H1 */
+    .articles-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-5);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 150ms forwards;
+    }
+    .articles-hero__eyebrow::before,
+    .articles-hero__eyebrow::after {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--color-accent-primary);
+      opacity: 0.6;
+    }
+
+    /* THE ONE H1 on this page */
+    .articles-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-3xl), 7vw, var(--fs-5xl));
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 280ms forwards;
+    }
+    .articles-hero__title em {
+      color: var(--color-accent-primary);
+      font-style: italic;
+    }
+
+    .articles-hero__sub {
+      font-size: clamp(var(--fs-base), 2vw, var(--fs-md));
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.65;
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 410ms forwards;
+    }
+
+    /* Divider line below hero */
+    .articles-hero__divider {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-border-subtle), transparent);
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+      SECTION SHARED STYLES
+    ============================================================ */
+    .section-label {
+      display: inline-block;
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    /* ============================================================
+      FEATURED ARTICLE SECTION
+    ============================================================ */
+    .featured {
+      padding: var(--sp-24) 0;
+      border-bottom: 1px solid var(--color-border-subtle);
+    }
+
+    .featured__label {
+      margin-bottom: var(--sp-8);
+    }
+
+    /* Two-column layout: image left, content right */
+    .featured__card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-12);
+      align-items: center;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition:
+        transform  var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .featured__card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4), 0 0 0 1px var(--color-accent-primary) inset;
+      border-color: rgba(255,140,66,0.3);
+    }
+
+    /* 16:9 image wrapper */
+    .featured__image-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      align-self: stretch;
+    }
+    .featured__image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--dur-slow) var(--ease-standard);
+      will-change: transform;
+    }
+    .featured__card:hover .featured__image-wrap img {
+      transform: scale(1.04);
+    }
+
+    .featured__body {
+      padding: var(--sp-10) var(--sp-10) var(--sp-10) 0;
+    }
+
+    .featured__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-5);
+    }
+    .featured__category {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: rgba(255,140,66,0.1);
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(255,140,66,0.2);
+    }
+    .featured__date {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+
+    .featured__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-xl), 3vw, var(--fs-3xl));
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-5);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .featured__card:hover .featured__title {
+      color: var(--color-highlight);
+    }
+
+    .featured__excerpt {
+      font-size: var(--fs-base);
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: var(--sp-8);
+    }
+
+    .featured__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      margin-bottom: var(--sp-6);
+      letter-spacing: 0.04em;
+    }
+    .featured__badge svg {
+      display: inline;
+      width: 14px; height: 14px;
+      flex-shrink: 0;
+      color: var(--color-accent-primary);
+    }
+
+    /* Responsive: stack on tablet/mobile */
+    @media (max-width: 900px) {
+      .featured__card {
+        grid-template-columns: 1fr;
+      }
+      .featured__image-wrap {
+        align-self: auto;
+      }
+      .featured__body {
+        padding: var(--sp-8);
+      }
+    }
+
+    /* ============================================================
+      ARTICLES GRID SECTION
+    ============================================================ */
+    .articles-grid-section {
+      padding: var(--sp-24) 0;
+    }
+
+    .articles-grid-section__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-12);
+    }
+
+    .articles-grid-section__heading {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-xl), 3vw, var(--fs-2xl));
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--color-text-primary);
+    }
+
+    /* Filter pills */
+    .filter-pills {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: var(--sp-2) var(--sp-4);
+      border-radius: var(--radius-full);
+      border: 1px solid var(--color-border-subtle);
+      background: transparent;
+      transition:
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out),
+        background   var(--dur-fast) var(--ease-out);
+      cursor: pointer;
+    }
+    .filter-pill:hover,
+    .filter-pill.is-active {
+      color: var(--color-accent-primary);
+      border-color: var(--color-accent-primary);
+      background: rgba(255,140,66,0.08);
+    }
+
+    /* 3-col desktop, 2-col tablet, 1-col mobile */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-8);
+    }
+    @media (max-width: 1024px) {
+      .articles-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .articles-grid { grid-template-columns: 1fr; gap: var(--sp-6); }
+    }
+
+    /* ============================================================
+      ARTICLE CARD
+      Scalable: duplicating the <article class="article-card"> 
+      block adds a new card with no CSS changes.
+    ============================================================ */
+    .article-card {
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out);
+      will-change: transform;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,140,66,0.2) inset;
+      border-color: rgba(255,140,66,0.25);
+    }
+
+    /* Thumbnail — 16:9 */
+    .article-card__thumb {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      flex-shrink: 0;
+    }
+    .article-card__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--dur-slow) var(--ease-standard);
+      will-change: transform;
+    }
+    .article-card:hover .article-card__thumb img {
+      transform: scale(1.05);
+    }
+
+    /* Category tag overlay on thumbnail */
+    .article-card__category-tag {
+      position: absolute;
+      top: var(--sp-3);
+      left: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-bg-primary);
+      background: var(--color-accent-primary);
+      padding: 2px var(--sp-3);
+      border-radius: var(--radius-full);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .article-card__body {
+      padding: var(--sp-6);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .article-card__meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--sp-4);
+    }
+    .article-card__date {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .article-card__read-time {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-1);
+    }
+    .article-card__read-time svg {
+      width: 12px; height: 12px;
+      display: inline;
+      flex-shrink: 0;
+    }
+
+    .article-card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .article-card:hover .article-card__title {
+      color: var(--color-highlight);
+    }
+
+    .article-card__excerpt {
+      font-size: var(--fs-sm);
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+      flex: 1;
+      margin-bottom: var(--sp-5);
+      /* Clamp to 3 lines */
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .article-card__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: gap var(--dur-fast) var(--ease-out);
+    }
+    .article-card__cta svg {
+      width: 14px; height: 14px;
+      display: inline;
+      transition: transform var(--dur-fast) var(--ease-out);
+    }
+    .article-card:hover .article-card__cta svg {
+      transform: translateX(4px);
+    }
+    .article-card:hover .article-card__cta {
+      gap: var(--sp-3);
+    }
+
+    /* ============================================================
+      SEARCH BAR
+      Sits between the grid header and the card grid.
+      Uses only design tokens — no new colors introduced.
+    ============================================================ */
+    .search-bar {
+      position: relative;
+      margin-bottom: var(--sp-10);
+    }
+
+    /* Magnifier icon — positioned inside the input on the left */
+    .search-bar__icon {
+      position: absolute;
+      left: var(--sp-5);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      color: var(--color-text-secondary);
+      pointer-events: none;
+      flex-shrink: 0;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+
+    .search-bar:focus-within .search-bar__icon {
+      color: var(--color-accent-primary);
+    }
+
+    .search-bar__input {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--sp-3) var(--sp-5) var(--sp-3) calc(var(--sp-5) + 18px + var(--sp-3));
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      font-weight: 400;
+      outline: none;
+      /* Only transition composited-friendly properties */
+      transition:
+        border-color var(--dur-fast) var(--ease-out),
+        box-shadow   var(--dur-fast) var(--ease-out);
+    }
+
+    .search-bar__input::placeholder {
+      color: var(--color-text-secondary);
+      font-weight: 300;
+    }
+
+    .search-bar__input:focus {
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.12);
+    }
+
+    /* Clear button — appears when input has text */
+    .search-bar__clear {
+      position: absolute;
+      right: var(--sp-4);
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: var(--radius-full);
+      background: var(--color-border-subtle);
+      color: var(--color-text-secondary);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity    var(--dur-fast) var(--ease-out),
+        background var(--dur-fast) var(--ease-out),
+        color      var(--dur-fast) var(--ease-out);
+    }
+    .search-bar__clear svg { width: 14px; height: 14px; }
+    .search-bar__clear:hover { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .search-bar--has-value .search-bar__clear {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* ── Search result count badge ─────────────────────────────── */
+    .search-count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-6);
+      min-height: 1.4em;  /* prevent layout shift when text appears/disappears */
+      transition: opacity var(--dur-fast) var(--ease-out);
+    }
+    .search-count strong { color: var(--color-accent-primary); }
+
+    /* ── No results state ──────────────────────────────────────── */
+    .no-results {
+      display: none;           /* JS shows this when needed */
+      text-align: center;
+      padding: var(--sp-20) var(--sp-6);
+      color: var(--color-text-secondary);
+    }
+    .no-results__icon {
+      width: 48px; height: 48px;
+      margin: 0 auto var(--sp-6);
+      color: var(--color-border-subtle);
+    }
+    .no-results__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+    }
+    .no-results__sub {
+      font-size: var(--fs-sm);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+      ARTICLE CARD — hidden/shown states for search + see-more
+      All visibility changes use opacity + transform only (GPU).
+    ============================================================ */
+
+    /* Cards hidden by "See More" — in DOM for SEO, visually hidden */
+    .article-card-li--clamped {
+      display: none;  /* toggled to flex by JS when revealed */
+    }
+
+    /* Cards hidden by search filter */
+    .article-card-li--filtered-out {
+      display: none;
+    }
+
+    /* Entrance animation when a card is revealed by "See More" */
+    @keyframes card-enter {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .article-card-li--entering {
+      animation: card-enter var(--dur-slow) var(--ease-standard) forwards;
+    }
+
+    /* ============================================================
+      SEE MORE BUTTON
+    ============================================================ */
+    .see-more-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+      padding-top: var(--sp-12);
+    }
+
+    .see-more-wrap__count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .see-more-wrap__count strong { color: var(--color-text-primary); }
+
+    /* Progress track below the button */
+    .see-more-wrap__track {
+      width: 160px;
+      height: 2px;
+      background: var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .see-more-wrap__fill {
+      height: 100%;
+      background: var(--color-accent-primary);
+      border-radius: var(--radius-full);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+
+    /* ============================================================
+      FOOTER (identical to homepage)
+    ============================================================ */
+    .footer {
+      padding: var(--sp-12) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-6);
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__logo span { color: var(--color-accent-primary); }
+    .footer__logo:hover { color: var(--color-accent-primary); }
+    .footer__copy {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.02em;
+    }
+    .footer__links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-6);
+    }
+    .footer__link {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__link:hover { color: var(--color-accent-primary); }
+
+    @media (max-width: 600px) {
+      .footer__inner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    /* ============================================================
+      UTILITY: VISUALLY HIDDEN (screen-reader only)
+    ============================================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+    NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo" aria-label="Ahnaf Hassan Aurnill — Home">Ahnaf<span>.</span></a>
+
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="index.html#about"   class="nav__link">About</a></li>
+        <li><a href="articles.html"      class="nav__link" aria-current="page">Articles</a></li>
+        <li><a href="index.html#writing" class="nav__link">Writing</a></li>
+        <li><a href="index.html#gamedev" class="nav__link">Games</a></li>
+        <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+      HERO — ARTICLES PAGE
+      Single H1 for SEO + heading hierarchy
+    ============================================================ -->
+    <section class="articles-hero" aria-labelledby="articles-heading">
+      <div class="articles-hero__bg" aria-hidden="true"></div>
+
+      <div class="articles-hero__content">
+        <span class="articles-hero__eyebrow" aria-hidden="true">Published Work</span>
+
+        <!-- THE ONE H1 ON THIS PAGE -->
+        <h1 class="articles-hero__title" id="articles-heading">
+          <em>Articles</em>
+        </h1>
+
+        <p class="articles-hero__sub">
+          Longform thoughts on code, creativity, game design, and the quietly strange experience of being human. 
+          Written slowly. Revised obsessively. Published when ready.
+        </p>
+      </div>
+
+      <div class="articles-hero__divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================
+      FEATURED ARTICLE
+    ============================================================ -->
+    <section class="featured" aria-labelledby="featured-heading">
+      <div class="container">
+
+        <div class="reveal">
+          <span class="section-label featured__label">Featured</span>
+        </div>
+
+        <article class="featured__card reveal" data-delay="1">
+          <a href="#" aria-label="Read: The Loneliness of the Long-Form Writer — full article">
+            <!-- 16:9 image, left column -->
+            <div class="featured__image-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=960&q=80&auto=format&fit=crop"
+                alt="A weathered notebook lying open on a wooden desk beside a dimly lit lamp, evoking late-night writing sessions"
+                width="960"
+                height="540"
+                loading="eager"
+              />
+            </div>
+          </a>
+
+          <!-- Content, right column -->
+          <div class="featured__body">
+            <div class="featured__meta">
+              <span class="featured__category">Essay</span>
+              <time class="featured__date" datetime="2025-11-12">12 November 2025</time>
+            </div>
+
+            <h2 class="featured__title">
+              <a href="#">The Loneliness of the Long-Form Writer</a>
+            </h2>
+
+            <p class="featured__excerpt">
+              There's a particular kind of silence that descends when you're 4,000 words into something you're not sure anyone will read. 
+              It isn't writer's block — it's something quieter and more unsettling. This is an essay about sitting with that silence, 
+              and why I keep returning to it anyway.
+            </p>
+
+            <div class="featured__badge" aria-label="12 minute read">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+              12 min read
+            </div>
+
+            <a href="#" class="btn btn--primary" aria-label="Read the full article: The Loneliness of the Long-Form Writer">
+              Read Article
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="16" height="16">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============================================================
+      ARTICLES GRID
+      To add a new article: duplicate the <article class="article-card"> block.
+      JS auto-detects all <li> children of #articles-grid — no logic changes needed.
+    ============================================================ -->
+    <section class="articles-grid-section" aria-labelledby="grid-heading">
+      <div class="container">
+
+        <!-- Section Header -->
+        <header class="articles-grid-section__header reveal">
+          <div>
+            <span class="section-label">All Articles</span>
+            <h2 class="articles-grid-section__heading" id="grid-heading">From the Archive</h2>
+          </div>
+          <nav class="filter-pills" aria-label="Filter articles by category">
+            <button class="filter-pill is-active" aria-pressed="true" data-filter="all">All</button>
+            <button class="filter-pill" aria-pressed="false" data-filter="essay">Essay</button>
+            <button class="filter-pill" aria-pressed="false" data-filter="dev">Dev</button>
+            <button class="filter-pill" aria-pressed="false" data-filter="games">Games</button>
+            <button class="filter-pill" aria-pressed="false" data-filter="personal">Personal</button>
+          </nav>
+        </header>
+
+        <!-- ── Search Bar ──────────────────────────────────────── -->
+        <div class="search-bar reveal" data-delay="1" id="search-bar">
+          <svg class="search-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            class="search-bar__input"
+            id="article-search"
+            type="search"
+            placeholder="Search by title, category, or topic…"
+            aria-label="Search articles by title, category, or topic"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-bar__clear" id="search-clear" aria-label="Clear search" tabindex="-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Result count — updated by JS -->
+        <p class="search-count" id="search-count" aria-live="polite" aria-atomic="true"></p>
+
+        <!-- Grid -->
+        <ul class="articles-grid" id="articles-grid" role="list">
+
+          <!-- ─── CARD 1 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: Why I Write Games Nobody Plays">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=640&q=75&auto=format&fit=crop"
+                    alt="An overhead view of a retro game controller resting on a dark wooden surface with warm side lighting"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Games">Games</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-10-04" itemprop="datePublished">4 Oct 2025</time>
+                  <span class="article-card__read-time" aria-label="8 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    8 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">Why I Write Games Nobody Plays</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  Game jams taught me that an audience of one is still an audience. 
+                  On the strange dignity of shipping something small, weird, and deeply personal.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: Why I Write Games Nobody Plays">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 2 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: On Learning to Read Code Like Prose">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=640&q=75&auto=format&fit=crop"
+                    alt="A terminal window glowing with amber code on a dark monitor in a dim room"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Dev">Dev</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-09-17" itemprop="datePublished">17 Sep 2025</time>
+                  <span class="article-card__read-time" aria-label="6 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    6 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">On Learning to Read Code Like Prose</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  The best codebases I've read have a voice. 
+                  A rhythm. Opinions baked into variable names and the space between functions. 
+                  Here's what literature taught me about software.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: On Learning to Read Code Like Prose">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 3 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: The Aesthetics of Restraint">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=640&q=75&auto=format&fit=crop"
+                    alt="A minimalist desk with a single plant, a blank notebook, and a cup of black coffee bathed in soft natural light"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Essay">Essay</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-08-29" itemprop="datePublished">29 Aug 2025</time>
+                  <span class="article-card__read-time" aria-label="10 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    10 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">The Aesthetics of Restraint</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  Why some of the most powerful creative decisions are the ones you don't make. 
+                  A meditation on negative space, silence, and the courage to stop.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: The Aesthetics of Restraint">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 4 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: Burnout Has a Grammar">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1519241047957-be31d7379a5d?w=640&q=75&auto=format&fit=crop"
+                    alt="A person's silhouette sitting alone on a rooftop at dusk, city lights blurring behind them"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Personal">Personal</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-07-14" itemprop="datePublished">14 Jul 2025</time>
+                  <span class="article-card__read-time" aria-label="7 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    7 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">Burnout Has a Grammar</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  It doesn't arrive all at once. It shows up in sentence structure first — 
+                  passive verbs, deferred subjects, the growing preference for shorter paragraphs. 
+                  A personal account of recognizing the signs too late.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: Burnout Has a Grammar">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 5 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: Procedural Generation as Philosophy">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=640&q=75&auto=format&fit=crop"
+                    alt="Abstract circuit board macro photography with warm amber and gold tones"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Games">Games</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-06-03" itemprop="datePublished">3 Jun 2025</time>
+                  <span class="article-card__read-time" aria-label="9 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    9 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">Procedural Generation as Philosophy</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  When a dungeon generates itself, who authored it? 
+                  A look at randomness, authorship, and what roguelikes reveal about how we make meaning from noise.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: Procedural Generation as Philosophy">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 6 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: Notes on Typing in the Dark">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=640&q=75&auto=format&fit=crop"
+                    alt="Hands typing on a laptop keyboard in a darkened room with only the screen glow illuminating the scene"
+                    width="640"
+                    height="360"
+                    loading="lazy"
+                    itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Essay">Essay</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-04-21" itemprop="datePublished">21 Apr 2025</time>
+                  <span class="article-card__read-time" aria-label="5 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    5 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline">
+                  <a href="#">Notes on Typing in the Dark</a>
+                </h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  Every writer has their rituals. Mine involves bad lighting, worse posture, 
+                  and the quiet superstition that the words only come when no one's watching.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: Notes on Typing in the Dark">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 7 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: The Code That Writes Itself">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=640&q=75&auto=format&fit=crop"
+                    alt="Lines of code glowing on a monitor in a dark developer workspace"
+                    width="640" height="360" loading="lazy" itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Dev">Dev</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-03-10" itemprop="datePublished">10 Mar 2025</time>
+                  <span class="article-card__read-time" aria-label="11 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    11 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline"><a href="#">The Code That Writes Itself</a></h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  An exploration of generative code, meta-programming, and the eerie experience of 
+                  watching a program produce something its author didn't anticipate.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: The Code That Writes Itself">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 8 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: On Playing Games You Can't Win">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=640&q=75&auto=format&fit=crop"
+                    alt="A dimly lit room with a glowing game controller and soft neon light accents"
+                    width="640" height="360" loading="lazy" itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Games">Games</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-02-05" itemprop="datePublished">5 Feb 2025</time>
+                  <span class="article-card__read-time" aria-label="7 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    7 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline"><a href="#">On Playing Games You Can't Win</a></h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  Some games are designed to end in failure. What that design choice reveals 
+                  about how we process loss, persistence, and the meaning we attach to pointless effort.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: On Playing Games You Can't Win">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+          <!-- ─── CARD 9 ─── -->
+          <li>
+            <article class="article-card" itemscope itemtype="https://schema.org/Article">
+              <a href="#" aria-label="Read: Letters to My Past Self, a Developer">
+                <div class="article-card__thumb">
+                  <img
+                    src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?w=640&q=75&auto=format&fit=crop"
+                    alt="A handwritten letter resting on a wooden table beside a lit candle and vintage glasses"
+                    width="640" height="360" loading="lazy" itemprop="image"
+                  />
+                  <span class="article-card__category-tag" aria-label="Category: Personal">Personal</span>
+                </div>
+              </a>
+              <div class="article-card__body">
+                <div class="article-card__meta">
+                  <time class="article-card__date" datetime="2025-01-18" itemprop="datePublished">18 Jan 2025</time>
+                  <span class="article-card__read-time" aria-label="6 minute read">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    6 min
+                  </span>
+                </div>
+                <h3 class="article-card__title" itemprop="headline"><a href="#">Letters to My Past Self, a Developer</a></h3>
+                <p class="article-card__excerpt" itemprop="description">
+                  If I could send one message back to the version of me who was just learning to code, 
+                  it wouldn't be about algorithms. It would be about what you're really signing up for.
+                </p>
+                <a href="#" class="article-card__cta" aria-label="Read full article: Letters to My Past Self, a Developer">
+                  Read More
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              </div>
+            </article>
+          </li>
+
+        </ul>
+
+        <!-- No results state — shown by JS when search yields nothing -->
+        <div class="no-results" id="no-results" role="status" aria-live="polite">
+          <svg class="no-results__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+          <p class="no-results__title">No articles found</p>
+          <p class="no-results__sub">Try a different keyword or clear the search to browse everything.</p>
+        </div>
+
+        <!-- See More — progressive reveal, hidden by JS when no more cards remain -->
+        <div class="see-more-wrap" id="see-more-wrap">
+          <p class="see-more-wrap__count" id="see-more-count" aria-live="polite"></p>
+          <button class="btn btn--ghost" id="see-more-btn" aria-label="Load more articles">
+            See More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="16" height="16">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="see-more-wrap__track" aria-hidden="true">
+            <div class="see-more-wrap__fill" id="see-more-fill"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+
+  </main>
+
+  <!-- ============================================================
+    FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="index.html" class="footer__logo" aria-label="Back to home">Ahnaf<span>.</span></a>
+        <p class="footer__copy">&copy; <span id="footer-year">2025</span> Ahnaf Hassan Aurnill. All rights reserved.</p>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="articles.html" class="footer__link">Articles</a>
+          <a href="index.html#writing" class="footer__link">Writing</a>
+          <a href="index.html#gamedev" class="footer__link">Games</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+      NAV SCROLL — glassmorphism trigger
+    ============================================================ */
+    const navEl     = document.getElementById('nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    function handleNavScroll() {
+      navEl.classList.toggle('nav--scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    /* ============================================================
+      MOBILE HAMBURGER
+    ============================================================ */
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      navLinks.classList.toggle('is-open', !isOpen);
+    });
+    navLinks.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('is-open');
+      });
+    });
+
+    /* ============================================================
+      SCROLL REVEAL — IntersectionObserver, fire once
+    ============================================================ */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ============================================================
+      DYNAMIC YEAR
+    ============================================================ */
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ============================================================
+      ARTICLE GRID CONTROLLER
+      ─────────────────────────────────────────────────────────────
+      Manages three overlapping systems:
+        1. Filter pills  — show/hide cards by category
+        2. Live search   — fuzzy-match title + category + excerpt
+        3. See More      — progressive reveal in batches
+
+      SEO: all <li> elements remain in the DOM at all times.
+           Hiding is done via CSS class (display:none) not removal.
+
+      SCALABILITY: add new cards by duplicating <li> HTML only.
+      JS reads data-* attributes automatically — no code changes.
+    ============================================================ */
+    (function initArticleGrid() {
+
+      /* ── Config ──────────────────────────────────────────────── */
+      const INITIAL_VISIBLE = 6;   // cards shown on first load
+      const BATCH_SIZE      = 3;   // cards revealed per "See More" click
+
+      /* ── Element refs ────────────────────────────────────────── */
+      const grid         = document.getElementById('articles-grid');
+      const searchInput  = document.getElementById('article-search');
+      const searchBar    = document.getElementById('search-bar');
+      const clearBtn     = document.getElementById('search-clear');
+      const countEl      = document.getElementById('search-count');
+      const noResults    = document.getElementById('no-results');
+      const seeMoreWrap  = document.getElementById('see-more-wrap');
+      const seeMoreBtn   = document.getElementById('see-more-btn');
+      const seeMoreCount = document.getElementById('see-more-count');
+      const seeMoreFill  = document.getElementById('see-more-fill');
+      const filterPills  = document.querySelectorAll('.filter-pill');
+
+      /* ── Collect all card <li> elements ─────────────────────── */
+      // Each <li> gets data attributes extracted from its inner HTML
+      // so search/filter can match without re-querying the DOM each time.
+      const allCards = Array.from(grid.querySelectorAll('li'));
+
+      allCards.forEach(li => {
+        // Read searchable text from child elements
+        const titleEl    = li.querySelector('.article-card__title');
+        const excerptEl  = li.querySelector('.article-card__excerpt');
+        const categoryEl = li.querySelector('.article-card__category-tag');
+
+        li.dataset.title    = (titleEl    ? titleEl.textContent    : '').toLowerCase().trim();
+        li.dataset.excerpt  = (excerptEl  ? excerptEl.textContent  : '').toLowerCase().trim();
+        li.dataset.category = (categoryEl ? categoryEl.textContent : '').toLowerCase().trim();
+      });
+
+      /* ── State ───────────────────────────────────────────────── */
+      let activeFilter  = 'all';  // current filter-pill value
+      let searchQuery   = '';     // current search string
+      let visibleCap    = INITIAL_VISIBLE; // how many non-filtered cards to show
+
+      /* ── Core render ─────────────────────────────────────────── */
+      // Called whenever filter, search, or see-more changes.
+      // Decides which cards pass the filter+search test,
+      // then applies the visibleCap to the passing set.
+      function render(newlyRevealedStart) {
+
+        const q = searchQuery.trim().toLowerCase();
+        const isSearching = q.length > 0;
+        const isFiltering = activeFilter !== 'all';
+
+        // Partition into passing (match filter+search) and failing
+        const passing = [];
+        const failing = [];
+
+        allCards.forEach(li => {
+          const matchesFilter = !isFiltering || li.dataset.category === activeFilter;
+          const matchesSearch = !isSearching || (
+            li.dataset.title.includes(q)    ||
+            li.dataset.excerpt.includes(q)  ||
+            li.dataset.category.includes(q)
+          );
+
+          if (matchesFilter && matchesSearch) {
+            passing.push(li);
+          } else {
+            failing.push(li);
+          }
+        });
+
+        // Hide all failing cards
+        failing.forEach(li => {
+          li.classList.add('article-card-li--filtered-out');
+          li.classList.remove('article-card-li--clamped', 'article-card-li--entering');
+        });
+
+        // Apply visibility cap to passing cards
+        passing.forEach((li, i) => {
+          li.classList.remove('article-card-li--filtered-out');
+
+          if (i < visibleCap) {
+            // Should be visible — was it previously clamped? If so, animate it in.
+            const wasClamped = li.classList.contains('article-card-li--clamped');
+            li.classList.remove('article-card-li--clamped');
+
+            if (wasClamped && newlyRevealedStart !== undefined && i >= newlyRevealedStart) {
+              // Stagger the entrance animation
+              const batchIndex = i - newlyRevealedStart;
+              li.classList.remove('article-card-li--entering');
+              // Force reflow to restart animation
+              void li.offsetWidth;
+              li.style.animationDelay = (batchIndex * 80) + 'ms';
+              li.classList.add('article-card-li--entering');
+
+              // Clean up animation class after it finishes
+              li.addEventListener('animationend', () => {
+                li.classList.remove('article-card-li--entering');
+                li.style.animationDelay = '';
+              }, { once: true });
+            }
+          } else {
+            // Beyond the cap — clamp it (hidden but in DOM for SEO)
+            li.classList.add('article-card-li--clamped');
+            li.classList.remove('article-card-li--entering');
+          }
+        });
+
+        /* ── Update search result count ───────────────────────── */
+        if (isSearching || isFiltering) {
+          const shown  = Math.min(passing.length, visibleCap);
+          const total  = passing.length;
+          countEl.innerHTML = total === 0
+            ? ''
+            : `Showing <strong>${shown}</strong> of <strong>${total}</strong> article${total !== 1 ? 's' : ''}`;
+        } else {
+          countEl.innerHTML = '';
+        }
+
+        /* ── No results state ─────────────────────────────────── */
+        noResults.style.display = passing.length === 0 ? 'block' : 'none';
+
+        /* ── See More button ──────────────────────────────────── */
+        const hiddenCount = Math.max(0, passing.length - visibleCap);
+        const shownCount  = Math.min(passing.length, visibleCap);
+
+        if (hiddenCount > 0 && !isSearching) {
+          seeMoreWrap.style.display = 'flex';
+          seeMoreCount.innerHTML    = `Showing <strong>${shownCount}</strong> of <strong>${passing.length}</strong>`;
+          // Progress fill = percentage of total passing cards already shown
+          const pct = passing.length > 0 ? (shownCount / passing.length) * 100 : 0;
+          seeMoreFill.style.width = pct + '%';
+        } else {
+          // Hide see-more when: all passing cards are visible OR we're in search mode
+          seeMoreWrap.style.display = 'none';
+        }
+      }
+
+      /* ── See More click ──────────────────────────────────────── */
+      seeMoreBtn.addEventListener('click', () => {
+        const prevCap = visibleCap;
+        visibleCap += BATCH_SIZE;
+        render(prevCap); // pass old cap so we know which cards are newly revealed
+      });
+
+      /* ── Filter pills ────────────────────────────────────────── */
+      filterPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          filterPills.forEach(p => {
+            p.classList.remove('is-active');
+            p.setAttribute('aria-pressed', 'false');
+          });
+          pill.classList.add('is-active');
+          pill.setAttribute('aria-pressed', 'true');
+
+          activeFilter = pill.dataset.filter || 'all';
+          visibleCap   = INITIAL_VISIBLE; // reset cap on filter change
+          render();
+        });
+      });
+
+      /* ── Search input ────────────────────────────────────────── */
+      let searchTimer;
+
+      searchInput.addEventListener('input', () => {
+        const val = searchInput.value;
+        searchQuery = val;
+
+        // Toggle clear button + search-bar modifier
+        searchBar.classList.toggle('search-bar--has-value', val.length > 0);
+
+        // Debounce slightly to avoid thrashing on fast typing
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          visibleCap = INITIAL_VISIBLE; // reset cap on new search
+          render();
+        }, 120);
+      });
+
+      /* ── Clear button ────────────────────────────────────────── */
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery = '';
+        searchBar.classList.remove('search-bar--has-value');
+        visibleCap = INITIAL_VISIBLE;
+        render();
+        searchInput.focus();
+      });
+
+      /* ── Initial render ──────────────────────────────────────── */
+      render();
+
+    })();
+  </script>
+
+</body>
+</html>
