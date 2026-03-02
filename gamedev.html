@@ -1,0 +1,2004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Game Development by Ahnaf Hassan Aurnill — Playable projects, prototypes, and game jam entries built with Unity, Godot, and custom engines." />
+  <meta name="theme-color" content="#1C1A18" />
+  <title>Game Development — Ahnaf Hassan Aurnill</title>
+
+  <meta property="og:title"       content="Game Development — Ahnaf Hassan Aurnill" />
+  <meta property="og:description" content="Playable projects, prototypes, and game jam entries. Devlogs, mechanics breakdowns, and the full build journey." />
+  <meta property="og:type"        content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+      CSS CUSTOM PROPERTIES — identical design system token set
+    ============================================================ */
+    :root {
+      --color-bg-primary:       #1C1A18;
+      --color-bg-secondary:     #24211E;
+      --color-accent-primary:   #FF8C42;
+      --color-accent-secondary: #E76F51;
+      --color-highlight:        #F4A261;
+      --color-text-primary:     #F1EDE6;
+      --color-text-secondary:   #CFC7BC;
+      --color-border-subtle:    #2E2A26;
+      --color-shadow-warm:      rgba(255, 140, 66, 0.25);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --fs-xs:   0.75rem;
+      --fs-sm:   0.875rem;
+      --fs-base: 1rem;
+      --fs-md:   1.125rem;
+      --fs-lg:   1.25rem;
+      --fs-xl:   1.5rem;
+      --fs-2xl:  2rem;
+      --fs-3xl:  2.75rem;
+      --fs-4xl:  3.5rem;
+      --fs-5xl:  4.5rem;
+
+      --sp-1:  0.25rem;
+      --sp-2:  0.5rem;
+      --sp-3:  0.75rem;
+      --sp-4:  1rem;
+      --sp-5:  1.25rem;
+      --sp-6:  1.5rem;
+      --sp-8:  2rem;
+      --sp-10: 2.5rem;
+      --sp-12: 3rem;
+      --sp-16: 4rem;
+      --sp-20: 5rem;
+      --sp-24: 6rem;
+
+      --max-width:  1200px;
+      --nav-height: 72px;
+
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+      --dur-fast:  150ms;
+      --dur-base:  300ms;
+      --dur-slow:  600ms;
+
+      --radius-sm:   6px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-full: 9999px;
+    }
+
+    /* ============================================================
+      RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-primary); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+      LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    @media (max-width: 768px) { .container { padding-inline: var(--sp-4); } }
+
+    /* ============================================================
+      SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity   var(--dur-slow) var(--ease-standard),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .reveal[data-delay="1"] { transition-delay: 100ms; }
+    .reveal[data-delay="2"] { transition-delay: 200ms; }
+    .reveal[data-delay="3"] { transition-delay: 300ms; }
+    .reveal[data-delay="4"] { transition-delay: 400ms; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+      NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition:
+        background-color    var(--dur-base) var(--ease-standard),
+        border-bottom-color var(--dur-base) var(--ease-standard),
+        backdrop-filter     var(--dur-base) var(--ease-standard);
+    }
+    .nav--scrolled {
+      background-color: rgba(28, 26, 24, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border-subtle);
+    }
+    .nav__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__logo span { color: var(--color-accent-primary); }
+    .nav__logo:hover { color: var(--color-accent-primary); }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-8);
+    }
+    .nav__link {
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent-primary);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+    .nav__link:hover,
+    .nav__link[aria-current="page"] { color: var(--color-text-primary); }
+    .nav__link:hover::after,
+    .nav__link[aria-current="page"]::after { width: 100%; }
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--dur-fast) var(--ease-out);
+    }
+    .nav__toggle:hover { background-color: var(--color-border-subtle); }
+    .nav__toggle-bar {
+      width: 22px; height: 2px;
+      background: var(--color-text-primary);
+      border-radius: var(--radius-full);
+      transition:
+        transform var(--dur-base) var(--ease-standard),
+        opacity   var(--dur-base) var(--ease-standard);
+      transform-origin: center;
+    }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border-subtle);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--sp-4) var(--sp-6);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+          opacity   var(--dur-base) var(--ease-standard),
+          transform var(--dur-base) var(--ease-standard);
+      }
+      .nav__links.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .nav__link {
+        padding-block: var(--sp-4);
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-size: var(--fs-base);
+      }
+      .nav__link:last-child { border-bottom: none; }
+      .nav__toggle { display: flex; }
+    }
+
+    /* ============================================================
+      BUTTON COMPONENTS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-8);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out),
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+      will-change: transform;
+    }
+    .btn:hover  { transform: translateY(-4px); }
+    .btn:active { transform: translateY(-1px); }
+    .btn--primary { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .btn--primary:hover {
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 32px var(--color-shadow-warm);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-subtle);
+    }
+    .btn--ghost:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      box-shadow: 0 4px 16px rgba(255, 140, 66, 0.12);
+    }
+
+    /* ============================================================
+      SECTION LABEL — shared utility
+    ============================================================ */
+    .section-label {
+      display: inline-block;
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    /* ============================================================
+      HERO — GAME DEVELOPMENT PAGE
+    ============================================================ */
+    .gamedev-hero {
+      position: relative;
+      padding-top:    calc(var(--nav-height) + var(--sp-20));
+      padding-bottom: var(--sp-20);
+      overflow: hidden;
+      text-align: center;
+    }
+    .gamedev-hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 10%, rgba(255,140,66,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 90%, rgba(231,111,81,0.07) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 50% 50%, rgba(244,162,97,0.04) 0%, transparent 70%),
+        var(--color-bg-primary);
+    }
+    /* Grain texture */
+    .gamedev-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    /* Decorative pixelated grid lines — game-dev motif */
+    .gamedev-hero__grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,140,66,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,140,66,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+
+    .gamedev-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .gamedev-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 150ms forwards;
+    }
+    .gamedev-hero__eyebrow::before,
+    .gamedev-hero__eyebrow::after {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--color-accent-primary);
+      opacity: 0.5;
+    }
+    /* THE ONE H1 ON THIS PAGE */
+    .gamedev-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-3xl), 7vw, var(--fs-5xl));
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 280ms forwards;
+    }
+    .gamedev-hero__title em {
+      color: var(--color-accent-primary);
+      font-style: italic;
+    }
+    .gamedev-hero__sub {
+      font-size: clamp(var(--fs-base), 2vw, var(--fs-md));
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: var(--sp-10);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 410ms forwards;
+    }
+    /* Engine/tool badges */
+    .gamedev-hero__badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 560ms forwards;
+    }
+    .gamedev-hero__badge {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: var(--sp-2) var(--sp-4);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.02);
+    }
+    .gamedev-hero__divider {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-border-subtle), transparent);
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+      SEARCH BAR — identical structure to Articles + Writing pages
+    ============================================================ */
+    .search-bar { position: relative; margin-bottom: var(--sp-8); }
+    .search-bar__icon {
+      position: absolute;
+      left: var(--sp-5); top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      color: var(--color-text-secondary);
+      pointer-events: none;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .search-bar:focus-within .search-bar__icon { color: var(--color-accent-primary); }
+    .search-bar__input {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--sp-3) var(--sp-5) var(--sp-3) calc(var(--sp-5) + 18px + var(--sp-3));
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      outline: none;
+      transition:
+        border-color var(--dur-fast) var(--ease-out),
+        box-shadow   var(--dur-fast) var(--ease-out);
+    }
+    .search-bar__input::placeholder { color: var(--color-text-secondary); font-weight: 300; }
+    .search-bar__input:focus {
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.12);
+    }
+    .search-bar__clear {
+      position: absolute;
+      right: var(--sp-4); top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: var(--radius-full);
+      background: var(--color-border-subtle);
+      color: var(--color-text-secondary);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity    var(--dur-fast) var(--ease-out),
+        background var(--dur-fast) var(--ease-out),
+        color      var(--dur-fast) var(--ease-out);
+    }
+    .search-bar__clear svg { width: 14px; height: 14px; }
+    .search-bar__clear:hover { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .search-bar--has-value .search-bar__clear { opacity: 1; pointer-events: auto; }
+
+    .search-count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-6);
+      min-height: 1.4em;
+    }
+    .search-count strong { color: var(--color-accent-primary); }
+
+    /* ============================================================
+      GAME PROJECTS GRID SECTION
+    ============================================================ */
+    .gamedev-section {
+      padding: var(--sp-24) 0 var(--sp-20);
+    }
+    .gamedev-section__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-6);
+      margin-bottom: var(--sp-10);
+    }
+    .gamedev-section__heading {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-xl), 3vw, var(--fs-2xl));
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .gamedev-section__count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: var(--sp-2);
+    }
+
+    /* ============================================================
+      GAME CARD GRID
+      2 columns on desktop, 1 on mobile — wider cards give more
+      room for the video component + detailed description.
+    ============================================================ */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-8);
+    }
+    @media (max-width: 860px) {
+      .game-grid { grid-template-columns: 1fr; }
+    }
+
+    /* Clamped / filtered states — JS-controlled, SEO safe */
+    .game-card-li--clamped      { display: none; }
+    .game-card-li--filtered-out { display: none; }
+
+    @keyframes card-enter {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .game-card-li--entering {
+      animation: card-enter var(--dur-slow) var(--ease-standard) forwards;
+    }
+
+    /* ============================================================
+      GAME CARD
+      Structure: [video embed] → [engine tag] → [title] →
+                 [date + duration meta] → [description] →
+                 [tech stack pills] → [links row]
+      Scalable: duplicate <li> to add new projects.
+    ============================================================ */
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 20px 56px rgba(0,0,0,0.38),
+        0 0 0 1px rgba(255,140,66,0.2) inset;
+      border-color: rgba(255,140,66,0.22);
+    }
+
+    /* ── Video Component ──────────────────────────────────────── */
+    /*
+      Lazy-load pattern:
+      1. State A (default): shows a thumbnail <img> + styled play button.
+         NO iframe in the DOM yet — zero network cost.
+      2. State B (after click): JS injects the <iframe> src, thumbnail
+         and button fade out via opacity + transition, iframe fades in.
+      All transitions use opacity + transform only (GPU composited).
+    */
+    .game-card__video-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #0a0908;
+      flex-shrink: 0;
+    }
+
+    /* Thumbnail image — fills the wrap */
+    .game-card__thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition:
+        opacity   var(--dur-base) var(--ease-out),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .game-card:hover .game-card__thumb {
+      transform: scale(1.03);
+    }
+
+    /* Dark scrim — helps play button pop + adds cinematic depth */
+    .game-card__video-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.55) 100%
+      );
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    /* Play button */
+    .game-card__play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--color-accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 0 rgba(255,140,66,0.4);
+      transition:
+        transform  var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out),
+        opacity    var(--dur-base) var(--ease-out),
+        background var(--dur-fast) var(--ease-out);
+      will-change: transform, opacity;
+    }
+    .game-card__play:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,140,66,0.18);
+    }
+    .game-card__play:active {
+      transform: translate(-50%, -50%) scale(0.96);
+    }
+    .game-card__play svg {
+      width: 24px; height: 24px;
+      margin-left: 3px; /* optical centering for triangle */
+      fill: var(--color-bg-primary);
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Duration badge — bottom-left of video */
+    .game-card__duration {
+      position: absolute;
+      bottom: var(--sp-3);
+      left: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      background: rgba(0,0,0,0.72);
+      padding: 2px var(--sp-2);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(4px);
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    /* Platform badge — bottom-right */
+    .game-card__platform {
+      position: absolute;
+      bottom: var(--sp-3);
+      right: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      background: rgba(0,0,0,0.72);
+      padding: 2px var(--sp-2);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    /*
+      Active (playing) state:
+      JS adds .game-card__video-wrap--active when user clicks play.
+      Thumbnail, scrim, play btn, duration, platform all fade out.
+      The injected iframe fades in beneath them.
+    */
+    .game-card__video-wrap--active .game-card__thumb,
+    .game-card__video-wrap--active .game-card__video-scrim,
+    .game-card__video-wrap--active .game-card__play,
+    .game-card__video-wrap--active .game-card__duration,
+    .game-card__video-wrap--active .game-card__platform {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Injected iframe */
+    .game-card__iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+      opacity: 0;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    .game-card__video-wrap--active .game-card__iframe {
+      opacity: 1;
+    }
+
+    /* ── Card Body ─────────────────────────────────────────────── */
+    .game-card__body {
+      padding: var(--sp-6) var(--sp-8) var(--sp-8);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    @media (max-width: 480px) {
+      .game-card__body { padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+    }
+
+    /* Engine / genre tag */
+    .game-card__engine-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+    .game-card__engine-tag svg {
+      width: 12px; height: 12px;
+      flex-shrink: 0;
+    }
+
+    .game-card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .game-card:hover .game-card__title { color: var(--color-highlight); }
+
+    /* Date + event meta row */
+    .game-card__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-5);
+    }
+    .game-card__date {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .game-card__dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--color-border-subtle);
+      flex-shrink: 0;
+    }
+    .game-card__event {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      font-style: italic;
+    }
+
+    /* Description */
+    .game-card__description {
+      font-size: var(--fs-sm);
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: var(--sp-6);
+      flex: 1;
+      /* Clamp to 5 lines — generous for dev context */
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Tech stack pills */
+    .game-card__stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-6);
+    }
+    .game-card__stack-pill {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      padding: var(--sp-1) var(--sp-3);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.02);
+      transition:
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+    }
+    .game-card:hover .game-card__stack-pill {
+      color: var(--color-text-primary);
+      border-color: rgba(255,140,66,0.2);
+    }
+
+    /* Footer links row */
+    .game-card__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      margin-top: auto;
+    }
+
+    /* "View Project" CTA — full-width accent button */
+    .game-card__view-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      width: 100%;
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-full);
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .game-card__view-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .game-card__view-btn:hover {
+      transform: translateY(-3px);
+      background: var(--color-accent-secondary);
+      box-shadow: 0 6px 24px var(--color-shadow-warm);
+    }
+    .game-card__view-btn:active { transform: translateY(-1px); }
+
+    /* Secondary icon links sit in a row below the main CTA */
+    .game-card__links-secondary {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+
+    .game-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition:
+        color    var(--dur-fast) var(--ease-out),
+        opacity  var(--dur-fast) var(--ease-out);
+    }
+    .game-card__link svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .game-card__link--primary { color: var(--color-accent-primary); }
+    .game-card__link--primary:hover { color: var(--color-highlight); }
+    .game-card__link--secondary { color: var(--color-text-secondary); }
+    .game-card__link--secondary:hover { color: var(--color-text-primary); }
+
+    /* ── Award / jam ribbon badge ─────────────────────────────── */
+    .game-card__ribbon {
+      position: absolute;
+      top: var(--sp-3);
+      right: var(--sp-3);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-bg-primary);
+      background: var(--color-highlight);
+      padding: 2px var(--sp-3);
+      border-radius: var(--radius-full);
+      letter-spacing: 0.06em;
+      z-index: 2;
+    }
+
+    /* ============================================================
+      NO RESULTS STATE
+    ============================================================ */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: var(--sp-20) var(--sp-6);
+      color: var(--color-text-secondary);
+    }
+    .no-results__icon {
+      width: 48px; height: 48px;
+      margin: 0 auto var(--sp-6);
+      color: var(--color-border-subtle);
+    }
+    .no-results__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+    }
+    .no-results__sub {
+      font-size: var(--fs-sm);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+      SEE MORE — identical to Articles + Writing pages
+    ============================================================ */
+    .see-more-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+      padding-top: var(--sp-12);
+    }
+    .see-more-wrap__count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .see-more-wrap__count strong { color: var(--color-text-primary); }
+    .see-more-wrap__track {
+      width: 160px; height: 2px;
+      background: var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .see-more-wrap__fill {
+      height: 100%;
+      background: var(--color-accent-primary);
+      border-radius: var(--radius-full);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+
+    /* ============================================================
+      FOOTER
+    ============================================================ */
+    .footer {
+      padding: var(--sp-12) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-6);
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__logo span { color: var(--color-accent-primary); }
+    .footer__logo:hover { color: var(--color-accent-primary); }
+    .footer__copy { font-size: var(--fs-xs); color: var(--color-text-secondary); letter-spacing: 0.02em; }
+    .footer__links { display: flex; align-items: center; gap: var(--sp-6); }
+    .footer__link {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__link:hover { color: var(--color-accent-primary); }
+    @media (max-width: 600px) {
+      .footer__inner { flex-direction: column; align-items: center; text-align: center; }
+    }
+
+    /* ============================================================
+      UTILITY
+    ============================================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+    NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo" aria-label="Ahnaf Hassan Aurnill — Home">Ahnaf<span>.</span></a>
+
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="index.html#about"  class="nav__link">About</a></li>
+        <li><a href="articles.html"     class="nav__link">Articles</a></li>
+        <li><a href="writing.html"      class="nav__link">Writing</a></li>
+        <li><a href="gamedev.html"      class="nav__link" aria-current="page">Games</a></li>
+        <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+      HERO
+    ============================================================ -->
+    <section class="gamedev-hero" aria-labelledby="gamedev-heading">
+      <div class="gamedev-hero__bg"   aria-hidden="true"></div>
+      <div class="gamedev-hero__grid" aria-hidden="true"></div>
+
+      <div class="gamedev-hero__content">
+        <span class="gamedev-hero__eyebrow" aria-hidden="true">Game Development</span>
+
+        <!-- THE SINGLE H1 -->
+        <h1 class="gamedev-hero__title" id="gamedev-heading">
+          Games I <em>Built</em>
+        </h1>
+
+        <p class="gamedev-hero__sub">
+          Playable experiments, game jam entries, and longer-form projects.
+          Each one taught me something the documentation didn't.
+          Watch the devlog, read the breakdown, play the build.
+        </p>
+
+        <div class="gamedev-hero__badges" aria-label="Engines and tools used">
+          <span class="gamedev-hero__badge">Unity</span>
+          <span class="gamedev-hero__badge">Godot</span>
+          <span class="gamedev-hero__badge">C#</span>
+          <span class="gamedev-hero__badge">GDScript</span>
+          <span class="gamedev-hero__badge">Aseprite</span>
+          <span class="gamedev-hero__badge">FMOD</span>
+          <span class="gamedev-hero__badge">Blender</span>
+        </div>
+      </div>
+
+      <div class="gamedev-hero__divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================
+      GAME PROJECTS GRID
+      ─────────────────────────────────────────────────────────────
+      To add a new project: duplicate any <li> block.
+      JS auto-indexes all <li> children — zero code changes needed.
+
+      Video lazy-load:
+        data-video-id  = YouTube video ID (e.g. "dQw4w9WgXcQ")
+        data-thumb     = thumbnail src (uses YouTube's HQ thumbnail if omitted)
+        data-platform  = "YouTube" | "Vimeo" | custom label
+      JS builds the iframe URL on click — no embed loads on page load.
+    ============================================================ -->
+    <section class="gamedev-section" aria-labelledby="grid-heading">
+      <div class="container">
+
+        <!-- Section header -->
+        <header class="gamedev-section__header reveal">
+          <div>
+            <span class="section-label">All Projects</span>
+            <h2 class="gamedev-section__heading" id="grid-heading">The Build Log</h2>
+            <p class="gamedev-section__count" id="entry-total-count" aria-live="polite"></p>
+          </div>
+        </header>
+
+        <!-- Search bar -->
+        <div class="search-bar reveal" data-delay="1" id="search-bar">
+          <svg class="search-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            class="search-bar__input"
+            id="game-search"
+            type="search"
+            placeholder="Search by title, engine, or mechanic…"
+            aria-label="Search game projects by title, engine or description"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-bar__clear" id="search-clear" aria-label="Clear search" tabindex="-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Result count -->
+        <p class="search-count" id="search-count" aria-live="polite" aria-atomic="true"></p>
+
+        <!-- Projects grid -->
+        <ul class="game-grid" id="game-grid" role="list">
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 1 — Echoes of the Hollow
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <!-- Video component -->
+              <div
+                class="game-card__video-wrap"
+                data-video-id="jNQXAC9IVRw"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Echoes of the Hollow"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg"
+                  alt="Screenshot of Echoes of the Hollow — a 2D atmospheric platformer with procedural cave systems"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button
+                  class="game-card__play"
+                  aria-label="Play devlog video for Echoes of the Hollow"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 18 minutes">18:24</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Award: Jam Winner">🏆 Jam Winner</span>
+              </div>
+
+              <!-- Body -->
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Unity · 2D Platformer
+                </span>
+                <h3 class="game-card__title" itemprop="name">Echoes of the Hollow</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-09-01" itemprop="datePublished">Sep 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">72h Game Jam — 1st Place</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A 2D atmospheric platformer built in 72 hours for the Brackeys Game Jam. The player
+                  explores procedurally generated cave systems using echolocation — sound is the only
+                  light source. Built the procedural generation system from scratch using Wave Function
+                  Collapse, with a custom audio pipeline in FMOD that shifts reverb based on cave
+                  geometry. The hardest challenge was making procedural levels feel handcrafted:
+                  solved with curated room templates seeded into the WFC algorithm.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Unity 2022</li>
+                  <li class="game-card__stack-pill">C#</li>
+                  <li class="game-card__stack-pill">FMOD</li>
+                  <li class="game-card__stack-pill">Wave Function Collapse</li>
+                  <li class="game-card__stack-pill">Aseprite</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/echoes-of-the-hollow.html" class="game-card__view-btn" aria-label="View full project page: Echoes of the Hollow">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Echoes of the Hollow on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 2 — Voidpusher
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="ScMzIvxBSi4"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Voidpusher"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg"
+                  alt="Screenshot of Voidpusher — a minimalist physics puzzle game with magnetic force mechanics"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Voidpusher">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 12 minutes">12:07</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Godot · Puzzle
+                </span>
+                <h3 class="game-card__title" itemprop="name">Voidpusher</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-07-14" itemprop="datePublished">Jul 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo Project · 3 weeks</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A minimalist puzzle game exploring magnetic repulsion and attraction as the sole
+                  interaction mechanic. Built in Godot 4 using GDScript. Each level is a single
+                  screen — no UI chrome, no score, just the physics. The design constraint of one
+                  mechanic pushed me to create 30 levels of increasing complexity without ever
+                  adding a second verb. Shader-driven visual style uses a custom palette swap
+                  system that responds to level tension.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Godot 4</li>
+                  <li class="game-card__stack-pill">GDScript</li>
+                  <li class="game-card__stack-pill">GLSL Shaders</li>
+                  <li class="game-card__stack-pill">Aseprite</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/voidpusher.html" class="game-card__view-btn" aria-label="View full project page: Voidpusher">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Voidpusher on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 3 — Last Signal
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="aqz-KE-bpKQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Last Signal"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
+                  alt="Screenshot of Last Signal — a top-down survival game set on a dying space station"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Last Signal">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 22 minutes">22:51</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Top 10 in Ludum Dare">Top 10 LD</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Unity · Survival / Roguelike
+                </span>
+                <h3 class="game-card__title" itemprop="name">Last Signal</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-05-20" itemprop="datePublished">May 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Ludum Dare 56 · 48h Solo</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A top-down survival roguelike set aboard a deteriorating space station. Each run
+                  procedurally selects which systems are failing — life support, gravity, lighting —
+                  creating unique environmental hazards without writing unique levels. Built an
+                  entity-component system from scratch in 48 hours; it was terrible, and I learned
+                  exactly why Unity's ECS exists. The core loop: scavenge parts, patch systems,
+                  stay alive long enough to send the signal.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Unity 2023</li>
+                  <li class="game-card__stack-pill">C#</li>
+                  <li class="game-card__stack-pill">Scriptable Objects</li>
+                  <li class="game-card__stack-pill">Unity Tilemaps</li>
+                  <li class="game-card__stack-pill">Post-Processing</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/last-signal.html" class="game-card__view-btn" aria-label="View full project page: Last Signal">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Last Signal on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="Read Ludum Dare post-mortem">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Post-mortem
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 4 — Threadbare
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="PkZNo7MFNFg"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Threadbare"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/PkZNo7MFNFg/maxresdefault.jpg"
+                  alt="Screenshot of Threadbare — a narrative puzzle game about memory and unraveling cloth"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Threadbare">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 31 minutes">31:42</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Godot · Narrative Puzzle
+                </span>
+                <h3 class="game-card__title" itemprop="name">Threadbare</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-03-01" itemprop="datePublished">Mar 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo Project · 6 weeks</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A short narrative puzzle game where the mechanic is literally unraveling:
+                  pulling threads from fabric reveals hidden memories underneath. Built a custom
+                  2D cloth simulation in Godot using Verlet integration — each cloth has a
+                  unique memory encoded in its texture, revealed as the player pulls. The
+                  dialogue system is built on Ink, exposing branching choice trees through the
+                  cloth metaphor. One of the first games I finished that had something to say.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Godot 4</li>
+                  <li class="game-card__stack-pill">GDScript</li>
+                  <li class="game-card__stack-pill">Ink / Inkle</li>
+                  <li class="game-card__stack-pill">Verlet Physics</li>
+                  <li class="game-card__stack-pill">Blender</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/threadbare.html" class="game-card__view-btn" aria-label="View full project page: Threadbare">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Threadbare on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 5 — Weight of Stone
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="dQw4w9WgXcQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Weight of Stone"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+                  alt="Screenshot of Weight of Stone — a 3D first-person puzzle game about gravity and perspective"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Weight of Stone">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 44 minutes">44:18</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Featured in Weekly Jam">Featured</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Unity · 3D Puzzle / FPS
+                </span>
+                <h3 class="game-card__title" itemprop="name">Weight of Stone</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-01-10" itemprop="datePublished">Jan 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo Project · 8 weeks</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A first-person puzzle game inspired by Portal and Antichamber, where each room
+                  operates under a locally different gravity direction. The challenge: build a
+                  gravity system that can flip mid-room without nauseating the player. Solution
+                  involved blending gravity vectors over 400ms using an animation curve,
+                  smoothing camera rotation separately from character physics. Built custom
+                  portal rendering using render textures with a recursive depth limit.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Unity URP</li>
+                  <li class="game-card__stack-pill">C#</li>
+                  <li class="game-card__stack-pill">Render Textures</li>
+                  <li class="game-card__stack-pill">Custom Physics</li>
+                  <li class="game-card__stack-pill">Blender</li>
+                  <li class="game-card__stack-pill">ProBuilder</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/weight-of-stone.html" class="game-card__view-btn" aria-label="View full project page: Weight of Stone">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Weight of Stone on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 6 — Noise Garden
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="rfscVS0vtbw"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Noise Garden"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg"
+                  alt="Screenshot of Noise Garden — a generative audio-visual toy built with procedural terrain"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Noise Garden">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 16 minutes">16:33</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Godot · Generative / Toy
+                </span>
+                <h3 class="game-card__title" itemprop="name">Noise Garden</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2024-11-05" itemprop="datePublished">Nov 2024</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Experimental · 2 weeks</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  An interactive generative toy — not quite a game — where terrain generated
+                  with layered Perlin noise produces music. Each vertex height maps to a pitch;
+                  player movement triggers notes. The "garden" grows over time, the music
+                  evolves. Built as an experiment in procedural audio and to understand how
+                  terrain generation algorithms differ (Perlin vs Simplex vs Diamond-Square).
+                  The most peaceful thing I've built.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Godot 4</li>
+                  <li class="game-card__stack-pill">GDScript</li>
+                  <li class="game-card__stack-pill">Perlin Noise</li>
+                  <li class="game-card__stack-pill">AudioStream</li>
+                  <li class="game-card__stack-pill">Mesh generation</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/noise-garden.html" class="game-card__view-btn" aria-label="View full project page: Noise Garden">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Noise Garden on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════════
+            PROJECT 7 — Coldfront Protocol
+          ═══════════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="LXb3EKWsInQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Devlog video: Coldfront Protocol"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/LXb3EKWsInQ/maxresdefault.jpg"
+                  alt="Screenshot of Coldfront Protocol — a strategy tower defense game with environmental hazards"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play devlog video for Coldfront Protocol">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Video duration: 28 minutes">28:09</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                  Unity · Strategy / Tower Defense
+                </span>
+                <h3 class="game-card__title" itemprop="name">Coldfront Protocol</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2024-09-12" itemprop="datePublished">Sep 2024</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo Project · 10 weeks</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A tower defense game where weather systems are the primary threat, not enemies.
+                  Blizzards reduce tower effectiveness, flooding reroutes paths, fog of war
+                  obscures placement zones. Built a grid-based pathfinding system using A* with
+                  dynamic weight adjustments based on environmental state. The AI director
+                  scales weather intensity based on player performance — a hidden difficulty
+                  curve made from atmospheric data rather than enemy count.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Unity 2023</li>
+                  <li class="game-card__stack-pill">C#</li>
+                  <li class="game-card__stack-pill">A* Pathfinding</li>
+                  <li class="game-card__stack-pill">Unity DOTS</li>
+                  <li class="game-card__stack-pill">Shader Graph</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/coldfront-protocol.html" class="game-card__view-btn" aria-label="View full project page: Coldfront Protocol">
+                    View Project
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Play Coldfront Protocol on itch.io">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                      Play on itch.io
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View source code on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      Source
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+        </ul>
+
+        <!-- No results state -->
+        <div class="no-results" id="no-results" role="status" aria-live="polite">
+          <svg class="no-results__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+          <p class="no-results__title">No projects found</p>
+          <p class="no-results__sub">Try a different keyword, or clear the search to browse all games.</p>
+        </div>
+
+        <!-- See More -->
+        <div class="see-more-wrap" id="see-more-wrap">
+          <p class="see-more-wrap__count" id="see-more-count" aria-live="polite"></p>
+          <button class="btn btn--ghost" id="see-more-btn" aria-label="Load more game projects">
+            See More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="16" height="16">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="see-more-wrap__track" aria-hidden="true">
+            <div class="see-more-wrap__fill" id="see-more-fill"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="index.html" class="footer__logo" aria-label="Back to home">Ahnaf<span>.</span></a>
+        <p class="footer__copy">&copy; <span id="footer-year">2025</span> Ahnaf Hassan Aurnill. All rights reserved.</p>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="articles.html"      class="footer__link">Articles</a>
+          <a href="writing.html"       class="footer__link">Writing</a>
+          <a href="gamedev.html"       class="footer__link">Games</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+      NAV SCROLL
+    ============================================================ */
+    const navEl     = document.getElementById('nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    function handleNavScroll() {
+      navEl.classList.toggle('nav--scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    /* ============================================================
+      MOBILE HAMBURGER
+    ============================================================ */
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      navLinks.classList.toggle('is-open', !isOpen);
+    });
+    navLinks.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('is-open');
+      });
+    });
+
+    /* ============================================================
+      SCROLL REVEAL — IntersectionObserver, fire once
+    ============================================================ */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ============================================================
+      DYNAMIC YEAR
+    ============================================================ */
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ============================================================
+      LAZY VIDEO PLAYER
+      ─────────────────────────────────────────────────────────────
+      Strategy:
+        - On page load: NO iframes in the DOM. Zero YouTube network
+          requests. Only lightweight <img> thumbnails are loaded.
+        - On play button click:
+            1. Build the iframe src from data-video-id.
+            2. Inject <iframe> into the wrap.
+            3. Add --active class → CSS transitions fade out the
+               thumbnail/button and fade in the iframe.
+        - Only one video can play at a time — clicking a second play
+          btn destroys the previous iframe to conserve resources.
+        - Supports YouTube autoplay via ?autoplay=1&mute=0.
+        - Accessible: iframes get a descriptive title attribute.
+    ============================================================ */
+    (function initVideoPlayers() {
+
+      // Track currently active wrap so we can deactivate it
+      let activeWrap = null;
+
+      /* Build iframe src based on platform */
+      function buildSrc(videoId, platform) {
+        if (platform === 'Vimeo') {
+          return `https://player.vimeo.com/video/${videoId}?autoplay=1&color=ff8c42`;
+        }
+        // Default: YouTube
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&color=white`;
+      }
+
+      /* Deactivate (destroy iframe of) a wrap */
+      function deactivate(wrap) {
+        if (!wrap) return;
+        const iframe = wrap.querySelector('.game-card__iframe');
+        if (iframe) iframe.remove();
+        wrap.classList.remove('game-card__video-wrap--active');
+      }
+
+      /* Activate a wrap — inject iframe and show it */
+      function activate(wrap) {
+        const videoId  = wrap.dataset.videoId;
+        const platform = wrap.dataset.platform || 'YouTube';
+
+        // Build the card title for the iframe accessibility label
+        const cardTitle = wrap.closest('.game-card')
+          ?.querySelector('.game-card__title')
+          ?.textContent.trim() || 'Game devlog video';
+
+        const iframe = document.createElement('iframe');
+        iframe.className     = 'game-card__iframe';
+        iframe.src           = buildSrc(videoId, platform);
+        iframe.title         = `${cardTitle} — devlog video`;
+        iframe.allow         = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.setAttribute('loading', 'eager');
+
+        wrap.appendChild(iframe);
+        wrap.classList.add('game-card__video-wrap--active');
+        activeWrap = wrap;
+      }
+
+      /* Attach click handlers to all play buttons */
+      document.querySelectorAll('.game-card__play').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wrap = btn.closest('.game-card__video-wrap');
+          if (!wrap) return;
+
+          // If this wrap is already playing, do nothing
+          if (wrap === activeWrap) return;
+
+          // Deactivate whatever was playing before
+          deactivate(activeWrap);
+
+          // Activate this one
+          activate(wrap);
+        });
+      });
+
+    })();
+
+    /* ============================================================
+      GAME GRID CONTROLLER
+      ─────────────────────────────────────────────────────────────
+      Manages:
+        1. Live search  — matches title + engine tag + description
+        2. See More     — progressive reveal in batches
+
+      SEO:  all <li> remain in DOM. Visibility = CSS class only.
+      SCALABLE: duplicate <li> to add project — zero JS changes.
+
+      CONFIG:
+        INITIAL_VISIBLE — cards shown on first load
+        BATCH_SIZE      — cards revealed per "See More" click
+    ============================================================ */
+    (function initGameGrid() {
+
+      const INITIAL_VISIBLE = 4;   // show first 4 (2×2 grid)
+      const BATCH_SIZE      = 2;   // reveal 2 more per click
+
+      /* Element refs */
+      const grid         = document.getElementById('game-grid');
+      const searchInput  = document.getElementById('game-search');
+      const searchBar    = document.getElementById('search-bar');
+      const clearBtn     = document.getElementById('search-clear');
+      const countEl      = document.getElementById('search-count');
+      const totalCountEl = document.getElementById('entry-total-count');
+      const noResults    = document.getElementById('no-results');
+      const seeMoreWrap  = document.getElementById('see-more-wrap');
+      const seeMoreBtn   = document.getElementById('see-more-btn');
+      const seeMoreCount = document.getElementById('see-more-count');
+      const seeMoreFill  = document.getElementById('see-more-fill');
+
+      /* Index all project cards once on init */
+      const allCards = Array.from(grid.querySelectorAll('li'));
+
+      allCards.forEach(li => {
+        const titleEl   = li.querySelector('.game-card__title');
+        const descEl    = li.querySelector('.game-card__description');
+        const engineEl  = li.querySelector('.game-card__engine-tag');
+        // Also index stack pills for tech searches ("unity", "godot", "c#" etc.)
+        const stackPills = Array.from(li.querySelectorAll('.game-card__stack-pill'))
+          .map(p => p.textContent).join(' ');
+
+        li.dataset.title   = (titleEl  ? titleEl.textContent  : '').toLowerCase().trim();
+        li.dataset.desc    = (descEl   ? descEl.textContent   : '').toLowerCase().trim();
+        li.dataset.engine  = (engineEl ? engineEl.textContent : '').toLowerCase().trim();
+        li.dataset.stack   = stackPills.toLowerCase();
+      });
+
+      if (totalCountEl) {
+        totalCountEl.textContent = `${allCards.length} project${allCards.length !== 1 ? 's' : ''}`;
+      }
+
+      let searchQuery = '';
+      let visibleCap  = INITIAL_VISIBLE;
+
+      /* Core render */
+      function render(newlyRevealedStart) {
+        const q           = searchQuery.trim().toLowerCase();
+        const isSearching = q.length > 0;
+
+        const passing = [];
+        const failing = [];
+
+        allCards.forEach(li => {
+          const matches = !isSearching || (
+            li.dataset.title.includes(q)  ||
+            li.dataset.desc.includes(q)   ||
+            li.dataset.engine.includes(q) ||
+            li.dataset.stack.includes(q)
+          );
+          (matches ? passing : failing).push(li);
+        });
+
+        /* Hide non-matching */
+        failing.forEach(li => {
+          li.classList.add('game-card-li--filtered-out');
+          li.classList.remove('game-card-li--clamped', 'game-card-li--entering');
+        });
+
+        /* Apply cap + animate newly revealed */
+        passing.forEach((li, i) => {
+          li.classList.remove('game-card-li--filtered-out');
+
+          if (i < visibleCap) {
+            const wasClamped = li.classList.contains('game-card-li--clamped');
+            li.classList.remove('game-card-li--clamped');
+
+            if (wasClamped && newlyRevealedStart !== undefined && i >= newlyRevealedStart) {
+              const batchIdx = i - newlyRevealedStart;
+              li.classList.remove('game-card-li--entering');
+              void li.offsetWidth;
+              li.style.animationDelay = (batchIdx * 100) + 'ms';
+              li.classList.add('game-card-li--entering');
+              li.addEventListener('animationend', () => {
+                li.classList.remove('game-card-li--entering');
+                li.style.animationDelay = '';
+              }, { once: true });
+            }
+          } else {
+            li.classList.add('game-card-li--clamped');
+            li.classList.remove('game-card-li--entering');
+          }
+        });
+
+        /* Search count */
+        if (isSearching) {
+          const shown = Math.min(passing.length, visibleCap);
+          countEl.innerHTML = passing.length === 0
+            ? ''
+            : `Showing <strong>${shown}</strong> of <strong>${passing.length}</strong> project${passing.length !== 1 ? 's' : ''}`;
+        } else {
+          countEl.innerHTML = '';
+        }
+
+        /* No results */
+        noResults.style.display = passing.length === 0 ? 'block' : 'none';
+
+        /* See More */
+        const shownCount  = Math.min(passing.length, visibleCap);
+        const hiddenCount = Math.max(0, passing.length - visibleCap);
+
+        if (hiddenCount > 0 && !isSearching) {
+          seeMoreWrap.style.display = 'flex';
+          seeMoreCount.innerHTML    = `Showing <strong>${shownCount}</strong> of <strong>${passing.length}</strong>`;
+          const pct = passing.length > 0 ? (shownCount / passing.length) * 100 : 0;
+          seeMoreFill.style.width = pct + '%';
+        } else {
+          seeMoreWrap.style.display = 'none';
+        }
+      }
+
+      /* See More click */
+      seeMoreBtn.addEventListener('click', () => {
+        const prev = visibleCap;
+        visibleCap += BATCH_SIZE;
+        render(prev);
+      });
+
+      /* Search */
+      let searchTimer;
+      searchInput.addEventListener('input', () => {
+        const val = searchInput.value;
+        searchQuery = val;
+        searchBar.classList.toggle('search-bar--has-value', val.length > 0);
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          visibleCap = INITIAL_VISIBLE;
+          render();
+        }, 120);
+      });
+
+      /* Clear */
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery       = '';
+        searchBar.classList.remove('search-bar--has-value');
+        visibleCap = INITIAL_VISIBLE;
+        render();
+        searchInput.focus();
+      });
+
+      render();
+
+    })();
+  </script>
+
+</body>
+</html>

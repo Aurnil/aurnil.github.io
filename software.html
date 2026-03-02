@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Software Development by Ahnaf Hassan Aurnill — Web applications, APIs, developer tools, and open-source libraries built with TypeScript, React, Python, and more." />
+  <meta name="theme-color" content="#1C1A18" />
+  <title>Software Development — Ahnaf Hassan Aurnill</title>
+
+  <meta property="og:title"       content="Software Development — Ahnaf Hassan Aurnill" />
+  <meta property="og:description" content="Web apps, APIs, developer tools, and open-source libraries. Architecture breakdowns, technical write-ups, and live demos." />
+  <meta property="og:type"        content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+      CSS CUSTOM PROPERTIES — identical design system token set
+    ============================================================ */
+    :root {
+      --color-bg-primary:       #1C1A18;
+      --color-bg-secondary:     #24211E;
+      --color-accent-primary:   #FF8C42;
+      --color-accent-secondary: #E76F51;
+      --color-highlight:        #F4A261;
+      --color-text-primary:     #F1EDE6;
+      --color-text-secondary:   #CFC7BC;
+      --color-border-subtle:    #2E2A26;
+      --color-shadow-warm:      rgba(255, 140, 66, 0.25);
+
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --fs-xs:   0.75rem;
+      --fs-sm:   0.875rem;
+      --fs-base: 1rem;
+      --fs-md:   1.125rem;
+      --fs-lg:   1.25rem;
+      --fs-xl:   1.5rem;
+      --fs-2xl:  2rem;
+      --fs-3xl:  2.75rem;
+      --fs-4xl:  3.5rem;
+      --fs-5xl:  4.5rem;
+
+      --sp-1:  0.25rem;
+      --sp-2:  0.5rem;
+      --sp-3:  0.75rem;
+      --sp-4:  1rem;
+      --sp-5:  1.25rem;
+      --sp-6:  1.5rem;
+      --sp-8:  2rem;
+      --sp-10: 2.5rem;
+      --sp-12: 3rem;
+      --sp-16: 4rem;
+      --sp-20: 5rem;
+      --sp-24: 6rem;
+
+      --max-width:  1200px;
+      --nav-height: 72px;
+
+      --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+      --ease-out:      cubic-bezier(0, 0, 0.2, 1);
+      --dur-fast:  150ms;
+      --dur-base:  300ms;
+      --dur-slow:  600ms;
+
+      --radius-sm:   6px;
+      --radius-md:   12px;
+      --radius-lg:   20px;
+      --radius-full: 9999px;
+    }
+
+    /* ============================================================
+      RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      background-color: var(--color-bg-primary);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scrollbar-gutter: stable;
+    }
+    img, svg, video { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul, ol { list-style: none; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--color-bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-full); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--color-accent-primary); }
+
+    :focus-visible {
+      outline: 2px solid var(--color-accent-primary);
+      outline-offset: 4px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ============================================================
+      LAYOUT
+    ============================================================ */
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    @media (max-width: 768px) { .container { padding-inline: var(--sp-4); } }
+
+    /* ============================================================
+      SCROLL REVEAL
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition:
+        opacity   var(--dur-slow) var(--ease-standard),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .reveal[data-delay="1"] { transition-delay: 100ms; }
+    .reveal[data-delay="2"] { transition-delay: 200ms; }
+    .reveal[data-delay="3"] { transition-delay: 300ms; }
+    .reveal[data-delay="4"] { transition-delay: 400ms; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+
+    /* ============================================================
+      NAVIGATION
+    ============================================================ */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid transparent;
+      transition:
+        background-color    var(--dur-base) var(--ease-standard),
+        border-bottom-color var(--dur-base) var(--ease-standard),
+        backdrop-filter     var(--dur-base) var(--ease-standard);
+    }
+    .nav--scrolled {
+      background-color: rgba(28, 26, 24, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--color-border-subtle);
+    }
+    .nav__container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .nav__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__logo span { color: var(--color-accent-primary); }
+    .nav__logo:hover { color: var(--color-accent-primary); }
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-8);
+    }
+    .nav__link {
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      position: relative;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .nav__link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-accent-primary);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+    .nav__link:hover,
+    .nav__link[aria-current="page"] { color: var(--color-text-primary); }
+    .nav__link:hover::after,
+    .nav__link[aria-current="page"]::after { width: 100%; }
+    .nav__toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 44px; height: 44px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--dur-fast) var(--ease-out);
+    }
+    .nav__toggle:hover { background-color: var(--color-border-subtle); }
+    .nav__toggle-bar {
+      width: 22px; height: 2px;
+      background: var(--color-text-primary);
+      border-radius: var(--radius-full);
+      transition:
+        transform var(--dur-base) var(--ease-standard),
+        opacity   var(--dur-base) var(--ease-standard);
+      transform-origin: center;
+    }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__toggle[aria-expanded="true"] .nav__toggle-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 768px) {
+      .nav__links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0; right: 0;
+        background-color: var(--color-bg-primary);
+        border-bottom: 1px solid var(--color-border-subtle);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--sp-4) var(--sp-6);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition:
+          opacity   var(--dur-base) var(--ease-standard),
+          transform var(--dur-base) var(--ease-standard);
+      }
+      .nav__links.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+      .nav__link {
+        padding-block: var(--sp-4);
+        border-bottom: 1px solid var(--color-border-subtle);
+        font-size: var(--fs-base);
+      }
+      .nav__link:last-child { border-bottom: none; }
+      .nav__toggle { display: flex; }
+    }
+
+    /* ============================================================
+      BUTTON COMPONENTS
+    ============================================================ */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-8);
+      border-radius: var(--radius-full);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out),
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+      will-change: transform;
+    }
+    .btn:hover  { transform: translateY(-4px); }
+    .btn:active { transform: translateY(-1px); }
+    .btn--primary { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .btn--primary:hover {
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 32px var(--color-shadow-warm);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--color-text-primary);
+      border: 1px solid var(--color-border-subtle);
+    }
+    .btn--ghost:hover {
+      border-color: var(--color-accent-primary);
+      color: var(--color-accent-primary);
+      box-shadow: 0 4px 16px rgba(255, 140, 66, 0.12);
+    }
+
+    /* ============================================================
+      SECTION LABEL — shared utility
+    ============================================================ */
+    .section-label {
+      display: inline-block;
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-3);
+    }
+
+    /* ============================================================
+      HERO — SOFTWARE DEVELOPMENT PAGE
+      Structurally identical to gamedev hero; distinct in its
+      decorative motif: faint circuit-trace lines instead of a
+      pixel grid — same CSS technique, same token palette.
+    ============================================================ */
+    .gamedev-hero {
+      position: relative;
+      padding-top:    calc(var(--nav-height) + var(--sp-20));
+      padding-bottom: var(--sp-20);
+      overflow: hidden;
+      text-align: center;
+    }
+    .gamedev-hero__bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 55% at 78% 12%, rgba(255,140,66,0.09) 0%, transparent 60%),
+        radial-gradient(ellipse 55% 50% at 18% 88%, rgba(231,111,81,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 35% at 50% 50%, rgba(244,162,97,0.03) 0%, transparent 70%),
+        var(--color-bg-primary);
+    }
+    /* Grain texture — identical to gamedev */
+    .gamedev-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    /* Circuit-trace motif: offset dot grid — software feel */
+    .gamedev-hero__grid {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background-image:
+        radial-gradient(circle, rgba(255,140,66,0.07) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 25%, transparent 78%);
+      -webkit-mask-image: radial-gradient(ellipse 75% 75% at 50% 50%, black 25%, transparent 78%);
+    }
+
+    .gamedev-hero__content {
+      position: relative;
+      z-index: 1;
+      max-width: 780px;
+      margin-inline: auto;
+      padding-inline: var(--sp-6);
+    }
+    .gamedev-hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 150ms forwards;
+    }
+    .gamedev-hero__eyebrow::before,
+    .gamedev-hero__eyebrow::after {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--color-accent-primary);
+      opacity: 0.5;
+    }
+    /* THE SINGLE H1 */
+    .gamedev-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-3xl), 7vw, var(--fs-5xl));
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-6);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 280ms forwards;
+    }
+    .gamedev-hero__title em {
+      color: var(--color-accent-primary);
+      font-style: italic;
+    }
+    .gamedev-hero__sub {
+      font-size: clamp(var(--fs-base), 2vw, var(--fs-md));
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: var(--sp-10);
+      opacity: 0;
+      animation: fade-in-up 700ms var(--ease-standard) 410ms forwards;
+    }
+    .gamedev-hero__badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--sp-3);
+      opacity: 0;
+      animation: fade-in-up 600ms var(--ease-standard) 560ms forwards;
+    }
+    .gamedev-hero__badge {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: var(--sp-2) var(--sp-4);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.02);
+    }
+    .gamedev-hero__divider {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--color-border-subtle), transparent);
+    }
+
+    @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+      SEARCH BAR — identical to gamedev + articles + writing pages
+    ============================================================ */
+    .search-bar { position: relative; margin-bottom: var(--sp-8); }
+    .search-bar__icon {
+      position: absolute;
+      left: var(--sp-5); top: 50%;
+      transform: translateY(-50%);
+      width: 18px; height: 18px;
+      color: var(--color-text-secondary);
+      pointer-events: none;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .search-bar:focus-within .search-bar__icon { color: var(--color-accent-primary); }
+    .search-bar__input {
+      width: 100%;
+      min-height: 52px;
+      padding: var(--sp-3) var(--sp-5) var(--sp-3) calc(var(--sp-5) + 18px + var(--sp-3));
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-md);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-base);
+      outline: none;
+      transition:
+        border-color var(--dur-fast) var(--ease-out),
+        box-shadow   var(--dur-fast) var(--ease-out);
+    }
+    .search-bar__input::placeholder { color: var(--color-text-secondary); font-weight: 300; }
+    .search-bar__input:focus {
+      border-color: var(--color-accent-primary);
+      box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.12);
+    }
+    .search-bar__clear {
+      position: absolute;
+      right: var(--sp-4); top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: var(--radius-full);
+      background: var(--color-border-subtle);
+      color: var(--color-text-secondary);
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        opacity    var(--dur-fast) var(--ease-out),
+        background var(--dur-fast) var(--ease-out),
+        color      var(--dur-fast) var(--ease-out);
+    }
+    .search-bar__clear svg { width: 14px; height: 14px; }
+    .search-bar__clear:hover { background: var(--color-accent-primary); color: var(--color-bg-primary); }
+    .search-bar--has-value .search-bar__clear { opacity: 1; pointer-events: auto; }
+
+    .search-count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+      margin-bottom: var(--sp-6);
+      min-height: 1.4em;
+    }
+    .search-count strong { color: var(--color-accent-primary); }
+
+    /* ============================================================
+      SOFTWARE PROJECTS GRID SECTION
+    ============================================================ */
+    .gamedev-section {
+      padding: var(--sp-24) 0 var(--sp-20);
+    }
+    .gamedev-section__header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-6);
+      margin-bottom: var(--sp-10);
+    }
+    .gamedev-section__heading {
+      font-family: var(--font-display);
+      font-size: clamp(var(--fs-xl), 3vw, var(--fs-2xl));
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .gamedev-section__count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: var(--sp-2);
+    }
+
+    /* ============================================================
+      CARD GRID — 2 cols desktop, 1 col mobile (mirrors gamedev)
+    ============================================================ */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-8);
+    }
+    @media (max-width: 860px) {
+      .game-grid { grid-template-columns: 1fr; }
+    }
+
+    /* JS-controlled visibility — all <li> stay in DOM for SEO */
+    .game-card-li--clamped      { display: none; }
+    .game-card-li--filtered-out { display: none; }
+
+    @keyframes card-enter {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .game-card-li--entering {
+      animation: card-enter var(--dur-slow) var(--ease-standard) forwards;
+    }
+
+    /* ============================================================
+      PROJECT CARD
+      Structure: [video/demo embed] → [stack tag] → [title] →
+                 [date + type meta] → [description] →
+                 [tech pills] → [links]
+      Scalable: duplicate <li> to add new projects.
+    ============================================================ */
+    .game-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg-secondary);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        border-color var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 20px 56px rgba(0,0,0,0.38),
+        0 0 0 1px rgba(255,140,66,0.2) inset;
+      border-color: rgba(255,140,66,0.22);
+    }
+
+    /* ── Video / Demo Component ───────────────────────────────── */
+    /*
+      Lazy-load strategy — identical to gamedev page:
+        State A: thumbnail <img> + play button. No iframe, no network.
+        State B: on play click — JS injects iframe, CSS fades
+                 thumbnail/button out and iframe in.
+      GPU-only: opacity + transform transitions throughout.
+    */
+    .game-card__video-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #0a0908;
+      flex-shrink: 0;
+    }
+
+    .game-card__thumb {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition:
+        opacity   var(--dur-base) var(--ease-out),
+        transform var(--dur-slow) var(--ease-standard);
+      will-change: opacity, transform;
+    }
+    .game-card:hover .game-card__thumb { transform: scale(1.03); }
+
+    .game-card__video-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.55) 100%
+      );
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    .game-card__play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: var(--color-accent-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.5), 0 0 0 0 rgba(255,140,66,0.4);
+      transition:
+        transform  var(--dur-base) var(--ease-out),
+        box-shadow var(--dur-base) var(--ease-out),
+        opacity    var(--dur-base) var(--ease-out),
+        background var(--dur-fast) var(--ease-out);
+      will-change: transform, opacity;
+    }
+    .game-card__play:hover {
+      transform: translate(-50%, -50%) scale(1.12);
+      background: var(--color-accent-secondary);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.6), 0 0 0 8px rgba(255,140,66,0.18);
+    }
+    .game-card__play:active { transform: translate(-50%, -50%) scale(0.96); }
+    .game-card__play svg {
+      width: 24px; height: 24px;
+      margin-left: 3px;
+      fill: var(--color-bg-primary);
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .game-card__duration {
+      position: absolute;
+      bottom: var(--sp-3); left: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-primary);
+      background: rgba(0,0,0,0.72);
+      padding: 2px var(--sp-2);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.04em;
+      backdrop-filter: blur(4px);
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    .game-card__platform {
+      position: absolute;
+      bottom: var(--sp-3); right: var(--sp-3);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      background: rgba(0,0,0,0.72);
+      padding: 2px var(--sp-2);
+      border-radius: var(--radius-sm);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      backdrop-filter: blur(4px);
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+
+    /* Active state — all overlay elements fade out, iframe fades in */
+    .game-card__video-wrap--active .game-card__thumb,
+    .game-card__video-wrap--active .game-card__video-scrim,
+    .game-card__video-wrap--active .game-card__play,
+    .game-card__video-wrap--active .game-card__duration,
+    .game-card__video-wrap--active .game-card__platform {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .game-card__iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      border: none;
+      opacity: 0;
+      transition: opacity var(--dur-base) var(--ease-out);
+    }
+    .game-card__video-wrap--active .game-card__iframe { opacity: 1; }
+
+    /* Ribbon badge */
+    .game-card__ribbon {
+      position: absolute;
+      top: var(--sp-3); right: var(--sp-3);
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-1);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-bg-primary);
+      background: var(--color-highlight);
+      padding: 2px var(--sp-3);
+      border-radius: var(--radius-full);
+      letter-spacing: 0.06em;
+      z-index: 2;
+    }
+
+    /* ── Card Body ─────────────────────────────────────────────── */
+    .game-card__body {
+      padding: var(--sp-6) var(--sp-8) var(--sp-8);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    @media (max-width: 480px) {
+      .game-card__body { padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+    }
+
+    /* Category tag (replaces engine tag contextually) */
+    .game-card__engine-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-accent-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-4);
+    }
+    .game-card__engine-tag svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    .game-card__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .game-card:hover .game-card__title { color: var(--color-highlight); }
+
+    .game-card__meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-5);
+    }
+    .game-card__date {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .game-card__dot {
+      width: 3px; height: 3px;
+      border-radius: 50%;
+      background: var(--color-border-subtle);
+      flex-shrink: 0;
+    }
+    .game-card__event {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      font-style: italic;
+    }
+
+    .game-card__description {
+      font-size: var(--fs-sm);
+      color: var(--color-text-secondary);
+      font-weight: 300;
+      line-height: 1.75;
+      margin-bottom: var(--sp-6);
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .game-card__stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2);
+      margin-bottom: var(--sp-6);
+    }
+    .game-card__stack-pill {
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      padding: var(--sp-1) var(--sp-3);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      background: rgba(255,255,255,0.02);
+      transition:
+        color        var(--dur-fast) var(--ease-out),
+        border-color var(--dur-fast) var(--ease-out);
+    }
+    .game-card:hover .game-card__stack-pill {
+      color: var(--color-text-primary);
+      border-color: rgba(255,140,66,0.2);
+    }
+
+    /* Footer links — identical layout to gamedev cards */
+    .game-card__links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+      margin-top: auto;
+    }
+
+    .game-card__view-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--sp-2);
+      width: 100%;
+      min-height: 44px;
+      padding: var(--sp-3) var(--sp-6);
+      border-radius: var(--radius-full);
+      background: var(--color-accent-primary);
+      color: var(--color-bg-primary);
+      font-family: var(--font-body);
+      font-size: var(--fs-sm);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition:
+        transform    var(--dur-base) var(--ease-out),
+        box-shadow   var(--dur-base) var(--ease-out),
+        background   var(--dur-base) var(--ease-out);
+      will-change: transform;
+    }
+    .game-card__view-btn svg { width: 15px; height: 15px; flex-shrink: 0; }
+    .game-card__view-btn:hover {
+      transform: translateY(-3px);
+      background: var(--color-accent-secondary);
+      box-shadow: 0 6px 24px var(--color-shadow-warm);
+    }
+    .game-card__view-btn:active { transform: translateY(-1px); }
+
+    .game-card__links-secondary {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+
+    .game-card__link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--fs-xs);
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition:
+        color    var(--dur-fast) var(--ease-out),
+        opacity  var(--dur-fast) var(--ease-out);
+    }
+    .game-card__link svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .game-card__link--primary { color: var(--color-accent-primary); }
+    .game-card__link--primary:hover { color: var(--color-highlight); }
+    .game-card__link--secondary { color: var(--color-text-secondary); }
+    .game-card__link--secondary:hover { color: var(--color-text-primary); }
+
+    /* ============================================================
+      NO RESULTS STATE
+    ============================================================ */
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: var(--sp-20) var(--sp-6);
+      color: var(--color-text-secondary);
+    }
+    .no-results__icon {
+      width: 48px; height: 48px;
+      margin: 0 auto var(--sp-6);
+      color: var(--color-border-subtle);
+    }
+    .no-results__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-xl);
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: var(--sp-3);
+    }
+    .no-results__sub {
+      font-size: var(--fs-sm);
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+      SEE MORE — identical to all other pages
+    ============================================================ */
+    .see-more-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-4);
+      padding-top: var(--sp-12);
+    }
+    .see-more-wrap__count {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.04em;
+    }
+    .see-more-wrap__count strong { color: var(--color-text-primary); }
+    .see-more-wrap__track {
+      width: 160px; height: 2px;
+      background: var(--color-border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .see-more-wrap__fill {
+      height: 100%;
+      background: var(--color-accent-primary);
+      border-radius: var(--radius-full);
+      transition: width var(--dur-base) var(--ease-out);
+    }
+
+    /* ============================================================
+      FOOTER
+    ============================================================ */
+    .footer {
+      padding: var(--sp-12) 0;
+      border-top: 1px solid var(--color-border-subtle);
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-6);
+    }
+    .footer__logo {
+      font-family: var(--font-display);
+      font-size: var(--fs-lg);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__logo span { color: var(--color-accent-primary); }
+    .footer__logo:hover { color: var(--color-accent-primary); }
+    .footer__copy { font-size: var(--fs-xs); color: var(--color-text-secondary); letter-spacing: 0.02em; }
+    .footer__links { display: flex; align-items: center; gap: var(--sp-6); }
+    .footer__link {
+      font-size: var(--fs-xs);
+      color: var(--color-text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color var(--dur-fast) var(--ease-out);
+    }
+    .footer__link:hover { color: var(--color-accent-primary); }
+    @media (max-width: 600px) {
+      .footer__inner { flex-direction: column; align-items: center; text-align: center; }
+    }
+
+    /* ============================================================
+      UTILITY
+    ============================================================ */
+    .sr-only {
+      position: absolute;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+    NAVIGATION
+  ============================================================ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Primary navigation">
+    <div class="nav__container">
+      <a href="index.html" class="nav__logo" aria-label="Ahnaf Hassan Aurnill — Home">Ahnaf<span>.</span></a>
+
+      <button
+        class="nav__toggle"
+        id="nav-toggle"
+        aria-expanded="false"
+        aria-controls="nav-links"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+        <span class="nav__toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <ul class="nav__links" id="nav-links" role="list">
+        <li><a href="index.html#about"   class="nav__link">About</a></li>
+        <li><a href="articles.html"      class="nav__link">Articles</a></li>
+        <li><a href="writing.html"       class="nav__link">Writing</a></li>
+        <li><a href="gamedev.html"       class="nav__link">Games</a></li>
+        <li><a href="software.html"      class="nav__link" aria-current="page">Software</a></li>
+        <li><a href="index.html#contact" class="nav__link">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ============================================================
+      HERO
+    ============================================================ -->
+    <section class="gamedev-hero" aria-labelledby="software-heading">
+      <div class="gamedev-hero__bg"   aria-hidden="true"></div>
+      <div class="gamedev-hero__grid" aria-hidden="true"></div>
+
+      <div class="gamedev-hero__content">
+        <span class="gamedev-hero__eyebrow" aria-hidden="true">Software Development</span>
+
+        <!-- THE SINGLE H1 ON THIS PAGE -->
+        <h1 class="gamedev-hero__title" id="software-heading">
+          Things I <em>Shipped</em>
+        </h1>
+
+        <p class="gamedev-hero__sub">
+          Web applications, APIs, developer tools, and open-source libraries.
+          Each project is a technical case study — architecture decisions,
+          hard bugs, performance trade-offs, and what I'd do differently.
+        </p>
+
+        <div class="gamedev-hero__badges" aria-label="Languages and frameworks used">
+          <span class="gamedev-hero__badge">TypeScript</span>
+          <span class="gamedev-hero__badge">React</span>
+          <span class="gamedev-hero__badge">Node.js</span>
+          <span class="gamedev-hero__badge">Python</span>
+          <span class="gamedev-hero__badge">PostgreSQL</span>
+          <span class="gamedev-hero__badge">Redis</span>
+          <span class="gamedev-hero__badge">Docker</span>
+          <span class="gamedev-hero__badge">AWS</span>
+        </div>
+      </div>
+
+      <div class="gamedev-hero__divider" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================
+      SOFTWARE PROJECTS GRID
+      ─────────────────────────────────────────────────────────────
+      To add a new project: duplicate any <li> block.
+      JS auto-indexes all <li> children — zero code changes needed.
+
+      Video lazy-load attributes on .game-card__video-wrap:
+        data-video-id  — YouTube/Vimeo video ID
+        data-platform  — "YouTube" | "Vimeo"
+      JS builds the iframe URL on click — no embed loads at page load.
+    ============================================================ -->
+    <section class="gamedev-section" aria-labelledby="grid-heading">
+      <div class="container">
+
+        <!-- Section header -->
+        <header class="gamedev-section__header reveal">
+          <div>
+            <span class="section-label">All Projects</span>
+            <h2 class="gamedev-section__heading" id="grid-heading">The Full Catalogue</h2>
+            <p class="gamedev-section__count" id="entry-total-count" aria-live="polite"></p>
+          </div>
+        </header>
+
+        <!-- Search bar -->
+        <div class="search-bar reveal" data-delay="1" id="search-bar">
+          <svg class="search-bar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            class="search-bar__input"
+            id="software-search"
+            type="search"
+            placeholder="Search by name, language, or architecture pattern…"
+            aria-label="Search software projects by title, stack or description"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-bar__clear" id="search-clear" aria-label="Clear search" tabindex="-1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Result count -->
+        <p class="search-count" id="search-count" aria-live="polite" aria-atomic="true"></p>
+
+        <!-- Projects grid -->
+        <ul class="game-grid" id="software-grid" role="list">
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 1 — Palettify
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="dQw4w9WgXcQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Palettify"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg"
+                  alt="Palettify UI — an AI-powered design token generator showing colour palette extraction and CSS output"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Palettify">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 8 minutes">8:14</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Status: Live">🚀 Live</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  React · Web App · Design Tools
+                </span>
+                <h3 class="game-card__title" itemprop="name">Palettify</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-10-01" itemprop="datePublished">Oct 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 6 weeks · Open Source</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  An AI-powered design token generator that extracts cohesive colour palettes
+                  from any image, URL, or prompt and exports them as CSS custom properties,
+                  Tailwind config, or Figma tokens. Built a custom perceptual colour clustering
+                  algorithm (CIELAB Delta-E) to avoid the muddy median colours that k-means
+                  produces on photos. The backend is a Node.js REST API with a Redis cache layer
+                  for repeat URL lookups; the frontend is React with Zustand state and a canvas
+                  pipeline for image decoding. Achieved sub-200ms palette generation for
+                  cached requests. Handles 4,000+ daily active users on a $12/month VPS.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">React 18</li>
+                  <li class="game-card__stack-pill">TypeScript</li>
+                  <li class="game-card__stack-pill">Node.js</li>
+                  <li class="game-card__stack-pill">Redis</li>
+                  <li class="game-card__stack-pill">Canvas API</li>
+                  <li class="game-card__stack-pill">Zustand</li>
+                  <li class="game-card__stack-pill">CIELAB</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/palettify.html" class="game-card__view-btn" aria-label="View full case study: Palettify">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Open Palettify live demo">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      Live Demo
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Palettify source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 2 — Conduit
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="jNQXAC9IVRw"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Conduit"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg"
+                  alt="Conduit dashboard — a webhook relay and inspection tool showing incoming payloads and replay controls"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Conduit">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 11 minutes">11:38</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Node.js · Developer Tool · API
+                </span>
+                <h3 class="game-card__title" itemprop="name">Conduit</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-08-15" itemprop="datePublished">Aug 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 4 weeks · Open Source</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A self-hostable webhook inspection and replay tool — essentially a
+                  developer-oriented alternative to ngrok/Hookdeck for local webhook
+                  debugging. Exposes a public HTTPS tunnel to localhost, captures payloads
+                  with full headers and body, stores them in SQLite with a 30-day TTL, and
+                  allows one-click replay with optional header/body mutation. Built the
+                  tunnel using a WebSocket reverse proxy — each client opens a persistent
+                  WS connection and the server fans incoming HTTP requests down it.
+                  The hardest part was making the replay system idempotent when the original
+                  endpoint had changed between capture and replay.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Node.js</li>
+                  <li class="game-card__stack-pill">TypeScript</li>
+                  <li class="game-card__stack-pill">WebSockets</li>
+                  <li class="game-card__stack-pill">SQLite</li>
+                  <li class="game-card__stack-pill">Vue 3</li>
+                  <li class="game-card__stack-pill">Docker</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/conduit.html" class="game-card__view-btn" aria-label="View full case study: Conduit">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Open Conduit live demo">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      Live Demo
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Conduit source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 3 — Typemark
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="ScMzIvxBSi4"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Typemark"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/ScMzIvxBSi4/maxresdefault.jpg"
+                  alt="Typemark editor — a distraction-free Markdown editor with live preview and typography controls"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Typemark">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 7 minutes">7:05</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Status: Open Source">⭐ 1.2k Stars</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Electron · Desktop App · Writing Tool
+                </span>
+                <h3 class="game-card__title" itemprop="name">Typemark</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-06-01" itemprop="datePublished">Jun 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 8 weeks · MIT License</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A distraction-free Markdown editor for macOS and Windows built on Electron
+                  and CodeMirror 6. Focus mode dims everything but the current paragraph;
+                  the typography panel lets you swap font stacks, leading, and measure without
+                  leaving the editor. The live preview renders via remark with a custom plugin
+                  chain for footnotes, smart quotes, and callout blocks. File I/O is handled
+                  through Electron's native dialog API with an autosave debounce. The hardest
+                  part: making CodeMirror feel like a native text editor on macOS (scrolling,
+                  cursor blink rate, system font rendering). 1.2k GitHub stars without
+                  promotion — it hit Hacker News front page the week it launched.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Electron</li>
+                  <li class="game-card__stack-pill">TypeScript</li>
+                  <li class="game-card__stack-pill">CodeMirror 6</li>
+                  <li class="game-card__stack-pill">React</li>
+                  <li class="game-card__stack-pill">remark</li>
+                  <li class="game-card__stack-pill">CSS Houdini</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/typemark.html" class="game-card__view-btn" aria-label="View full case study: Typemark">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Download Typemark">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                      Download
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Typemark source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 4 — Siftlog
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="aqz-KE-bpKQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Siftlog"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/aqz-KE-bpKQ/maxresdefault.jpg"
+                  alt="Siftlog terminal UI — a structured log explorer with real-time filtering and JSON parsing"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Siftlog">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 6 minutes">6:29</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Python · CLI Tool · DevOps
+                </span>
+                <h3 class="game-card__title" itemprop="name">Siftlog</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-04-10" itemprop="datePublished">Apr 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 3 weeks · PyPI Package</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A terminal-based structured log explorer built with Python and Textual.
+                  Reads JSON, NDJSON, and plaintext log files (or stdin) and presents them
+                  in a panelled TUI with real-time filtering, field inspection, and value
+                  frequency histograms. Supports log levels, timestamp range queries, and
+                  JMESPath expressions for nested field extraction. The core parsing pipeline
+                  is a streaming generator — no full file load into memory — so it handles
+                  multi-GB log files without blinking. Published to PyPI; hit 8k downloads in
+                  the first month entirely through word of mouth in the Textual Discord.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Python 3.12</li>
+                  <li class="game-card__stack-pill">Textual</li>
+                  <li class="game-card__stack-pill">JMESPath</li>
+                  <li class="game-card__stack-pill">NDJSON</li>
+                  <li class="game-card__stack-pill">Streaming I/O</li>
+                  <li class="game-card__stack-pill">PyPI</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/siftlog.html" class="game-card__view-btn" aria-label="View full case study: Siftlog">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="View Siftlog on PyPI">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      PyPI
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Siftlog source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 5 — Relay
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="PkZNo7MFNFg"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Relay"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/PkZNo7MFNFg/maxresdefault.jpg"
+                  alt="Relay dashboard — a lightweight pub/sub message broker showing topic monitoring and subscriber metrics"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Relay">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 14 minutes">14:02</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Go · Message Broker · Infrastructure
+                </span>
+                <h3 class="game-card__title" itemprop="name">Relay</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2025-02-01" itemprop="datePublished">Feb 2025</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 10 weeks · Open Source</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A lightweight pub/sub message broker written in Go — a learning project
+                  that became production-worthy. Implements MQTT-lite over WebSocket with a
+                  topic tree stored in a radix trie for O(k) subscribe/publish matching.
+                  Persistence uses an append-only log with periodic snapshot compaction —
+                  a simplified Raft-inspired approach without multi-node consensus. A React
+                  dashboard shows live topic throughput, subscriber counts, and message
+                  latency percentiles. Sustains 50,000 messages/second on a single core at
+                  less than 10ms p99 latency. Built primarily to understand why Kafka's
+                  architecture is the way it is.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Go</li>
+                  <li class="game-card__stack-pill">WebSockets</li>
+                  <li class="game-card__stack-pill">Radix Trie</li>
+                  <li class="game-card__stack-pill">Append-Only Log</li>
+                  <li class="game-card__stack-pill">React</li>
+                  <li class="game-card__stack-pill">Prometheus</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/relay.html" class="game-card__view-btn" aria-label="View full case study: Relay">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Read Relay architecture docs">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Docs
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Relay source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 6 — Quillform
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="rfscVS0vtbw"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Quillform"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/rfscVS0vtbw/maxresdefault.jpg"
+                  alt="Quillform builder — a conversational form builder with conditional logic and analytics"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Quillform">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 9 minutes">9:47</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="Status: Live SaaS">💼 SaaS</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Next.js · SaaS · Full-Stack
+                </span>
+                <h3 class="game-card__title" itemprop="name">Quillform</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2024-12-01" itemprop="datePublished">Dec 2024</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 12 weeks · Indie SaaS</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A conversational form builder — questions display one at a time like a
+                  dialogue, with animated transitions between steps. Built a visual
+                  conditional logic editor (drag-and-drop DAG) that compiles to a JSON
+                  ruleset evaluated client-side. Backend is a Next.js API route layer over
+                  PostgreSQL with row-level security for multi-tenancy; Stripe integration
+                  for subscription billing. The performance challenge: the form runtime
+                  bundle had to be under 12kb gzipped for embedding on third-party sites.
+                  Achieved 9.8kb by writing a custom micro-renderer instead of using React.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Next.js 14</li>
+                  <li class="game-card__stack-pill">TypeScript</li>
+                  <li class="game-card__stack-pill">PostgreSQL</li>
+                  <li class="game-card__stack-pill">Stripe</li>
+                  <li class="game-card__stack-pill">Supabase</li>
+                  <li class="game-card__stack-pill">Tailwind CSS</li>
+                  <li class="game-card__stack-pill">Vercel</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/quillform.html" class="game-card__view-btn" aria-label="View full case study: Quillform">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Open Quillform live app">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      Live App
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Quillform source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 7 — Archivist
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="LXb3EKWsInQ"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Archivist"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/LXb3EKWsInQ/maxresdefault.jpg"
+                  alt="Archivist UI — a personal knowledge base with semantic search and automatic tag generation"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Archivist">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 18 minutes">18:55</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Python · AI / ML · Knowledge Base
+                </span>
+                <h3 class="game-card__title" itemprop="name">Archivist</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2024-10-15" itemprop="datePublished">Oct 2024</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 7 weeks · Self-Hosted</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A self-hosted personal knowledge base with semantic search. Articles, links,
+                  and notes are ingested and chunked; a local sentence-transformers model
+                  generates embeddings stored in pgvector. The search interface uses cosine
+                  similarity retrieval with a re-ranking pass. Tag generation is automatic:
+                  a small classifier trained on my own notes assigns categories without manual
+                  labelling. The React frontend is a SPA served from a FastAPI backend.
+                  The hardest problem: making semantic search feel fast — solved by pre-warming
+                  the embedding model on startup and caching frequent query vectors in Redis.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Python</li>
+                  <li class="game-card__stack-pill">FastAPI</li>
+                  <li class="game-card__stack-pill">pgvector</li>
+                  <li class="game-card__stack-pill">sentence-transformers</li>
+                  <li class="game-card__stack-pill">React</li>
+                  <li class="game-card__stack-pill">PostgreSQL</li>
+                  <li class="game-card__stack-pill">Redis</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/archivist.html" class="game-card__view-btn" aria-label="View full case study: Archivist">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="Read Archivist documentation">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                      Docs
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Archivist source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+          <!-- ═══════════════════════════════════════════════
+            PROJECT 8 — Parcl
+          ═══════════════════════════════════════════════ -->
+          <li>
+            <article class="game-card" itemscope itemtype="https://schema.org/SoftwareApplication">
+              <div
+                class="game-card__video-wrap"
+                data-video-id="lTTajzrSkCw"
+                data-platform="YouTube"
+                role="region"
+                aria-label="Demo walkthrough: Parcl"
+              >
+                <img
+                  class="game-card__thumb"
+                  src="https://img.youtube.com/vi/lTTajzrSkCw/maxresdefault.jpg"
+                  alt="Parcl CLI — a zero-config monorepo task runner showing parallel task execution and dependency graph"
+                  width="1280" height="720"
+                  loading="lazy"
+                />
+                <div class="game-card__video-scrim" aria-hidden="true"></div>
+                <button class="game-card__play" aria-label="Play demo walkthrough for Parcl">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><polygon points="5,3 19,12 5,21"/></svg>
+                </button>
+                <span class="game-card__duration" aria-label="Demo length: 12 minutes">12:40</span>
+                <span class="game-card__platform" aria-label="Platform: YouTube">YT</span>
+                <span class="game-card__ribbon" aria-label="npm downloads: 40k">📦 40k/mo</span>
+              </div>
+
+              <div class="game-card__body">
+                <span class="game-card__engine-tag">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  Node.js · CLI · Build Tooling
+                </span>
+                <h3 class="game-card__title" itemprop="name">Parcl</h3>
+                <div class="game-card__meta">
+                  <time class="game-card__date" datetime="2024-08-01" itemprop="datePublished">Aug 2024</time>
+                  <span class="game-card__dot" aria-hidden="true"></span>
+                  <span class="game-card__event">Solo · 5 weeks · npm Package</span>
+                </div>
+                <p class="game-card__description" itemprop="description">
+                  A zero-config monorepo task runner — reads package.json scripts across
+                  workspaces, resolves inter-package dependencies automatically via a DAG,
+                  and runs tasks in parallel up to the topological limit. Outputs a live
+                  ASCII dependency tree during execution so you can see which tasks are
+                  blocked on which. Written in Node.js with no runtime dependencies in the
+                  core; the graph implementation is a hand-rolled topological sort with
+                  cycle detection. 40k monthly npm downloads. Compared favourably in several
+                  blog posts to Turborepo for simple monorepo setups.
+                </p>
+                <ul class="game-card__stack" role="list" aria-label="Tech stack">
+                  <li class="game-card__stack-pill">Node.js</li>
+                  <li class="game-card__stack-pill">TypeScript</li>
+                  <li class="game-card__stack-pill">DAG / Toposort</li>
+                  <li class="game-card__stack-pill">Worker Threads</li>
+                  <li class="game-card__stack-pill">npm Workspaces</li>
+                </ul>
+                <div class="game-card__links">
+                  <a href="projects/parcl.html" class="game-card__view-btn" aria-label="View full case study: Parcl">
+                    View Case Study
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </a>
+                  <div class="game-card__links-secondary">
+                    <a href="#" class="game-card__link game-card__link--primary" aria-label="View Parcl on npm">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                      npm
+                    </a>
+                    <a href="#" class="game-card__link game-card__link--secondary" aria-label="View Parcl source on GitHub">
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.04c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.5 11.5 0 0112 5.8c1.02.005 2.05.14 3.01.4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.82.58C20.56 21.8 24 17.31 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                      GitHub
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </li>
+
+        </ul>
+
+        <!-- No results state -->
+        <div class="no-results" id="no-results" role="status" aria-live="polite">
+          <svg class="no-results__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+          <p class="no-results__title">No projects found</p>
+          <p class="no-results__sub">Try a different keyword, or clear the search to browse all projects.</p>
+        </div>
+
+        <!-- See More -->
+        <div class="see-more-wrap" id="see-more-wrap">
+          <p class="see-more-wrap__count" id="see-more-count" aria-live="polite"></p>
+          <button class="btn btn--ghost" id="see-more-btn" aria-label="Load more software projects">
+            See More
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" width="16" height="16">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </button>
+          <div class="see-more-wrap__track" aria-hidden="true">
+            <div class="see-more-wrap__fill" id="see-more-fill"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer__inner">
+        <a href="index.html" class="footer__logo" aria-label="Back to home">Ahnaf<span>.</span></a>
+        <p class="footer__copy">&copy; <span id="footer-year">2025</span> Ahnaf Hassan Aurnill. All rights reserved.</p>
+        <nav class="footer__links" aria-label="Footer navigation">
+          <a href="articles.html" class="footer__link">Articles</a>
+          <a href="writing.html"  class="footer__link">Writing</a>
+          <a href="gamedev.html"  class="footer__link">Games</a>
+          <a href="software.html" class="footer__link">Software</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ============================================================
+      NAV SCROLL
+    ============================================================ */
+    const navEl     = document.getElementById('nav');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks  = document.getElementById('nav-links');
+
+    function handleNavScroll() {
+      navEl.classList.toggle('nav--scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll, { passive: true });
+    handleNavScroll();
+
+    /* ============================================================
+      MOBILE HAMBURGER
+    ============================================================ */
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!isOpen));
+      navLinks.classList.toggle('is-open', !isOpen);
+    });
+    navLinks.querySelectorAll('.nav__link').forEach(link => {
+      link.addEventListener('click', () => {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('is-open');
+      });
+    });
+
+    /* ============================================================
+      SCROLL REVEAL — IntersectionObserver, fire once
+    ============================================================ */
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    /* ============================================================
+      DYNAMIC YEAR
+    ============================================================ */
+    const yearEl = document.getElementById('footer-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    /* ============================================================
+      LAZY VIDEO PLAYER
+      ─────────────────────────────────────────────────────────────
+      Identical strategy to gamedev.html:
+        - No iframes in DOM on page load. Zero embed network cost.
+        - On play click: inject iframe, fade thumbnail out,
+          iframe in. One video at a time; previous destroyed.
+        - GPU-safe: opacity + transform only.
+        - Accessible: auto-generated iframe title from card heading.
+    ============================================================ */
+    (function initVideoPlayers() {
+
+      let activeWrap = null;
+
+      function buildSrc(videoId, platform) {
+        if (platform === 'Vimeo') {
+          return `https://player.vimeo.com/video/${videoId}?autoplay=1&color=ff8c42`;
+        }
+        return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&color=white`;
+      }
+
+      function deactivate(wrap) {
+        if (!wrap) return;
+        const iframe = wrap.querySelector('.game-card__iframe');
+        if (iframe) iframe.remove();
+        wrap.classList.remove('game-card__video-wrap--active');
+      }
+
+      function activate(wrap) {
+        const videoId  = wrap.dataset.videoId;
+        const platform = wrap.dataset.platform || 'YouTube';
+
+        const cardTitle = wrap.closest('.game-card')
+          ?.querySelector('.game-card__title')
+          ?.textContent.trim() || 'Software project demo';
+
+        const iframe = document.createElement('iframe');
+        iframe.className       = 'game-card__iframe';
+        iframe.src             = buildSrc(videoId, platform);
+        iframe.title           = `${cardTitle} — product demo`;
+        iframe.allow           = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        iframe.setAttribute('loading', 'eager');
+
+        wrap.appendChild(iframe);
+        wrap.classList.add('game-card__video-wrap--active');
+        activeWrap = wrap;
+      }
+
+      document.querySelectorAll('.game-card__play').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const wrap = btn.closest('.game-card__video-wrap');
+          if (!wrap || wrap === activeWrap) return;
+          deactivate(activeWrap);
+          activate(wrap);
+        });
+      });
+
+    })();
+
+    /* ============================================================
+      SOFTWARE GRID CONTROLLER
+      ─────────────────────────────────────────────────────────────
+      Manages:
+        1. Live search  — matches title + category tag + description
+                         + all tech stack pill text
+        2. See More     — progressive reveal in batches
+
+      SEO:  all <li> remain in DOM. Visibility = CSS class only.
+      SCALABLE: duplicate <li> to add project — zero JS changes.
+    ============================================================ */
+    (function initSoftwareGrid() {
+
+      const INITIAL_VISIBLE = 4;   // first 4 visible (2×2)
+      const BATCH_SIZE      = 2;   // reveal 2 per click
+
+      const grid         = document.getElementById('software-grid');
+      const searchInput  = document.getElementById('software-search');
+      const searchBar    = document.getElementById('search-bar');
+      const clearBtn     = document.getElementById('search-clear');
+      const countEl      = document.getElementById('search-count');
+      const totalCountEl = document.getElementById('entry-total-count');
+      const noResults    = document.getElementById('no-results');
+      const seeMoreWrap  = document.getElementById('see-more-wrap');
+      const seeMoreBtn   = document.getElementById('see-more-btn');
+      const seeMoreCount = document.getElementById('see-more-count');
+      const seeMoreFill  = document.getElementById('see-more-fill');
+
+      /* Index all cards once on init */
+      const allCards = Array.from(grid.querySelectorAll('li'));
+
+      allCards.forEach(li => {
+        const titleEl    = li.querySelector('.game-card__title');
+        const descEl     = li.querySelector('.game-card__description');
+        const categoryEl = li.querySelector('.game-card__engine-tag');
+        const stackText  = Array.from(li.querySelectorAll('.game-card__stack-pill'))
+          .map(p => p.textContent).join(' ');
+
+        li.dataset.title    = (titleEl    ? titleEl.textContent    : '').toLowerCase().trim();
+        li.dataset.desc     = (descEl     ? descEl.textContent     : '').toLowerCase().trim();
+        li.dataset.category = (categoryEl ? categoryEl.textContent : '').toLowerCase().trim();
+        li.dataset.stack    = stackText.toLowerCase();
+      });
+
+      if (totalCountEl) {
+        totalCountEl.textContent = `${allCards.length} project${allCards.length !== 1 ? 's' : ''}`;
+      }
+
+      let searchQuery = '';
+      let visibleCap  = INITIAL_VISIBLE;
+
+      function render(newlyRevealedStart) {
+        const q           = searchQuery.trim().toLowerCase();
+        const isSearching = q.length > 0;
+
+        const passing = [];
+        const failing = [];
+
+        allCards.forEach(li => {
+          const matches = !isSearching || (
+            li.dataset.title.includes(q)    ||
+            li.dataset.desc.includes(q)     ||
+            li.dataset.category.includes(q) ||
+            li.dataset.stack.includes(q)
+          );
+          (matches ? passing : failing).push(li);
+        });
+
+        /* Hide non-matching */
+        failing.forEach(li => {
+          li.classList.add('game-card-li--filtered-out');
+          li.classList.remove('game-card-li--clamped', 'game-card-li--entering');
+        });
+
+        /* Apply cap + animate newly revealed */
+        passing.forEach((li, i) => {
+          li.classList.remove('game-card-li--filtered-out');
+
+          if (i < visibleCap) {
+            const wasClamped = li.classList.contains('game-card-li--clamped');
+            li.classList.remove('game-card-li--clamped');
+
+            if (wasClamped && newlyRevealedStart !== undefined && i >= newlyRevealedStart) {
+              const batchIdx = i - newlyRevealedStart;
+              li.classList.remove('game-card-li--entering');
+              void li.offsetWidth;
+              li.style.animationDelay = (batchIdx * 100) + 'ms';
+              li.classList.add('game-card-li--entering');
+              li.addEventListener('animationend', () => {
+                li.classList.remove('game-card-li--entering');
+                li.style.animationDelay = '';
+              }, { once: true });
+            }
+          } else {
+            li.classList.add('game-card-li--clamped');
+            li.classList.remove('game-card-li--entering');
+          }
+        });
+
+        /* Search count */
+        if (isSearching) {
+          const shown = Math.min(passing.length, visibleCap);
+          countEl.innerHTML = passing.length === 0
+            ? ''
+            : `Showing <strong>${shown}</strong> of <strong>${passing.length}</strong> project${passing.length !== 1 ? 's' : ''}`;
+        } else {
+          countEl.innerHTML = '';
+        }
+
+        /* No results */
+        noResults.style.display = passing.length === 0 ? 'block' : 'none';
+
+        /* See More */
+        const shownCount  = Math.min(passing.length, visibleCap);
+        const hiddenCount = Math.max(0, passing.length - visibleCap);
+
+        if (hiddenCount > 0 && !isSearching) {
+          seeMoreWrap.style.display = 'flex';
+          seeMoreCount.innerHTML    = `Showing <strong>${shownCount}</strong> of <strong>${passing.length}</strong>`;
+          const pct = passing.length > 0 ? (shownCount / passing.length) * 100 : 0;
+          seeMoreFill.style.width = pct + '%';
+        } else {
+          seeMoreWrap.style.display = 'none';
+        }
+      }
+
+      seeMoreBtn.addEventListener('click', () => {
+        const prev = visibleCap;
+        visibleCap += BATCH_SIZE;
+        render(prev);
+      });
+
+      let searchTimer;
+      searchInput.addEventListener('input', () => {
+        const val = searchInput.value;
+        searchQuery = val;
+        searchBar.classList.toggle('search-bar--has-value', val.length > 0);
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(() => {
+          visibleCap = INITIAL_VISIBLE;
+          render();
+        }, 120);
+      });
+
+      clearBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        searchQuery       = '';
+        searchBar.classList.remove('search-bar--has-value');
+        visibleCap = INITIAL_VISIBLE;
+        render();
+        searchInput.focus();
+      });
+
+      render();
+
+    })();
+  </script>
+
+</body>
+</html>
